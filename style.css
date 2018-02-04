@@ -1,0 +1,20 @@
+.estiloCuadro {
+    width: 200px;
+    height: 200px;
+    border: solid orange;
+    position: relative;
+    top: 0;
+    left: 0;
+    float: right;
+    cursor: pointer;
+    user-select: none;
+ }
+
+ .div_soltar{
+     width: 200px;
+     height: 200px;
+     position: absolute;
+     top: 0;
+     left: 0;
+     background-color: aquamarine;
+ }

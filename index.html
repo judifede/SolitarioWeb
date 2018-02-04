@@ -1,87 +1,24 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title></title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
-        <style>
-            .estiloCuadro {
-               width: 10em; 
-               border: solid red; 
-               position: relative; 
-               float:right;
-               top: 100px; 
-               left: 30px;
-               cursor: pointer;
-               user-select: none;
-            }
 
-        </style>
-        <script type="text/javascript">
-            var xInic, yInic;
-            var estaPulsado = false;
-            var id;
-            
-            function ratonPulsado(evt, elemId) { 
-                //Obtener la posición de inicio
-                xInic = evt.clientX;
-                yInic = evt.clientY;    
-                estaPulsado = true;
-                id = elemId;
-            }
-            
-            function ratonMovido(evt) {
-                if(estaPulsado) {
-                    //Calcular la diferencia de posición
-                    var xActual = evt.clientX;
-                    var yActual = evt.clientY;    
-                    var xInc = xActual-xInic;
-                    var yInc = yActual-yInic;
-                    xInic = xActual;
-                    yInic = yActual;
-                    
-                    //Establecer la nueva posición
-                    var elemento = document.getElementById(id);
-                    var position = getPosicion(elemento);
-                    elemento.style.top = (position[0] + yInc) + "px";
-                    elemento.style.left = (position[1] + xInc) + "px";
-                }
-            }
-            
-            function ratonSoltado() {
-                estaPulsado = false;
-            }
-            
-            /*
-             * Función para obtener la posición en la que se encuentra el
-             * elemento indicado como parámetro.
-             * Retorna un array con las coordenadas x e y de la posición
-             */
-            function getPosicion(elemento) {
-                var posicion = new Array(2);
-                posicion[0] = parseInt(document.defaultView.getComputedStyle(elemento, null).getPropertyValue("top"))
-                posicion[1] = parseInt(document.defaultView.getComputedStyle(elemento, null).getPropertyValue("left"));
-                return posicion;
-            }
-        </script>
-    </head>
-    <body>
-        <div id="cuadro1" class="estiloCuadro" onmouseup="ratonSoltado(event, this.id)" 
-        onmousedown="ratonPulsado(event, this.id)">Arrastra con el ratón<br>para mover este cuadro</div>
-        <div id="cuadro2" class="estiloCuadro" onmouseup="ratonSoltado(event, this.id)" 
-        onmousedown="ratonPulsado(event, this.id)">Arrastro con el ratón<br>para mover este cuadro</div>
-        <div id="cuadro3" class="estiloCuadro" onmouseup="ratonSoltado(event, this.id)" 
-        onmousedown="ratonPulsado(event, this.id)">Arrastro con el ratón<br>para mover este cuadro</div>
-        <div id="cuadro4" class="estiloCuadro" onmouseup="ratonSoltado(event, this.id)" 
-        onmousedown="ratonPulsado(event, this.id)">Arrastro con el ratón<br>para mover este cuadro</div>
-        <div id="cuadro5" class="estiloCuadro" onmouseup="ratonSoltado(event, this.id)" 
-        onmousedown="ratonPulsado(event, this.id)">Arrastro con el ratón<br>para mover este cuadro</div>
-     
-        <script type="text/javascript">
-            var el = document.getElementById("cuadro");
-            //el.addEventListener("mousedown", ratonPulsado);
-            //el.addEventListener("mouseup", ratonSoltado);
-            document.addEventListener("mousemove", ratonMovido);
-                 
-        </script>  
-    </body>
+<head>
+    <title>Solitario</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="eventsmouse.js"></script>
+    <script type="text/javascript"></script>
+</head>
+
+<body>
+    <div id="cuadro1" class="estiloCuadro">cuadro1</div>
+    <div id="cuadro2" class="estiloCuadro">cuadro2</div>
+    <div id="cuadro3" class="estiloCuadro">cuadro3</div>
+    <div id="cuadro4" class="estiloCuadro">cuadro4</div>
+    <div id="cuadro5" class="estiloCuadro">cuadro5</div>
+
+    <div class="div_soltar" id="div_soltar"></div>
+
+</body>
+
 </html>
