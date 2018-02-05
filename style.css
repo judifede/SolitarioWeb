@@ -1,20 +1,43 @@
+body{
+    min-width: 1024px;
+}
+
 .estiloCuadro {
     width: 200px;
     height: 200px;
     border: solid orange;
-    position: relative;
+    background-color: brown;
+    color: white;
+    position: absolute;
     top: 0;
     left: 0;
-    float: right;
     cursor: pointer;
     user-select: none;
- }
+    z-index: 100;
+}
 
- .div_soltar{
-     width: 200px;
-     height: 200px;
-     position: absolute;
-     top: 0;
-     left: 0;
-     background-color: aquamarine;
- }
+.estiloCuadro.fijado{
+    top: 0 !important;    
+    left: 0 !important;
+}
+
+#cuadro1 {
+    left: 950px;
+}
+
+#cuadro2 {
+    left: 700px;
+}
+
+#cuadro3 {
+    left: 450px;
+}
+
+.deck {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: aquamarine;
+}

@@ -4,12 +4,20 @@ $(document).ready(function () {
     $(".estiloCuadro")
         .bind("mouseup", ratonSoltado)
         .bind("mousedown", ratonPulsado);
+
+        $("#deck")
+        .bind("mouseup", ratonSoltado)
+        .bind("mousedown", ratonPulsado);
+
+    
+
 });
 
 
 var xInic, yInic;
 var estaPulsado = false;
 var elemId;
+var z_index = 10;
 
 function ratonPulsado(evt) {
     //Obtener la posición de inicio
@@ -28,17 +36,31 @@ function ratonMovido(evt) {
         var yInc = yActual - yInic;
         xInic = xActual;
         yInic = yActual;
-
+        
         //Establecer la nueva posición
         var elemento = document.getElementById(elemId);
         var position = getPosicion(elemento);
         elemento.style.top = (position[0] + yInc) + "px";
         elemento.style.left = (position[1] + xInc) + "px";
+        if(position[0]<=197 && position[1]<=197){
+            choque= true;
+        }else{
+            choque= false;
+        }
     }
 }
 
 function ratonSoltado() {
     estaPulsado = false;
+    fijar();
+}
+
+function fijar(){
+    if(!estaPulsado && choque){
+        document.getElementById(elemId).classList.toggle("fijado");
+        z_index++;
+        document.getElementById(elemId).style.zIndex = z_index;
+    }
 }
 
 /*
