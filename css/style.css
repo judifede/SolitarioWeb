@@ -1,0 +1,132 @@
+body {
+    min-width: 1024px;
+    background-image: url('../img/fondo_tapete.jpg');
+    background-size: 100vw 100vh;
+    background-repeat: no-repeat;
+}
+
+.tier {
+    display: inline;
+}
+
+.tier img{
+    position: absolute;    
+}
+
+.tier1 img{
+    left: 40vw;
+}
+
+.tier2 img{
+    left: 50vw;
+}
+
+.tier3 img{
+    left: 60vw;
+}
+
+.carts {
+    width: 100px;
+    height: 140px;
+    user-select: none;
+    -webkit-user-drag: none;
+    z-index: 100;
+}
+
+.tier img:nth-of-type(1) {
+    transform: translateY(0);
+    top: 10vh;
+}
+
+.tier img:nth-of-type(2) {
+    top: calc(20vh - 20px);
+}
+
+.tier img:nth-of-type(3) {
+    top: calc(30vh - 40px);
+}
+
+.tier img:nth-of-type(4), .tier img:nth-of-type(5) {
+    top: calc(40vh - 60px);
+}
+
+.deck.empty {
+    border: 1px solid white;
+}
+
+.deck {
+    border: none;    
+    width: 100px;
+    height: 140px;
+    display: inline-block;    
+    position: absolute;
+    top: 48vh;
+    left: 20vw;
+}
+
+.deck img{
+    position: absolute;
+}
+
+.deck p {
+    color: white;
+    margin: 0;
+    font-size: 30px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-shadow: 2px 2px 0px black, -2px -2px 0px black, 
+    2px 0px 0px black, -2px 0px 0px black, 0px 2px 0px black, 
+    0px -2px 0px black, 2px -2px 0px black, -2px 2px 0px black;
+    z-index: 200;
+}
+
+.stack_discard.empty {
+    border: 1px solid white;
+}
+
+.stack_discard{
+    border: none;
+    position: absolute;
+    top: 48vh !important;
+    left: 30vw !important;  
+    z-index: 3; 
+}
+
+@keyframes start_flip {
+    0% {
+    }
+    50% {
+        backface-visibility: hidden;
+    }
+    100% {
+        backface-visibility: hidden;
+    }
+}
+
+.reverse_aux, .deck_cart, .deck_reverse{
+    transform: perspective(600px) rotateY(0deg);
+    transition: transform .5s linear 0s;
+    backface-visibility: hidden;
+
+}
+
+.reverse_aux.flip{
+    transform: perspective(600px) rotateY(180deg);
+    animation: start_flip 3s 1 forwards;    
+}
+
+#carta_up1, #carta_up2, #carta_up3{
+    transform: perspective(600px) rotateY(-180deg);
+    transition: transform .5s linear 0s;
+    backface-visibility: hidden;
+
+}
+
+#carta_up1.flip, #carta_up2.flip, #carta_up3.flip{
+    transform: perspective(600px) rotateY(0deg);
+    animation: start_flip 3s 1 forwards;
+}
+
+
