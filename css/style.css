@@ -33,21 +33,24 @@ body {
     z-index: 100;
 }
 
-.tier img:nth-of-type(1) {
-    transform: translateY(0);
+.tier img[data-position="1"] {
     top: 10vh;
 }
 
-.tier img:nth-of-type(2) {
+.tier img[data-position="2"] {
     top: calc(20vh - 20px);
 }
 
-.tier img:nth-of-type(3) {
+.tier img[data-position="3"] {
     top: calc(30vh - 40px);
 }
 
-.tier img:nth-of-type(4), .tier img:nth-of-type(5) {
+.tier img[data-position="4"] {
     top: calc(40vh - 60px);
+}
+
+.tier img[data-position="5"] {
+    top: calc(50vh - 80px);
 }
 
 .deck.empty {
@@ -82,6 +85,10 @@ body {
     z-index: 200;
 }
 
+.deck:hover p {
+    z-index: 300;
+}
+
 .stack_discard.empty {
     border: 1px solid white;
 }
@@ -94,39 +101,72 @@ body {
     z-index: 3; 
 }
 
-@keyframes start_flip {
-    0% {
-    }
-    50% {
-        backface-visibility: hidden;
-    }
-    100% {
-        backface-visibility: hidden;
-    }
-}
-
-.reverse_aux, .deck_cart, .deck_reverse{
+.reverse_helper, .deck_reverse{
     transform: perspective(600px) rotateY(0deg);
     transition: transform .5s linear 0s;
+}
+
+.reverse_helper.flip{
     backface-visibility: hidden;
-
-}
-
-.reverse_aux.flip{
     transform: perspective(600px) rotateY(180deg);
-    animation: start_flip 3s 1 forwards;    
 }
 
-#carta_up1, #carta_up2, #carta_up3{
+.deck_cart{
+    z-index: 40;
+}
+
+#cart_up_tier1:hover, #cart_up_tier2:hover, #cart_up_tier3:hover {
+    z-index: 250;
+}
+
+#cart_up_tier1, #cart_up_tier2, #cart_up_tier3, .deck_cart{
     transform: perspective(600px) rotateY(-180deg);
     transition: transform .5s linear 0s;
-    backface-visibility: hidden;
-
 }
 
-#carta_up1.flip, #carta_up2.flip, #carta_up3.flip{
+#cart_up_tier1.flip, #cart_up_tier2.flip, #cart_up_tier3.flip{
+    backface-visibility: hidden;    
     transform: perspective(600px) rotateY(0deg);
-    animation: start_flip 3s 1 forwards;
 }
 
+.deck_cart.new_cart{
+    animation: new_cart_front 1.5s linear 1 forwards; 
+}
 
+.deck_reverse.new_cart{
+    animation: new_cart_back 1.5s linear 1 forwards;    
+}
+
+.carts_missing{
+    cursor: default;
+}
+
+@keyframes new_cart_front {
+    0% {
+        left: 1vw;
+    }
+    50%{
+        backface-visibility: hidden;
+        
+    }
+    100% {
+        left: 10vw;
+        transform: perspective(600px) rotateY(0deg);
+        backface-visibility: hidden;
+    }
+}
+
+@keyframes new_cart_back {
+    0% {
+        left: 1vw;
+    }
+    50%{
+        backface-visibility: hidden;
+        
+    }
+    100% {
+        left: 10vw;
+        transform: perspective(600px) rotateY(180deg);
+        backface-visibility: hidden;
+    }
+}
