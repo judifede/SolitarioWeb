@@ -1,0 +1,2 @@
+# Solitario Web
+
