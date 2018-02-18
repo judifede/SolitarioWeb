@@ -26,7 +26,7 @@ $(document).ready(function () {
 
 
     //Options
-    $(".open_instruccions").click(function () {
+    $(".option_instruccions").click(function () {
         $(".container_data_info").addClass("on");
         $(".instruccions").addClass("on");
     });
