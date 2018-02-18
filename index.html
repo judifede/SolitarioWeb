@@ -8,28 +8,27 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/scripts.js"></script>
-    <script type="text/javascript"></script>
 </head>
 
 <body>
     <div class="tier tier1">
-        <img src="img/dorso.jpg" alt="Dorso" data-position="1" class="carts">
-        <img src="img/dorso.jpg" alt="Dorso" data-position="2" class="carts">
-        <img src="img/dorso.jpg" alt="Dorso" data-position="3" class="carts">
-        <img src="spanish-deck/the-joker.jpg" alt="Carta Boca Arriba" data-position="4" class="carts" id="cart_up_tier1">  
-        <img src="img/dorso.jpg" alt="Dorso Auxiliar" data-position="4" class="carts reverse_helper">              
+        <img src="img/dorso.jpg" alt="Dorso" data-position="1" class="carts hide">
+        <img src="img/dorso.jpg" alt="Dorso" data-position="2" class="carts hide">
+        <img src="img/dorso.jpg" alt="Dorso" data-position="3" class="carts hide">
+        <img src="spanish-deck/the-joker.jpg" alt="Carta Boca Arriba" data-position="4" class="carts" id="cart_up_tier1">
+        <img src="img/dorso.jpg" alt="Dorso Auxiliar" data-position="4" class="carts reverse_helper">
     </div>
     <div class="tier tier2">
-        <img src="img/dorso.jpg" alt="Dorso" data-position="1" class="carts">
-        <img src="img/dorso.jpg" alt="Dorso" data-position="2" class="carts">
-        <img src="img/dorso.jpg" alt="Dorso" data-position="3" class="carts">
-        <img src="spanish-deck/the-joker.jpg" alt="Carta Boca Arriba" data-position="4" class="carts" id="cart_up_tier2">        
+        <img src="img/dorso.jpg" alt="Dorso" data-position="1" class="carts hide">
+        <img src="img/dorso.jpg" alt="Dorso" data-position="2" class="carts hide">
+        <img src="img/dorso.jpg" alt="Dorso" data-position="3" class="carts hide">
+        <img src="spanish-deck/the-joker.jpg" alt="Carta Boca Arriba" data-position="4" class="carts" id="cart_up_tier2">
         <img src="img/dorso.jpg" alt="Dorso Auxiliar" data-position="4" class="carts reverse_helper">
     </div>
     <div class="tier tier3">
-        <img src="img/dorso.jpg" alt="Dorso" data-position="1" class="carts">
-        <img src="img/dorso.jpg" alt="Dorso" data-position="2" class="carts">
-        <img src="img/dorso.jpg" alt="Dorso" data-position="3" class="carts">
+        <img src="img/dorso.jpg" alt="Dorso" data-position="1" class="carts hide">
+        <img src="img/dorso.jpg" alt="Dorso" data-position="2" class="carts hide">
+        <img src="img/dorso.jpg" alt="Dorso" data-position="3" class="carts hide">
         <img src="spanish-deck/the-joker.jpg" alt="Carta Boca Arriba" data-position="4" class="carts" id="cart_up_tier3">
         <img src="img/dorso.jpg" alt="Dorso Auxiliar" data-position="4" class="carts reverse_helper">
     </div>
@@ -38,8 +37,56 @@
         <p class="carts_missing">28</p>
         <img src="img/dorso.jpg" alt="Dorso" class="carts reverse_fixed">
     </div>
-    
+
     <div class="stack_discard empty carts"></div>
+
+    <div class="options">
+        <a class="options_collapsed">
+            <img src="img/arrow_with_circle_down.svg" class="arrow_with_circle" alt="Flecha abajo" />
+            <h1>Opciones</h1>
+        </a>
+        <div class="options_expanded collapse_anim">
+            <a class="open_option option_instruccions">
+                <img src="img/arrow_with_circle_down.svg" class="sub_arrow_with_circle" alt="Flecha abajo" />
+                <p>Instrucciones</p>
+            </a>
+            <a class="open_option option_reverse">
+                <img src="img/arrow_with_circle_down.svg" class="sub_arrow_with_circle" alt="Flecha abajo" />
+                <p>Cambiar dorsos</p>
+            </a>
+            <a class="open_option option_difficulty">
+                <img src="img/arrow_with_circle_down.svg" class="sub_arrow_with_circle" alt="Flecha abajo" />
+                <p>Cambiar dificultad</p>
+            </a>
+        </div>
+    </div>
+
+    <div class="container_data_info">
+        <p data-info="1">1</p>
+        <span data-info="2">2</span>
+        <div data-info="3">
+            <p>3</p>
+        </div>
+    </div>
+    <div class="instruccions">
+        <h1>Instrucciones</h1>
+        <p>Para ganar tendremos que colocar todas las cartas de "3" en "2".</p>
+        <p>Para ello, la carta de "3" debe tener el valor siguiente o anterior de "2", teniendo en cuenta que el siguiente de
+            12(rey) sería 1 y, por tanto, el anterior de 1 sería 12(rey).</p>
+        <p>Habremos perdido cuando no queden cartas en "1" y no se pueda arrastrar ninguna carta de "3" a "2".</p>
+        <p>Si en "3" no hay ninguna carta que se pueda arrastrar a "2", tendremos que hacer clic en "1" para que haya una nueva
+            carta en "2".</p>
+        <h2>Movimientos</h2>
+        <p>Arrastrar: Cada carta de "3".</p>
+        <p>Clic: En el mazo ("1").</p>
+        <a class="close_instruccions">
+            He entendido las reglas
+        </a>
+    </div>
+
+    <div>
+        <p class="results"></p>
+    </div>
 
 </body>
 
