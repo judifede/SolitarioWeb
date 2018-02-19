@@ -37,13 +37,19 @@ $(document).ready(function () {
     });
 
     $(".options_collapsed").click(function () {
-        $(".options_expanded").toggleClass("collapse_anim expand_anim");
-        if($(".options_expanded").hasClass("collapse_anim")){
-            $(".arrow_with_circle").attr("src", "img/arrow_with_circle_down.svg");
-        }else{
-            $(".arrow_with_circle").attr("src", "img/arrow_with_circle_up.svg");
-        }
+        expand_and_collapse();
     });
+
+    $(".reverse_collapsed").click(function () {
+        sub_expand_and_collapse("reverse");
+    });
+
+    $(".difficulty_collapsed").click(function () {
+        sub_expand_and_collapse("difficulty");
+    });
+
+
+
     //End Options
 
 });
@@ -137,6 +143,49 @@ function get_position(element) {
     return position;
 }
 
+function expand_and_collapse() {
+    if (!$(".options_expanded").hasClass("expand_anim")) {
+        $(".options_expanded").removeClass("collapse_anim");
+        $(".options_expanded").addClass("expand_anim");
+        $(".arrow_with_circle").attr("src", "img/arrow_with_circle_up.svg");
+    } else {
+        $(".options_expanded").removeClass("expand_anim");
+        $(".options_expanded").addClass("collapse_anim");
+        $(".arrow_with_circle").attr("src", "img/arrow_with_circle_down.svg");
+    }
+}
+
+function sub_expand_and_collapse(option) {
+    switch (option) {
+        case "reverse":
+            if (!$(".reverse_expanded").hasClass("sub_expand_anim")) {
+                $(".reverse_expanded").removeClass("sub_collapse_anim");
+                $(".reverse_expanded").addClass("sub_expand_anim");
+                $(".reverse_collapsed .sub_arrow_with_circle").attr("src", "img/arrow_with_circle_up.svg");
+            } else {
+                $(".reverse_expanded").removeClass("sub_expand_anim");
+                $(".reverse_expanded").addClass("sub_collapse_anim");
+                $(".reverse_collapsed .sub_arrow_with_circle").attr("src", "img/arrow_with_circle_down.svg");
+            }
+            break;
+        case "difficulty":
+            if (!$(".difficulty_expanded").hasClass("sub_expand_anim")) {
+                $(".difficulty_expanded").removeClass("sub_collapse_anim");
+                $(".difficulty_expanded").addClass("sub_expand_anim");
+                $(".difficulty_collapsed .sub_arrow_with_circle").attr("src", "img/arrow_with_circle_up.svg");
+
+            } else {
+                $(".difficulty_expanded").removeClass("sub_expand_anim");
+                $(".difficulty_expanded").addClass("sub_collapse_anim");
+                $(".difficulty_collapsed .sub_arrow_with_circle").attr("src", "img/arrow_with_circle_down.svg");
+
+            }
+            break;
+        default:
+            break;
+    }
+}
+
 /*------------------------------------------------------End Eventos------------------------------------------------------*/
 
 /*------------------------------------------------------Lógica del juego------------------------------------------------------*/
@@ -151,6 +200,7 @@ $(document).ready(function () {
         new_cart_from_deck();
     });
 
+    $(".container_checkbox input[name='reverse']").bind("change", swap_reverse);
 
 
 });
@@ -316,3 +366,63 @@ function end_game() {
 }
 
 /*------------------------------------------------------End Lógica del juego------------------------------------------------------*/
+/*--------------------------------------------------------Opciones--------------------------------------------------------*/
+
+function swap_reverse() {
+
+    var input_reverse = document.getElementsByName("reverse");
+
+    //Buscamos el dorso seleccionado
+    for (var i = 0; i < input_reverse.length; i++) {
+        if (input_reverse[i].checked) {
+
+            break;
+
+        }
+    }
+    var all_carts = document.getElementsByClassName("carts");
+    //
+    switch (input_reverse[i].getAttribute("data-reverse")) {
+        case "Azul":
+            for (var num_cart = 0; all_carts.length; num_cart++) {
+                if (all_carts[num_cart].getAttribute("alt") == "Dorso") {
+                    all_carts[num_cart].setAttribute("src", "img/dorso_azul.jpg");
+                }
+            }
+            break;
+        case "Hearthstone":
+            for (var num_cart = 0; all_carts.length; num_cart++) {
+                if (all_carts[num_cart].getAttribute("alt") == "Dorso") {
+                    all_carts[num_cart].setAttribute("src", "img/dorso_hs.png");
+                }
+            }
+            break;
+        case "Rojo":
+            for (var num_cart = 0; all_carts.length; num_cart++) {
+                if (all_carts[num_cart].getAttribute("alt") == "Dorso") {
+                    all_carts[num_cart].setAttribute("src", "img/dorso_rojo.jpg");
+                }
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*------------------------------------------------------End Opciones------------------------------------------------------*/

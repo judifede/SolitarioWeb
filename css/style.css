@@ -53,6 +53,10 @@ body {
     top: calc(50vh - 80px);
 }
 
+.tier img[data-position="6"] {
+    top: calc(60vh - 100px);
+}
+
 .deck.empty {
     border: 1px solid white;
 }
@@ -183,8 +187,9 @@ body {
     top: 5vh;
     right: 5vw;
     width: 25vw;
+    font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
-    color: white;
+    font-size: 10pt;
     text-align: center;
     border-radius: 10px;
     background-color: #F6F6F6;
@@ -197,7 +202,7 @@ body {
     border-radius: 10px;
     padding: 20px;
     color: black;
-    background: linear-gradient(to bottom, rgb(246, 246, 246), rgb(230, 230, 230));
+    background: linear-gradient(to right, rgb(230, 230, 230), rgb(216, 216, 216));
     cursor: pointer;
     opacity: 0.9;
 }
@@ -214,25 +219,35 @@ body {
 }
 
 .options_collapsed:hover img,
-.options_expanded:hover img {
+.open_option:hover img {
     transform: scale(1.15, 1.15);
 }
 
 .options_collapsed img,
-.options_expanded img {
+.open_option img {
     transition: all .25s;
+}
+
+.options_expanded{
+    overflow: hidden;
+    height: 0;
+}
+
+.options_expanded label{
+    color: black
 }
 
 .open_option {
     display: block;
     width: 100%;
-    height: 30px;
-    line-height: 30px;
+    height: 50px;
+    line-height: 50px;
+    margin-top: 2px;
     border-radius: 10px;
-    margin-top: 1vh;
+    font-size: 25px;
     text-align: center;
     color: black;
-    background: linear-gradient(to bottom, rgb(230, 230, 230), rgb(246, 246, 246));
+    background: linear-gradient(to top, rgb(235, 235, 235), rgb(230, 230, 230));
     box-sizing: border-box;
     padding: 3px 6px 3px 6px;
     cursor: pointer;
@@ -241,12 +256,25 @@ body {
 
 .open_option .sub_arrow_with_circle {
     float: left;
-    width: 30px;
+    width: 45px;
 }
 
 .open_option p {
     margin: 0;
 }
+
+.reverse_expanded, .difficulty_expanded{
+    overflow: hidden;
+    height: 0;
+    width: 100%;
+    background: linear-gradient(to bottom, rgb(206, 206, 206), rgb(216, 216, 216));
+    border-radius: 10px;
+}
+
+.difficulty_expanded p{
+
+}
+
 
 /*-----------Expandible-----------*/
 
@@ -265,19 +293,11 @@ body {
     0% {
         opacity: 1;
         height: 75vh;
-        padding-left: 40px;
-        padding-top: 5px;
     }
     50% {
         opacity: 0;
     }
-    90% {
-        padding-left: 40px;
-        padding-top: 5px;
-    }
     100% {
-        padding-left: 0;
-        padding-top: 0;
         opacity: 0;
         height: 0px;
     }
@@ -287,8 +307,6 @@ body {
     animation-name: expand;
     animation-duration: 1.5s;
     animation-fill-mode: forwards;
-    padding-left: 40px;
-    padding-top: 5px;
 }
 
 .collapse_anim {
@@ -296,6 +314,112 @@ body {
     animation-duration: 1s;
     animation-fill-mode: forwards;
 }
+
+@keyframes sub_expand {
+    0% {
+        height: 0px;
+        opacity: 0;
+    }
+    100% {
+        height: 31%;
+        opacity: 1;
+    }
+}
+
+@keyframes sub_collapse {
+    0% {
+        opacity: 1;
+        height: 31%;
+        padding-top: 5px;
+    }
+    50% {
+        opacity: 0;
+    }
+    90% {
+        padding-top: 5px;
+    }
+    100% {
+        padding-top: 0;
+        opacity: 0;
+        height: 0px;
+    }
+}
+
+.sub_expand_anim {
+    animation-name: sub_expand;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+    padding-top: 5px;
+}
+
+.sub_collapse_anim {
+    animation-name: sub_collapse;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+/*---------------------------------------------------------Custom Radio Button---------------------------------------------------------*/
+/* The container */
+.container_checkbox {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container_checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.container_checkbox:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container_checkbox input:checked ~ .checkmark {
+    background-color: black;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container_checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container_checkbox .checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}
+/*-------------------------------------------------------End Custom Checkboxes-------------------------------------------------------*/
 
 /*-----------------------------------------------End Opciones-----------------------------------------------*/
 
