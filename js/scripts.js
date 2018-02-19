@@ -372,7 +372,7 @@ function swap_reverse() {
 
     var input_reverse = document.getElementsByName("reverse");
 
-    //Buscamos el dorso seleccionado
+    // Buscamos el dorso seleccionado
     for (var i = 0; i < input_reverse.length; i++) {
         if (input_reverse[i].checked) {
 
@@ -381,7 +381,9 @@ function swap_reverse() {
         }
     }
     var all_carts = document.getElementsByClassName("carts");
-    //
+    // En base al data-reverse del elemento seleccionado cambiamos el src.
+    // all_carts[num_cart].getAttribute("alt") -> 
+    // Todas las cartas que se ven con Dorso tiene el alt "Dorso".
     switch (input_reverse[i].getAttribute("data-reverse")) {
         case "Azul":
             for (var num_cart = 0; all_carts.length; num_cart++) {
@@ -390,17 +392,17 @@ function swap_reverse() {
                 }
             }
             break;
-        case "Hearthstone":
-            for (var num_cart = 0; all_carts.length; num_cart++) {
-                if (all_carts[num_cart].getAttribute("alt") == "Dorso") {
-                    all_carts[num_cart].setAttribute("src", "img/dorso_hs.png");
-                }
-            }
-            break;
         case "Rojo":
             for (var num_cart = 0; all_carts.length; num_cart++) {
                 if (all_carts[num_cart].getAttribute("alt") == "Dorso") {
                     all_carts[num_cart].setAttribute("src", "img/dorso_rojo.jpg");
+                }
+            }
+            break;
+        case "Hearthstone":
+            for (var num_cart = 0; all_carts.length; num_cart++) {
+                if (all_carts[num_cart].getAttribute("alt") == "Dorso") {
+                    all_carts[num_cart].setAttribute("src", "img/dorso_hs.png");
                 }
             }
             break;
