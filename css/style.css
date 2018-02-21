@@ -1,6 +1,6 @@
 body {
     min-width: 1024px;
-    background-image: url('../img/fondo_tapete.jpg');
+    background-image: url('../img/wallpaper/fondo_tapete.jpg');
     background-size: 100vw 100vh;
     background-repeat: no-repeat;
 }
@@ -152,6 +152,10 @@ body {
     cursor: default;
 }
 
+.carts_missing.no_carts {
+    visibility: hidden;
+}
+
 @keyframes new_cart_front {
     0% {
         left: 1vw;
@@ -228,12 +232,12 @@ body {
     transition: all .25s;
 }
 
-.options_expanded{
+.options_expanded {
     overflow: hidden;
     height: 0;
 }
 
-.options_expanded label{
+.options_expanded label {
     color: black
 }
 
@@ -263,7 +267,8 @@ body {
     margin: 0;
 }
 
-.reverse_expanded, .difficulty_expanded{
+.reverse_expanded,
+.difficulty_expanded {
     overflow: hidden;
     height: 0;
     width: 100%;
@@ -271,10 +276,7 @@ body {
     border-radius: 10px;
 }
 
-.difficulty_expanded p{
-
-}
-
+.difficulty_expanded p {}
 
 /*-----------Expandible-----------*/
 
@@ -357,8 +359,13 @@ body {
     animation-duration: 1s;
     animation-fill-mode: forwards;
 }
+
+/*-----------End Expandible-----------*/
+
 /*---------------------------------------------------------Custom Radio Button---------------------------------------------------------*/
+
 /* The container */
+
 .container_checkbox {
     display: block;
     position: relative;
@@ -371,6 +378,7 @@ body {
 }
 
 /* Hide the browser's default radio button */
+
 .container_checkbox input {
     position: absolute;
     opacity: 0;
@@ -378,6 +386,7 @@ body {
 }
 
 /* Create a custom radio button */
+
 .checkmark {
     position: absolute;
     top: 0;
@@ -389,16 +398,19 @@ body {
 }
 
 /* On mouse-over, add a grey background color */
-.container_checkbox:hover input ~ .checkmark {
+
+.container_checkbox:hover input~.checkmark {
     background-color: #ccc;
 }
 
 /* When the radio button is checked, add a blue background */
-.container_checkbox input:checked ~ .checkmark {
+
+.container_checkbox input:checked~.checkmark {
     background-color: black;
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
+
 .checkmark:after {
     content: "";
     position: absolute;
@@ -406,19 +418,22 @@ body {
 }
 
 /* Show the indicator (dot/circle) when checked */
-.container_checkbox input:checked ~ .checkmark:after {
+
+.container_checkbox input:checked~.checkmark:after {
     display: block;
 }
 
 /* Style the indicator (dot/circle) */
+
 .container_checkbox .checkmark:after {
- 	top: 9px;
-	left: 9px;
-	width: 8px;
-	height: 8px;
-	border-radius: 50%;
-	background: white;
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
 }
+
 /*-------------------------------------------------------End Custom Checkboxes-------------------------------------------------------*/
 
 /*-----------------------------------------------End Opciones-----------------------------------------------*/
@@ -454,7 +469,6 @@ body {
     top: 70vh;
     left: 5vw;
     border: 2px dashed white;
-    border-top: none;
     width: 100px;
     text-align: center;
     box-sizing: border-box;
@@ -464,7 +478,6 @@ body {
     top: 70vh;
     left: 15vw;
     border: 2px dashed white;
-    border-top: none;
     width: 100px;
     text-align: center;
     box-sizing: border-box;
@@ -538,8 +551,41 @@ body {
 
 /*---------------------------------------------End Instruciones---------------------------------------------*/
 
-.results {
+/*----------------------------------------------Fin de partida----------------------------------------------*/
+
+.container_results {
+    visibility: hidden;
+    position: absolute;
+    top: 5vh;
+    left: 5vw;
+}
+
+.container_results.end_game {
+    visibility: visible;
+}
+
+.container_results .new_game {
+    color: white;
+    font-size: 35px;
+    margin-bottom: 1%;
+    padding: 1px 6px 3px 6px;
+    border: 2px solid black;
+    background-color: cadetblue;
+    cursor: pointer;
+}
+
+.container_results .results {
     font-size: 40px;
     color: white;
     margin: 0;
+    margin-top: 10px;
+    text-shadow: 2px 2px 0px black, -2px -2px 0px black, 2px 0px 0px black, -2px 0px 0px black, 0px 2px 0px black, 0px -2px 0px black, 2px -2px 0px black, -2px 2px 0px black;
 }
+
+.container_results .emoji {
+    width: 150px;
+    height: 150px;
+    margin: 1%;
+}
+
+/*---------------------------------------------End Fin de partida---------------------------------------------*/
