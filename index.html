@@ -34,30 +34,30 @@
     </div>
 
     <div class="deck">
-        <p class="carts_missing">28</p>
+        <p class="carts_missing">5</p>
         <img src="img/dorsos/dorso_azul.jpg" alt="Dorso" class="carts reverse_fixed">
     </div>
 
     <div class="stack_discard empty"></div>
 
+    <div class="option_instruccions">
+        <a>
+            <p>Ver instrucciones</p>
+        </a>
+    </div>
     <div class="options">
         <a class="options_collapsed">
-            <img src="img/icons/arrow_with_circle_down.svg" class="arrow_with_circle" alt="Flecha abajo" />
+            <img src="img/icons/arrow_with_circle_up.svg" class="arrow_with_circle" alt="Flecha abajo" />
             <h1>Opciones</h1>
         </a>
-        <div class="options_expanded">
-            <div class="open_option option_instruccions">
-                <a>
-                    <p>Ver instrucciones</p>
-                </a>
-            </div>
+        <div class="options_expanded expand_anim">
             <div class="open_option reverse_collapsed">
                 <a>
-                    <img src="img/icons/arrow_with_circle_down.svg" class="sub_arrow_with_circle" alt="Flecha abajo" />
+                    <img src="img/icons/arrow_with_circle_up.svg" class="sub_arrow_with_circle" alt="Flecha abajo" />
                     <p>Cambiar dorsos</p>
                 </a>
             </div>
-            <div class="reverse_expanded">
+            <div class="reverse_expanded sub_expand_anim">
                 <p>Puedes cambiar en cualquier momento de la partida.</p>
                 <label class="container_checkbox">Azul
                     <input type="radio" checked="checked" name="reverse" data-reverse="Azul">
@@ -74,12 +74,12 @@
             </div>
             <div class="open_option difficulty_collapsed">
                 <a>
-                    <img src="img/icons/arrow_with_circle_down.svg" class="sub_arrow_with_circle" alt="Flecha abajo" />
+                    <img src="img/icons/arrow_with_circle_up.svg" class="sub_arrow_with_circle" alt="Flecha abajo" />
                     <p>Cambiar dificultad</p>
                 </a>
             </div>
-            <div class="difficulty_expanded">
-                <p>Cualquier cambio de dificultad reiniciará la partida.</p>
+            <div class="difficulty_expanded sub_expand_anim">
+                <p>Puedes cambiar si la partida no ha empezado.</p>
                 <label class="container_checkbox">Fácil
                     <input type="radio" checked="checked" name="difficulty" data-difficulty="Fácil">
                     <span class="checkmark"></span>
@@ -120,11 +120,11 @@
     </div>
 
     <div class="container_results">
+        <p class="results">VICTORIA</p>
+        <img src="img/icons/emoticono_feliz.png" alt="Emoticono" class="emoji">
+        <p class="text_time_result">Has tardado: <span class="time_result"></span><span class="programmer_greeting"></span></p>
         <a class="new_game">Nueva partida</a>
-        <p class="results"></p>
-        <img src="" alt="Emoticono" class="emoji">
     </div>
-
 </body>
 
 </html>

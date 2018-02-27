@@ -1,5 +1,4 @@
 body {
-    min-width: 1024px;
     background-image: url('../img/wallpaper/fondo_tapete.jpg');
     background-size: 100vw 100vh;
     background-repeat: no-repeat;
@@ -88,10 +87,6 @@ body {
     z-index: 200;
 }
 
-.deck:hover p {
-    z-index: 300;
-}
-
 .stack_discard.empty {
     border: 1px solid white;
 }
@@ -119,9 +114,9 @@ body {
     z-index: 40;
 }
 
-#cart_up_tier1:hover,
-#cart_up_tier2:hover,
-#cart_up_tier3:hover {
+#cart_up_tier1:active,
+#cart_up_tier2:active,
+#cart_up_tier3:active {
     z-index: 250;
 }
 
@@ -186,9 +181,29 @@ body {
 
 /*-------------------------------------------------Opciones-------------------------------------------------*/
 
-.options {
+.option_instruccions{
     position: absolute;
     top: 5vh;
+    right: 5vw;
+    display: block;
+    width: 25vw;
+    height: 50px;
+    line-height: 50px;
+    margin-top: 2px;
+    border-radius: 10px;
+    font-size: 25px;
+    text-align: center;
+    color: black;
+    background: linear-gradient(to top, rgb(235, 235, 235), rgb(230, 230, 230));
+    box-sizing: border-box;
+    padding: 3px 6px 3px 6px;
+    cursor: pointer;
+    z-index: 800;
+}
+
+.options {
+    position: absolute;
+    top: 15vh;
     right: 5vw;
     width: 25vw;
     font-family: Arial, Helvetica, sans-serif;
@@ -263,7 +278,7 @@ body {
     width: 45px;
 }
 
-.open_option p {
+.open_option p, .option_instruccions p{
     margin: 0;
 }
 
@@ -276,8 +291,6 @@ body {
     border-radius: 10px;
 }
 
-.difficulty_expanded p {}
-
 /*-----------Expandible-----------*/
 
 @keyframes expand {
@@ -286,7 +299,7 @@ body {
         opacity: 0;
     }
     100% {
-        height: 75vh;
+        height: 65vh;
         opacity: 1;
     }
 }
@@ -294,7 +307,7 @@ body {
 @keyframes collapse {
     0% {
         opacity: 1;
-        height: 75vh;
+        height: 65vh;
     }
     50% {
         opacity: 0;
@@ -371,7 +384,7 @@ body {
     position: relative;
     padding-left: 35px;
     margin-left: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     cursor: pointer;
     font-size: 20px;
     user-select: none;
@@ -558,34 +571,43 @@ body {
     position: absolute;
     top: 5vh;
     left: 5vw;
+    width: 23vw;
 }
 
 .container_results.end_game {
     visibility: visible;
 }
 
-.container_results .new_game {
-    color: white;
+.container_results p{
     font-size: 35px;
-    margin-bottom: 1%;
-    padding: 1px 6px 3px 6px;
-    border: 2px solid black;
-    background-color: cadetblue;
-    cursor: pointer;
-}
-
-.container_results .results {
-    font-size: 40px;
     color: white;
     margin: 0;
-    margin-top: 10px;
+    display: inline-block;
     text-shadow: 2px 2px 0px black, -2px -2px 0px black, 2px 0px 0px black, -2px 0px 0px black, 0px 2px 0px black, 0px -2px 0px black, 2px -2px 0px black, -2px 2px 0px black;
 }
 
 .container_results .emoji {
-    width: 150px;
-    height: 150px;
-    margin: 1%;
+    width: 50px;
+    height: 50px;
+    margin-top: 5%;
+    display: inline-block;
+}
+
+.container_results .text_time_result {
+    font-size: 30px;
+    display: block;
+}
+
+.container_results .new_game {
+    color: white;
+    font-size: 40px;
+    text-align: center;
+    float: left;
+    margin-top: 10px; 
+    padding: 1px 6px 3px 6px;
+    border: 2px solid black;
+    background-color: cadetblue;
+    cursor: pointer;
 }
 
 /*---------------------------------------------End Fin de partida---------------------------------------------*/

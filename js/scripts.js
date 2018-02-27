@@ -3,6 +3,8 @@ var xOriginal, yOriginal;
 var is_pressed = false;
 var element_id;
 var z_index = 40;
+var interval;
+var date_start = null;
 var is_discarded;
 var element;
 var position;
@@ -26,7 +28,7 @@ $(document).ready(function () {
         first_flop();
     });
 
-
+    //Añadir eventos y eventos táctiles
     if ("ontouchstart" in window) {
         move_event = "touchmove";
         up_event = "touchend";
@@ -42,6 +44,7 @@ $(document).ready(function () {
     $(".reverse_fixed, .carts_missing").click(function () {
         new_cart_from_deck();
     });
+    //End Añadir eventos y eventos táctiles
 
     //Options
     $(".option_instruccions").click(function () {
@@ -235,7 +238,6 @@ function create_reverse(cart_up) {
 }
 
 function first_flop() {
-
     $('.reverse_helper').addClass("flip");
     $('#cart_up_tier1').addClass("flip").attr('src', path_cart());
     $('#cart_up_tier2').addClass("flip").attr('src', path_cart());
@@ -258,6 +260,12 @@ function random_cart() {
 }
 
 function new_cart_from_deck() {
+
+    //Contador
+    if (date_start == null) {
+        date_start = new Date();
+    }
+    //End Contador
     carts_missing = document.getElementsByClassName("carts_missing")[0].innerHTML;
 
     if (carts_missing > 0) {
@@ -292,6 +300,7 @@ function new_cart_from_deck() {
     }, 600);
     $(".reverse_fixed, .carts_missing").unbind("click");
 
+
 }
 
 function get_value_of_cart(cart_path) {
@@ -308,7 +317,10 @@ function get_value_of_cart(cart_path) {
 }
 
 function cart_can_go_to_stack_discard(cart_path) {
-
+    //Si el elemento no existe porque no quedan cartas en algún tier, dejamos el valor a false.    
+    if (!cart_path) {
+        return false;
+    }
     var value_current_element = get_value_of_cart(cart_path);
 
     var value_top_discarded_cart = get_value_of_cart(top_discarded_cart_path);
@@ -327,9 +339,13 @@ function cart_can_go_to_stack_discard(cart_path) {
 }
 
 function reveal_next_cart() {
-
     // is_discarded -> Cuando la carta coincide en posición con la pila de descartes
     if (is_discarded) {
+        //Contador
+        if (date_start == null) {
+            date_start = new Date();
+        }
+        //End Contador
         carts_to_reveal--;
         var tier_position = element.getAttribute("data-position");
         var tier = element_id.substring(element_id.length - 1, element_id.length);
@@ -387,51 +403,83 @@ function reveal_next_cart() {
 }
 
 function win_game() {
-
     document.getElementsByClassName("results")[0].innerHTML = "VICTORIA";
     document.getElementsByClassName("emoji")[0].setAttribute("src", "img/icons/emoticono_feliz.png");
     document.getElementsByClassName("container_results")[0].classList.add("end_game");
     $(".reverse_fixed, .carts_missing").unbind("click");
+    get_timer("win");
 
 }
 
 function lose_game() {
-
-    var cart_up_tier1_src = document.getElementById("cart_up_tier1").getAttribute("src");
-    var cart_up_tier2_src = document.getElementById("cart_up_tier2").getAttribute("src");
-    var cart_up_tier3_src = document.getElementById("cart_up_tier3").getAttribute("src");
+    //Si el elemento no existe porque no quedan cartas en algún tier, dejamos el valor a false.
+    var cart_up_tier1_src = document.getElementById("cart_up_tier1") ? document.getElementById("cart_up_tier1").getAttribute("src") : false;
+    var cart_up_tier2_src = document.getElementById("cart_up_tier2") ? document.getElementById("cart_up_tier2").getAttribute("src") : false;
+    var cart_up_tier3_src = document.getElementById("cart_up_tier3") ? document.getElementById("cart_up_tier3").getAttribute("src") : false;
 
     var play1 = cart_can_go_to_stack_discard(cart_up_tier1_src);
     var play2 = cart_can_go_to_stack_discard(cart_up_tier2_src);
     var play3 = cart_can_go_to_stack_discard(cart_up_tier3_src);
 
+
     if (!play1 && !play2 && !play3) {
         document.getElementsByClassName("results")[0].innerHTML = "DERROTA";
         document.getElementsByClassName("emoji")[0].setAttribute("src", "img/icons/emoticono_triste.png");
         document.getElementsByClassName("container_results")[0].classList.add("end_game");
+        get_timer("lose");
     }
+}
 
+function get_timer(result) {
+
+    var date_end = new Date();
+    var msecPerMinute = 1000 * 60;
+    var text_timer = "";
+
+    var difference = date_end.getTime() - date_start.getTime();
+    var minutes = Math.floor(difference / msecPerMinute );
+    difference = difference - (minutes * msecPerMinute );
+    
+    var seconds = Math.floor(difference / 1000 );
+
+    //Posibilidades del mensaje text_timer
+    if (minutes == 0) {
+        text_timer = seconds + " segundos. ";
+    } else if (seconds == 0 && minutes == 1) {
+        text_timer = minutes + " minuto. ";
+    } else if (minutes == 1) {
+        text_timer = minutes + " minuto y " + seconds + " segundos. ";
+    } else if (seconds == 0) {
+        text_timer = minutes + " minutos. ";
+    } else {
+        text_timer = minutes + " minutos y " + seconds + " segundos. ";
+    }
+    //End Posibilidades del mensaje text_timer
+
+    document.getElementsByClassName("time_result")[0].innerHTML = text_timer;
+
+    if (result == "win") {
+        document.getElementsByClassName("programmer_greeting")[0].innerHTML = "¿Podrás mejorarlo?";
+    }
+    if (result == "lose") {
+        document.getElementsByClassName("programmer_greeting")[0].innerHTML = "Suerte la próxima vez.";
+    }
 }
 
 /*------------------------------------------------------End Lógica del juego------------------------------------------------------*/
 /*--------------------------------------------------------Opciones--------------------------------------------------------*/
 
 function swap_reverse() {
-
     var input_reverse = document.getElementsByName("reverse");
 
     // Buscamos el dorso seleccionado
     for (var i = 0; i < input_reverse.length; i++) {
         if (input_reverse[i].checked) {
-
             break;
-
         }
     }
     var all_carts = document.getElementsByClassName("carts");
-    // En base al data-reverse del elemento seleccionado cambiamos el src.
-    // all_carts[num_cart].getAttribute("alt") -> 
-    // Todas las cartas que se ven con Dorso tiene el alt "Dorso".
+    // En base al data-reverse del elemento seleccionado cambiamos el src buscando "dorsos" en éste.
     switch (input_reverse[i].getAttribute("data-reverse")) {
         case "Azul":
             for (num_cart = 0; num_cart < all_carts.length; num_cart++) {
@@ -462,6 +510,9 @@ function swap_reverse() {
     }
 }
 
+function swap_difficulty() {
+
+}
 
 
 /*------------------------------------------------------End Opciones------------------------------------------------------*/
