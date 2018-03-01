@@ -7,12 +7,14 @@ var interval;
 var date_start = null;
 var is_discarded;
 var element;
-var position;
+var new_position;
 var stack_discard_is_empty = true;
 var carts_missing;
 var carts_to_reveal = 12;
 var top_discarded_cart_path;
 var actual_reverse = "img/dorsos/dorso_azul.jpg";
+var actual_difficulty = "Facil";
+var max_position_actual;
 var move_event = "mousemove";
 var up_event = "mouseup";
 var down_event = "mousedown";
@@ -28,7 +30,9 @@ $(document).ready(function () {
         first_flop();
     });
 
-    //Añadir eventos y eventos táctiles
+    carts_missing = document.getElementsByClassName("carts_missing")[0].innerHTML;
+
+    //Añadir eventos y eventos táctiles.
     if ("ontouchstart" in window) {
         move_event = "touchmove";
         up_event = "touchend";
@@ -43,10 +47,15 @@ $(document).ready(function () {
 
     $(".reverse_fixed, .carts_missing").click(function () {
         new_cart_from_deck();
+        //Contador.
+        if (date_start == null) {
+            date_start = new Date();
+        }
+        //End Contador.
     });
-    //End Añadir eventos y eventos táctiles
+    //End Añadir eventos y eventos táctiles.
 
-    //Options
+    //Options.
     $(".option_instruccions").click(function () {
         $(".container_data_info").addClass("on");
         $(".instruccions").addClass("on");
@@ -69,15 +78,23 @@ $(document).ready(function () {
         sub_expand_and_collapse("difficulty");
     });
 
-    //Evento Cambio de dorso
+    $(".background_alert").click(function () {
+        $(".alert").removeClass("on");
+        $(".background_alert").removeClass("on");
+    });
+
+    //Evento Cambio de dorso.
     $(".container_checkbox input[name='reverse']").bind("change", swap_reverse);
 
-    //Nueva partida
+    //Evento Cambio de dificultad.
+    $(".container_checkbox input[name='difficulty']").bind("change", swap_difficulty);
+
+    //Nueva partida.
     $(".new_game").click(function () {
         location.reload();
     });
 
-    //End Options
+    //End Options.
 
 });
 
@@ -93,14 +110,14 @@ function events_down(cart_up_tier) {
         .unbind(down_event, mouse_pressed);
 }
 
-//onMouseDown
+//onMouseDown.
 function mouse_pressed(evt) {
-    //Obtener la posición de inicio
-    //"ontouchstart" in window evt.targetTouches[0] -> Eventos Táctiles
+    //Obtener la posición de inicio.
+    //"ontouchstart" in window evt.targetTouches[0] -> Eventos Táctiles.
     evt.preventDefault();
     xInitial = "ontouchstart" in window ? evt.targetTouches[0].pageX : evt.clientX;
     yInitial = "ontouchstart" in window ? evt.targetTouches[0].pageY : evt.clientY;
-    //End Eventos Táctiles
+    //End Eventos Táctiles.
     element_id = this.id;
     element = document.getElementById(element_id);
     var original_position = get_position(element);
@@ -109,23 +126,23 @@ function mouse_pressed(evt) {
     is_pressed = true;
 }
 
-//onMouseMove
+//onMouseMove.
 function mouse_moved(evt) {
     if (is_pressed) {
-        //Calcular la diferencia de posición
-        //"ontouchstart" in window evt.targetTouches[0] -> Eventos Táctiles
+        //Calcular la diferencia de posición.
+        //"ontouchstart" in window evt.targetTouches[0] -> Eventos Táctiles.
         var xActual = "ontouchstart" in window ? evt.targetTouches[0].pageX : evt.clientX;
         var yActual = "ontouchstart" in window ? evt.targetTouches[0].pageY : evt.clientY;
-        //End Eventos Táctiles
+        //End Eventos Táctiles.
         var xFinal = xActual - xInitial;
         var yFinal = yActual - yInitial;
 
         xInitial = xActual;
         yInitial = yActual;
-        //Establecer la nueva posición
-        position = get_position(element);
-        element.style.top = (position[0] + yFinal) + "px";
-        element.style.left = (position[1] + xFinal) + "px";
+        //Establecer la nueva posición.
+        new_position = get_position(element);
+        element.style.top = (new_position[0] + yFinal) + "px";
+        element.style.left = (new_position[1] + xFinal) + "px";
 
         // Esquinas:
         // 205 X 305 Y, 305 X 305 Y, 205 X 450 Y, 305 X 450 Y
@@ -136,17 +153,17 @@ function mouse_moved(evt) {
 }
 
 function is_discard() {
-    if (position[0] <= 450 && position[0] >= 165 && position[1] <= 305 && position[1] >= 105) {
+    if (new_position[0] <= 450 && new_position[0] >= 165 && new_position[1] <= 305 && new_position[1] >= 105) {
         return true;
     } else {
         return false;
     }
 }
-//onMouseUp
+//onMouseUp.
 function mouse_released() {
     is_pressed = false;
-    // is_discarded -> Cuando la carta coincide en posición con la pila de descartes
-    // cart_can_go_to_stack_discard -> Cuando la carta tiene el valor siguiente o anterior a la que vemos en la pila de descartes
+    // is_discarded -> Cuando la carta coincide en posición con la pila de descartes.
+    // cart_can_go_to_stack_discard -> Cuando la carta tiene el valor siguiente o anterior a la que vemos en la pila de descartes.
     if (is_discarded && cart_can_go_to_stack_discard(element.getAttribute("src"))) {
         element.classList.add("stack_discard");
         z_index++;
@@ -154,6 +171,11 @@ function mouse_released() {
         events_down(element_id);
         top_discarded_cart_path = element.getAttribute("src");
         reveal_next_cart();
+        //Contador.
+        if (date_start == null) {
+            date_start = new Date();
+        }
+        //End Contador. 
     } else {
         element.style.top = yOriginal + "px";
         element.style.left = xOriginal + "px";
@@ -163,8 +185,8 @@ function mouse_released() {
 /*
  * Función para obtener la posición en la que se encuentra el
  * elemento indicado como parámetro.
- * Retorna un array con las coordenadas x e y de la posición
- * Las líneas con los métodos getComputedStyle y getPropertyValue sirven para acceder a los estilos del elemento
+ * Retorna un array con las coordenadas x e y de la posición.
+ * Las líneas con los métodos getComputedStyle y getPropertyValue sirven para acceder a los estilos del elemento.
  */
 function get_position(element) {
     var position = new Array(4);
@@ -243,11 +265,6 @@ function first_flop() {
     $('#cart_up_tier2').addClass("flip").attr('src', path_cart());
     $('#cart_up_tier3').addClass("flip").attr('src', path_cart());
     new_cart_from_deck();
-
-    setTimeout(function () {
-        $('.stack_discard').removeClass("empty");
-    }, 1550);
-
 }
 
 function path_cart() {
@@ -260,14 +277,6 @@ function random_cart() {
 }
 
 function new_cart_from_deck() {
-
-    //Contador
-    if (date_start == null) {
-        date_start = new Date();
-    }
-    //End Contador
-    carts_missing = document.getElementsByClassName("carts_missing")[0].innerHTML;
-
     if (carts_missing > 0) {
         var new_cart = path_cart();
         var deck_cart = $("<img>").attr({
@@ -292,15 +301,13 @@ function new_cart_from_deck() {
         lose_game();
     }
 
-    //Desactivamos temporalmente el onclick para evitar que se haga clic muchas veces seguidas. (600, 100 ms más que la animación)
+    //Desactivamos temporalmente el onclick para evitar que se haga clic muchas veces seguidas. (600, 100 ms más que la animación).
     setTimeout(function () {
         $(".reverse_fixed, .carts_missing").bind("click", function () {
             new_cart_from_deck();
         });
     }, 600);
     $(".reverse_fixed, .carts_missing").unbind("click");
-
-
 }
 
 function get_value_of_cart(cart_path) {
@@ -313,7 +320,6 @@ function get_value_of_cart(cart_path) {
     } else {
         return parseInt(check_nums[0].concat(check_nums[1]));
     }
-
 }
 
 function cart_can_go_to_stack_discard(cart_path) {
@@ -335,33 +341,27 @@ function cart_can_go_to_stack_discard(cart_path) {
     } else {
         return false;
     }
-
 }
 
 function reveal_next_cart() {
-    // is_discarded -> Cuando la carta coincide en posición con la pila de descartes
+    // is_discarded -> Cuando la carta coincide en posición con la pila de descartes.
     if (is_discarded) {
-        //Contador
-        if (date_start == null) {
-            date_start = new Date();
-        }
-        //End Contador
         carts_to_reveal--;
         var tier_position = element.getAttribute("data-position");
         var tier = element_id.substring(element_id.length - 1, element_id.length);
 
-        // borrar elemento reverse_helper,
+        // borrar elemento reverse_helper.
         $(".tier" + tier + " .reverse_helper").remove();
 
-        // quitar id de su tier,
+        // quitar id de su tier.
         element.setAttribute("alt", "Carta Descartada");
         element.removeAttribute("id");
 
         if (tier_position > 1) {
-            // crear reverse_helper ,  
+            // crear reverse_helper.
             create_reverse($(".tier" + tier + " img[data-position='" + parseInt(tier_position - 1) + "']"));
 
-            // añadir id de su tier,
+            // añadir id de su tier.
             $(".tier" + tier + " .hide[data-position='" + parseInt(tier_position - 1) + "']").attr({
                 id: "cart_up_tier" + parseInt(tier),
                 alt: "Carta Boca Arriba"
@@ -369,7 +369,7 @@ function reveal_next_cart() {
 
             var new_cart = path_cart();
 
-            // animacion voltear de la carta anterior,
+            // animacion voltear de la carta anterior.
             setTimeout(function () {
                 $('.reverse_helper').addClass("flip");
                 switch (tier) {
@@ -437,12 +437,12 @@ function get_timer(result) {
     var text_timer = "";
 
     var difference = date_end.getTime() - date_start.getTime();
-    var minutes = Math.floor(difference / msecPerMinute );
-    difference = difference - (minutes * msecPerMinute );
-    
-    var seconds = Math.floor(difference / 1000 );
+    var minutes = Math.floor(difference / msecPerMinute);
+    difference = difference - (minutes * msecPerMinute);
 
-    //Posibilidades del mensaje text_timer
+    var seconds = Math.floor(difference / 1000);
+
+    //Posibilidades del mensaje text_timer.
     if (minutes == 0) {
         text_timer = seconds + " segundos. ";
     } else if (seconds == 0 && minutes == 1) {
@@ -454,7 +454,7 @@ function get_timer(result) {
     } else {
         text_timer = minutes + " minutos y " + seconds + " segundos. ";
     }
-    //End Posibilidades del mensaje text_timer
+    //End Posibilidades del mensaje text_timer.
 
     document.getElementsByClassName("time_result")[0].innerHTML = text_timer;
 
@@ -472,46 +472,207 @@ function get_timer(result) {
 function swap_reverse() {
     var input_reverse = document.getElementsByName("reverse");
 
-    // Buscamos el dorso seleccionado
+    // Buscamos el dorso seleccionado.
     for (var i = 0; i < input_reverse.length; i++) {
         if (input_reverse[i].checked) {
             break;
         }
     }
     var all_carts = document.getElementsByClassName("carts");
-    // En base al data-reverse del elemento seleccionado cambiamos el src buscando "dorsos" en éste.
+    // En base al data-reverse seleccionado cambiamos el src buscando "dorsos" en éste.
     switch (input_reverse[i].getAttribute("data-reverse")) {
         case "Azul":
             for (num_cart = 0; num_cart < all_carts.length; num_cart++) {
                 if (all_carts[num_cart].getAttribute("src").includes("dorsos")) {
                     all_carts[num_cart].setAttribute("src", "img/dorsos/dorso_azul.jpg");
-                    actual_reverse = "img/dorsos/dorso_azul.jpg";
                 }
             }
+            actual_reverse = "img/dorsos/dorso_azul.jpg";
             break;
-        case "Rojo":
+        case "Oscuro":
             for (num_cart = 0; num_cart < all_carts.length; num_cart++) {
                 if (all_carts[num_cart].getAttribute("src").includes("dorsos")) {
-                    all_carts[num_cart].setAttribute("src", "img/dorsos/dorso_rojo.jpg");
-                    actual_reverse = "img/dorsos/dorso_rojo.jpg";
+                    all_carts[num_cart].setAttribute("src", "img/dorsos/dorso_oscuro.jpg");
                 }
             }
+            actual_reverse = "img/dorsos/dorso_oscuro.jpg";
             break;
         case "Hearthstone":
             for (num_cart = 0; num_cart < all_carts.length; num_cart++) {
                 if (all_carts[num_cart].getAttribute("src").includes("dorsos")) {
                     all_carts[num_cart].setAttribute("src", "img/dorsos/dorso_hs.png");
-                    actual_reverse = "img/dorsos/dorso_hs.png";
                 }
             }
+            actual_reverse = "img/dorsos/dorso_hs.png";
             break;
         default:
             break;
     }
 }
 
+function is_cart_moved_to_stack_discard(max_position) {
+    var position1 = document.getElementById("cart_up_tier1").getAttribute("data-position");
+    var position2 = document.getElementById("cart_up_tier2").getAttribute("data-position");
+    var position3 = document.getElementById("cart_up_tier3").getAttribute("data-position");
+
+    if (position1 < max_position || position2 < max_position || position3 < max_position) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function is_game_started(actual_difficulty) {
+    carts_missing = document.getElementsByClassName("carts_missing")[0].innerHTML;
+    switch (actual_difficulty) {
+        case "Facil":
+            max_position_actual = 4;
+            if (carts_missing < 27 || is_cart_moved_to_stack_discard(max_position_actual)) {
+                return true;
+            }
+            break;
+        case "Medio":
+            max_position_actual = 5;
+            if (carts_missing < 24 || is_cart_moved_to_stack_discard(max_position_actual)) {
+                return true;
+            }
+            break;
+        case "Dificil":
+            max_position_actual = 6;
+            if (carts_missing < 21 || is_cart_moved_to_stack_discard(max_position_actual)) {
+                return true;
+            }
+            break;
+        default:
+            break;
+    }
+    return false;
+}
+
+function dom_difficulty(max_position_selected, max_position_actual) {
+
+
+    if (max_position_selected > max_position_actual) {
+        //Agregar filas de los tier.
+        $("#cart_up_tier1, #cart_up_tier2, #cart_up_tier3").attr("src", actual_reverse).attr("data-position", max_position_selected).removeClass("flip");
+        $(".tier .reverse_helper").remove();
+        $(".deck_cart").remove();
+
+        for (var i = max_position_actual; i < max_position_selected; i++) {
+            var row = $("<img>").attr({
+                src: actual_reverse,
+                alt: "Dorso"
+            }).attr("data-position", i).addClass("carts hide");
+            row.insertAfter($(".tier img[data-position='" + parseInt(i - 1) + "']"));
+
+        }
+        // añadir eventos de movimiento a los nuevos id.
+        for (tier = 1; tier <= 3; tier++) {
+            events_on("cart_up_tier" + tier);
+        }
+        create_reverse($("#cart_up_tier1"));
+        create_reverse($("#cart_up_tier2"));
+        create_reverse($("#cart_up_tier3"));
+
+        //Animación inicial
+        setTimeout(function () {
+            first_flop();
+        }, 500);
+
+    } else {
+        //Borrar filas de los tier.
+        $(".deck_cart").remove();
+
+        for (var i = max_position_actual; i > max_position_selected; i--) {
+            $(".tier img[data-position='" + parseInt(i) + "']").remove();
+        }
+
+        // añadir id de su tier.
+        for (tier = 1; tier <= 3; tier++) {
+            $(".tier" + tier + " .hide[data-position='" + max_position_selected + "']").attr({
+                id: "cart_up_tier" + parseInt(tier),
+                alt: "Carta Boca Arriba"
+            }).removeClass("hide");
+            events_on("cart_up_tier" + tier);
+        }
+
+        create_reverse($("#cart_up_tier1"));
+        create_reverse($("#cart_up_tier2"));
+        create_reverse($("#cart_up_tier3"));
+
+        //Animación inicial
+        setTimeout(function () {
+            first_flop();
+        }, 500);
+
+
+    }
+}
+
 function swap_difficulty() {
 
+    //Comprobamos si ha empezado la partida.
+    if (is_game_started(actual_difficulty)) {
+        $(".alert").addClass("on");
+        $(".background_alert").addClass("on");
+        $(".container_checkbox input[name='difficulty']").unbind("change");
+
+        //Volvemos a seleccionar la dificultad que estaba seleccionada.
+        for (var j = 0; j < input_difficulty.length; j++) {
+            if (input_difficulty[j].getAttribute("data-difficulty") == actual_difficulty) {
+                input_difficulty[j].checked = "checked";
+                break;
+            }
+        }
+
+        $(".container_checkbox input[name='difficulty']").bind("change", swap_difficulty);
+        return;
+    }
+
+    var input_difficulty = document.getElementsByName("difficulty");
+    var max_position_selected = 0;
+
+    // Buscamos la dificultad seleccionada.
+    for (var i = 0; i < input_difficulty.length; i++) {
+        if (input_difficulty[i].checked) {
+            break;
+        }
+    }
+
+    // En base al data-difficulty seleccionado estableceremos las bases para el resto.
+    switch (input_difficulty[i].getAttribute("data-difficulty")) {
+        case "Facil":
+            carts_missing = "28";
+            carts_to_reveal = 12;
+            max_position_selected = 4;
+            document.getElementsByClassName("carts_missing")[0].innerHTML = carts_missing;
+            actual_difficulty = "Facil";
+            break;
+        case "Medio":
+            carts_missing = "25";
+            carts_to_reveal = 15;
+            max_position_selected = 5;
+            document.getElementsByClassName("carts_missing")[0].innerHTML = carts_missing;
+            actual_difficulty = "Medio";
+            break;
+        case "Dificil":
+            carts_missing = "22";
+            carts_to_reveal = 18;
+            max_position_selected = 6;
+            document.getElementsByClassName("carts_missing")[0].innerHTML = carts_missing;
+            actual_difficulty = "Dificil";
+            break;
+        default:
+            break;
+    }
+
+    array_deck = ["copa1", "copa2", "copa3", "copa4", "copa5", "copa6", "copa7", "copa10", "copa11", "copa12",
+        "oro1", "oro2", "oro3", "oro4", "oro5", "oro6", "oro7", "oro10", "oro11", "oro12",
+        "espada1", "espada2", "espada3", "espada4", "espada5", "espada6", "espada7", "espada10", "espada11", "espada12",
+        "basto1", "basto2", "basto3", "basto4", "basto5", "basto6", "basto7", "basto10", "basto11", "basto12"
+    ];
+
+    dom_difficulty(max_position_selected, max_position_actual);
 }
 
 
