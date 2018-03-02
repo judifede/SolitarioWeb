@@ -312,7 +312,6 @@ function new_cart_from_deck() {
 
 function get_value_of_cart(cart_path) {
     var path_to_check = cart_path.split(".jpg")[0];
-
     var check_nums = path_to_check.match(/[0-9]/g);
 
     if (typeof (check_nums[1]) == "undefined") {
@@ -328,7 +327,6 @@ function cart_can_go_to_stack_discard(cart_path) {
         return false;
     }
     var value_current_element = get_value_of_cart(cart_path);
-
     var value_top_discarded_cart = get_value_of_cart(top_discarded_cart_path);
 
     if (value_top_discarded_cart == 7 && value_current_element == 10 || value_top_discarded_cart == 10 && value_current_element == 7 ||
@@ -471,13 +469,13 @@ function get_timer(result) {
 
 function swap_reverse() {
     var input_reverse = document.getElementsByName("reverse");
-
     // Buscamos el dorso seleccionado.
     for (var i = 0; i < input_reverse.length; i++) {
         if (input_reverse[i].checked) {
             break;
         }
     }
+
     var all_carts = document.getElementsByClassName("carts");
     // En base al data-reverse seleccionado cambiamos el src buscando "dorsos" en éste.
     switch (input_reverse[i].getAttribute("data-reverse")) {
@@ -564,12 +562,13 @@ function dom_difficulty(max_position_selected, max_position_actual) {
                 alt: "Dorso"
             }).attr("data-position", i).addClass("carts hide");
             row.insertAfter($(".tier img[data-position='" + parseInt(i - 1) + "']"));
-
         }
+
         // añadir eventos de movimiento a los nuevos id.
         for (tier = 1; tier <= 3; tier++) {
             events_on("cart_up_tier" + tier);
         }
+
         create_reverse($("#cart_up_tier1"));
         create_reverse($("#cart_up_tier2"));
         create_reverse($("#cart_up_tier3"));
@@ -604,8 +603,6 @@ function dom_difficulty(max_position_selected, max_position_actual) {
         setTimeout(function () {
             first_flop();
         }, 500);
-
-
     }
 }
 
