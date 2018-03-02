@@ -564,12 +564,17 @@ function dom_difficulty(max_position_selected, max_position_actual) {
                 alt: "Dorso"
             }).attr("data-position", i).addClass("carts hide");
             row.insertAfter($(".tier img[data-position='" + parseInt(i - 1) + "']"));
+<<<<<<< HEAD
 
         }
         // añadir eventos de movimiento a los nuevos id.
         for (tier = 1; tier <= 3; tier++) {
             events_on("cart_up_tier" + tier);
         }
+=======
+        }
+
+>>>>>>> ea577fbd43868f41f6382326ed1ce7f97fab58a1
         create_reverse($("#cart_up_tier1"));
         create_reverse($("#cart_up_tier2"));
         create_reverse($("#cart_up_tier3"));
@@ -593,7 +598,11 @@ function dom_difficulty(max_position_selected, max_position_actual) {
                 id: "cart_up_tier" + parseInt(tier),
                 alt: "Carta Boca Arriba"
             }).removeClass("hide");
+<<<<<<< HEAD
             events_on("cart_up_tier" + tier);
+=======
+
+>>>>>>> ea577fbd43868f41f6382326ed1ce7f97fab58a1
         }
 
         create_reverse($("#cart_up_tier1"));
