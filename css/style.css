@@ -67,7 +67,7 @@ body {
     display: inline-block;
     position: absolute;
     top: 48vh;
-    left: 5vw;
+    left: 4vw;
 }
 
 .deck img {
@@ -155,7 +155,7 @@ body {
         backface-visibility: hidden;
     }
     100% {
-        left: 10vw;
+        left: 11vw;
         transform: perspective(600px) rotateY(0deg);
         backface-visibility: hidden;
     }
@@ -169,7 +169,7 @@ body {
         backface-visibility: hidden;
     }
     100% {
-        left: 10vw;
+        left: 11vw;
         transform: perspective(600px) rotateY(180deg);
         backface-visibility: hidden;
     }
@@ -204,7 +204,7 @@ body {
     width: 25vw;
     font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
-    font-size: 10pt;
+    font-size: 15px;
     text-align: center;
     border-radius: 10px;
     background-color: #F6F6F6;
@@ -376,7 +376,7 @@ body {
         opacity: 0;
     }
     100% {
-        height: 31%;
+        height: 24vh;
         opacity: 1;
     }
 }
@@ -384,7 +384,7 @@ body {
 @keyframes sub_collapse {
     0% {
         opacity: 1;
-        height: 31%;
+        height: 24vh;
         padding-top: 5px;
     }
     50% {
@@ -520,7 +520,7 @@ body {
 
 .container_data_info p[data-info="1"] {
     top: 70vh;
-    left: 5vw;
+    left: 4vw;
     border: 2px dashed white;
     width: 100px;
     text-align: center;
@@ -585,11 +585,11 @@ body {
 }
 
 .instruccions p {
-    font-size: 15pt;
+    font-size: 20px;
 }
 
 .close_instruccions {
-    font-size: 18pt;
+    font-size: 25px;
     width: 70%;
     display: block;
     margin: auto;
@@ -653,7 +653,8 @@ body {
 /*---------------------------------------------End Fin de partida---------------------------------------------*/
 
 /*-------------------------------------------------Orientación-------------------------------------------------*/
-.tablet_vertical_alert{
+
+.tablet_vertical_alert {
     display: none;
     position: absolute;
     top: 50%;
@@ -668,37 +669,53 @@ body {
 }
 
 /*Vertical*/
+
 @media only screen and (orientation:portrait) {
     *:not(html):not(body):not(.tablet_vertical_alert) {
         display: none !important;
     }
-    html, body {
+    html,
+    body:not(title):not(script):not(meta) {
         display: inherit !important;
     }
-    .tablet_vertical_alert{
+    .tablet_vertical_alert {
         display: block !important;
     }
 }
 
 /*Horizontal*/
-@media only screen and (orientation:landscape) {
-    * {
-        display: inherit;
-    }
-}
+
+@media only screen and (orientation:landscape) {}
 
 /*-----------------------------------------------End Orientación-----------------------------------------------*/
+
 /*---------------------------------------------------------------Tablet---------------------------------------------------------------*/
 
 @media (max-width: 1024px) {
-    /*-------------------------------------------------Opciones-------------------------------------------------*/
-    /*-----------Expandible-----------*/
-    /*-----------End Expandible-----------*/
-    /*-------------------------------------------------Custom Radio Button-------------------------------------------------*/
-    /*-----------------------------------------------End Custom Radio Button-----------------------------------------------*/
-    /*-----------------------------------------------End Opciones-----------------------------------------------*/
-    /*-----------------------------------------------Instruciones-----------------------------------------------*/
-    /*---------------------------------------------End Instruciones---------------------------------------------*/
-    /*----------------------------------------------Fin de partida----------------------------------------------*/
-    /*---------------------------------------------End Fin de partida---------------------------------------------*/
+    .tier1 img {
+        left: 28vw;
+    }
+    .tier2 img {
+        left: 40vw;
+    }
+    .tier3 img {
+        left: 52vw;
+    }
+    .options p {
+        font-size: 20px;
+    }
+    .options .reverse_expanded p,
+    .options .difficulty_expanded p {
+        font-size: 15px;
+    }
+    .instruccions {
+        width: 35vw;
+    }
+    .container_data_info div[data-info="3"] {
+        left: 27vw;
+        width: 35vw;
+    }
+    .container_data_info div[data-info="3"] p {
+        width: 35vw;
+    }
 }
