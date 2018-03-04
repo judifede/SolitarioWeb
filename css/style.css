@@ -700,11 +700,11 @@ body {
     }
     .options_collapsed {
         padding: 10px;
-        height: 40px;
-        line-height: 40px;
+        height: 35px;
+        line-height: 35px;
     }
     .options_collapsed .arrow_with_circle {
-        width: 40px;
+        width: 35px;
     }
     .options_collapsed h1 {
         font-size: 1.5em;
@@ -773,12 +773,12 @@ body {
         height: 100px;
     }
     .options_collapsed {
-        padding: 10px;
+        padding: 5px;
         height: 40px;
         line-height: 40px;
     }
     .options_collapsed h1 {
-        font-size: 1.1em;
+        font-size: 1em;
         padding: 0;
     }
     .open_option, .option_instruccions {
