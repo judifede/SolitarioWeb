@@ -402,7 +402,6 @@ function reveal_next_cart() {
 
 function win_game() {
     document.getElementsByClassName("results")[0].innerHTML = "VICTORIA";
-    document.getElementsByClassName("emoji")[0].setAttribute("src", "img/icons/emoticono_feliz.png");
     document.getElementsByClassName("container_results")[0].classList.add("end_game");
     $(".reverse_fixed, .carts_missing").unbind("click");
     get_timer("win");
@@ -422,7 +421,6 @@ function lose_game() {
 
     if (!play1 && !play2 && !play3) {
         document.getElementsByClassName("results")[0].innerHTML = "DERROTA";
-        document.getElementsByClassName("emoji")[0].setAttribute("src", "img/icons/emoticono_triste.png");
         document.getElementsByClassName("container_results")[0].classList.add("end_game");
         get_timer("lose");
     }
