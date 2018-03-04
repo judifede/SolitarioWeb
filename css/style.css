@@ -716,6 +716,7 @@ body {
     .options {
         right: 1vw;
         width: 30vw;
+        top: 13vh;
     }
     .options p,
     .option_instruccions p {
@@ -780,7 +781,7 @@ body {
         font-size: 1.1em;
         padding: 0;
     }
-    .open_option {
+    .open_option, .option_instruccions {
         height: 30px;
         line-height: 30px;
     }
