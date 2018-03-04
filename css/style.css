@@ -2,7 +2,6 @@ body {
     background-image: url('../img/wallpaper/fondo_tapete.jpg');
     background-size: 100vw 100vh;
     background-repeat: no-repeat;
-    min-width: 425px;
 }
 
 .tier {
@@ -711,12 +710,12 @@ body {
         font-size: 1.5em;
     }
     .option_instruccions {
-        right: 4vw;
-        width: 31vw;
+        right: 1vw;
+        width: 30vw;
     }
     .options {
-        right: 4vw;
-        width: 31vw;
+        right: 1vw;
+        width: 30vw;
     }
     .options p,
     .option_instruccions p {
@@ -769,8 +768,8 @@ body {
 @media (max-width: 768px) {
     .deck,
     .carts {
-        width: 70px;
-        height: 110px;
+        width: 60px;
+        height: 100px;
     }
     .options_collapsed {
         padding: 10px;
@@ -779,6 +778,7 @@ body {
     }
     .options_collapsed h1 {
         font-size: 1.1em;
+        padding: 0;
     }
     .open_option {
         height: 30px;
@@ -786,6 +786,10 @@ body {
     }
     .open_option .sub_arrow_with_circle {
         width: 30px;
+    }
+    .options p,
+    .option_instruccions p {
+        font-size: 15px;
     }
     .options .reverse_expanded p,
     .options .difficulty_expanded p {
