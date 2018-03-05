@@ -2,6 +2,8 @@ body {
     background-image: url('../img/wallpaper/fondo_tapete.jpg');
     background-size: 100vw 100vh;
     background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
 }
 
 .tier {
@@ -343,7 +345,7 @@ body {
         opacity: 0;
     }
     100% {
-        height: 65vh;
+        height: 70vh;
         opacity: 1;
     }
 }
@@ -351,7 +353,7 @@ body {
 @keyframes collapse {
     0% {
         opacity: 1;
-        height: 65vh;
+        height: 70vh;
     }
     50% {
         opacity: 0;
@@ -513,7 +515,6 @@ body {
 }
 
 .container_data_info p,
-.container_data_info span,
 .container_data_info div {
     font-size: 75px;
     color: white;
@@ -531,7 +532,7 @@ body {
     box-sizing: border-box;
 }
 
-.container_data_info span[data-info="2"] {
+.container_data_info p[data-info="2"] {
     top: 70vh;
     left: 15vw;
     border: 2px dashed white;
@@ -565,6 +566,7 @@ body {
     height: 100vh;
     background-color: white;
     transition: all .3s;
+    overflow: scroll;
     z-index: 900;
     visibility: hidden;
     transform: translateY(-100%);
@@ -669,14 +671,10 @@ body {
 
 @media only screen and (orientation:portrait) {
     *:not(html):not(body):not(.tablet_vertical_alert) {
-        display: none !important;
-    }
-    html,
-    body:not(title):not(script):not(meta) {
-        display: inherit !important;
+        opacity: 0;
     }
     .tablet_vertical_alert {
-        display: block !important;
+        display: block;
     }
 }
 
@@ -712,6 +710,7 @@ body {
     .option_instruccions {
         right: 1vw;
         width: 30vw;
+        top: 3vh;
     }
     .options {
         right: 1vw;
@@ -781,16 +780,31 @@ body {
         font-size: 1em;
         padding: 0;
     }
-    .open_option, .option_instruccions {
+    .open_option,
+    .option_instruccions {
         height: 30px;
         line-height: 30px;
     }
     .open_option .sub_arrow_with_circle {
         width: 30px;
     }
+    .instruccions h1 {
+        font-size: 1.5em;
+    }
+    .instruccions h2 {
+        font-size: 1.17em;
+    }
     .options p,
-    .option_instruccions p {
+    .option_instruccions p,
+    .instruccions p {
         font-size: 15px;
+    }
+    .close_instruccions {
+        font-size: unset;
+        width: 85%;
+    }
+    .instruccions * {
+        padding: 10px;
     }
     .options .reverse_expanded p,
     .options .difficulty_expanded p {
@@ -813,7 +827,15 @@ body {
         width: 7px;
         height: 7px;
     }
-    .container_results{
+    .container_data_info p[data-info="1"] {
+        width: 60px;
+        top: 28vh;
+    }
+    .container_data_info p[data-info="2"] {
+        width: 60px;        
+        top: 28vh;
+    }
+    .container_results {
         top: 4vh;
     }
 }
