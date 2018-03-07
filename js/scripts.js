@@ -164,13 +164,7 @@ function is_discard() {
     var left_stack_discard = viewportToPixels("15vw");
 
     var mediaquery = window.matchMedia("(max-width: 768px)");
-    if (mediaquery.matches) {
-        // mediaquery es 768
-        radio = 50;
-    } else {
-        // mediaquery no es 768
-        radio = 150;
-    }
+    radio = mediaquery.matches ? 50 : 150;
 
     if (new_position[0] <= top_stack_discard + radio && new_position[0] >= top_stack_discard - radio &&
         new_position[1] <= left_stack_discard + radio && new_position[1] >= left_stack_discard - radio) {
