@@ -31,9 +31,7 @@ $(document).ready(function () {
     });
     events_settings();
     $(window).bind('resize', events_settings);
-    $('html, body').animate({
-        scrollTop: 0
-    }, 600);
+    
 });
 
 function events_settings() {
@@ -301,7 +299,6 @@ function random_cart() {
 
 function new_cart_from_deck() {
     carts_missing = document.getElementsByClassName("carts_missing")[0].innerHTML;
-    /////////////////////    
     if (carts_missing > 0) {
         var new_cart = path_cart();
         var deck_cart = $("<img>").attr({
