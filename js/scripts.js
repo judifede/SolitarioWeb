@@ -30,6 +30,14 @@ $(document).ready(function () {
         first_flop();
     });
 
+    events_settings();
+
+    $(window).bind('resize', events_settings);
+
+
+});
+
+function events_settings(){
     carts_missing = document.getElementsByClassName("carts_missing")[0].innerHTML;
 
     //Añadir eventos y eventos táctiles.
@@ -37,7 +45,13 @@ $(document).ready(function () {
         move_event = "touchmove";
         up_event = "touchend";
         down_event = "touchstart";
+        console.log("Yes");
+        
     }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+console.log(move_event + " " + up_event + " " + down_event );
+
 
     document.addEventListener(move_event, mouse_moved);
 
@@ -95,8 +109,7 @@ $(document).ready(function () {
     });
 
     //End Options.
-
-});
+}
 
 function events_on(cart_up_tier) {
     $("#" + cart_up_tier)
@@ -153,7 +166,21 @@ function mouse_moved(evt) {
 }
 
 function is_discard() {
-    if (new_position[0] <= 450 && new_position[0] >= 165 && new_position[1] <= 305 && new_position[1] >= 105) {
+
+    var top_stack_discard = viewportToPixels("48vh");
+    var left_stack_discard = viewportToPixels("15vw");
+
+    var mediaquery = window.matchMedia("(max-width: 768px)");
+    if (mediaquery.matches) {
+        // mediaquery es 768
+        radio = 50;
+    } else {
+        // mediaquery no es 768
+        radio = 150;
+    }
+
+    if (new_position[0] <= top_stack_discard + radio && new_position[0] >= top_stack_discard - radio &&
+        new_position[1] <= left_stack_discard + radio && new_position[1] >= left_stack_discard - radio) {
         return true;
     } else {
         return false;
@@ -234,6 +261,15 @@ function sub_expand_and_collapse(option) {
         default:
             break;
     }
+}
+
+function viewportToPixels(value) { /*value=100vh, por ejemplo*/
+    var parts = value.match(/([0-9\.]+)(vh|vw)/)
+    var q = Number(parts[1])
+    var side = window[['innerHeight', 'innerWidth'][
+        ['vh', 'vw'].indexOf(parts[2])
+    ]]
+    return side * (q / 100)
 }
 
 /*------------------------------------------------------End Eventos------------------------------------------------------*/
@@ -607,7 +643,9 @@ function dom_difficulty(max_position_selected, max_position_actual) {
 function swap_difficulty() {
 
     //Comprobamos si ha empezado la partida.
-    if (is_game_started(actual_difficulty)) {
+    var input_difficulty = document.getElementsByName("difficulty");
+    game_started = is_game_started(actual_difficulty);
+    if (game_started) {
         $(".alert").addClass("on");
         $(".background_alert").addClass("on");
         $(".container_checkbox input[name='difficulty']").unbind("change");
@@ -624,7 +662,6 @@ function swap_difficulty() {
         return;
     }
 
-    var input_difficulty = document.getElementsByName("difficulty");
     var max_position_selected = 0;
 
     // Buscamos la dificultad seleccionada.
