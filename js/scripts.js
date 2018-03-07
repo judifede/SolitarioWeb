@@ -29,15 +29,14 @@ $(document).ready(function () {
     $(window).on('load', function () {
         first_flop();
     });
-
     events_settings();
-
     $(window).bind('resize', events_settings);
-
-
+    $('html, body').animate({
+        scrollTop: 0
+    }, 600);
 });
 
-function events_settings(){
+function events_settings() {
     carts_missing = document.getElementsByClassName("carts_missing")[0].innerHTML;
 
     //Añadir eventos y eventos táctiles.
@@ -45,13 +44,7 @@ function events_settings(){
         move_event = "touchmove";
         up_event = "touchend";
         down_event = "touchstart";
-        console.log("Yes");
-        
     }
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-console.log(move_event + " " + up_event + " " + down_event );
-
 
     document.addEventListener(move_event, mouse_moved);
 
@@ -313,6 +306,8 @@ function random_cart() {
 }
 
 function new_cart_from_deck() {
+    carts_missing = document.getElementsByClassName("carts_missing")[0].innerHTML;
+    /////////////////////    
     if (carts_missing > 0) {
         var new_cart = path_cart();
         var deck_cart = $("<img>").attr({

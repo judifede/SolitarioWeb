@@ -854,6 +854,13 @@ body {
         width: 40px;
         height: 70px;
     }
+    .container_results .text_time_result,
+    .container_results .new_game {
+        font-size: 10px;
+    }
+    .container_results .new_game{
+        margin-top: 3px;
+    }
     .options p,
     .option_instruccions p,
     .instruccions p,
