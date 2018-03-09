@@ -31,6 +31,7 @@ body {
     width: 100px;
     height: 140px;
     user-select: none;
+    -moz-user-select: none;
     -webkit-user-drag: none;
     z-index: 100;
 }
@@ -86,6 +87,7 @@ body {
     top: 50%;
     transform: translate(-50%, -50%);
     user-select: none;
+    -moz-user-select: none;
     text-shadow: 2px 2px 0px black, -2px -2px 0px black, 2px 0px 0px black, -2px 0px 0px black, 0px 2px 0px black, 0px -2px 0px black, 2px -2px 0px black, -2px 2px 0px black;
     z-index: 200;
 }
@@ -435,6 +437,7 @@ body {
     cursor: pointer;
     font-size: 20px;
     user-select: none;
+    -moz-user-select: none;
 }
 
 /* Hide the browser's default radio button */

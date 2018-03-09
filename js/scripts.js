@@ -28,6 +28,8 @@ var array_deck = ["copa1", "copa2", "copa3", "copa4", "copa5", "copa6", "copa7",
 $(document).ready(function () {
     $(window).on('load', function () {
         first_flop();
+        document.getElementsByName("reverse")[0].checked = "checked";
+        document.getElementsByName("difficulty")[0].checked = "checked";
     });
     events_settings();
     $(window).bind('resize', events_settings);
@@ -377,6 +379,7 @@ function reveal_next_cart() {
         element.setAttribute("alt", "Carta Descartada");
         element.removeAttribute("id");
 
+        // nueva carta up de este tier.
         if (tier_position > 1) {
             // crear reverse_helper.
             create_reverse($(".tier" + tier + " img[data-position='" + parseInt(tier_position - 1) + "']"));
@@ -389,9 +392,9 @@ function reveal_next_cart() {
 
             var new_cart = path_cart();
 
-            // animacion voltear de la carta anterior.
+            // animacion voltear.
             setTimeout(function () {
-                $('.reverse_helper').addClass("flip");
+                $(".tier" + tier + ".reverse_helper").addClass("flip");
                 switch (tier) {
                     case "1":
                         $('#cart_up_tier1').addClass("flip").attr('src', new_cart);
