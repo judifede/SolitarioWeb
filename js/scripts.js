@@ -26,14 +26,14 @@ var array_deck = ["copa1", "copa2", "copa3", "copa4", "copa5", "copa6", "copa7",
 
 /*------------------------------------------------------Eventos------------------------------------------------------*/
 $(document).ready(function () {
-    $(window).on('load', function () {
-        first_flop();
-        document.getElementsByName("reverse")[0].checked = "checked";
-        document.getElementsByName("difficulty")[0].checked = "checked";
-    });
+    first_flop();
+    //Firefox guarda cual estaba checked al recargar, asi que los inicializamos aqui.
+    document.getElementsByName("reverse")[0].checked = "checked";
+    document.getElementsByName("difficulty")[0].checked = "checked";
+    //End Firefox.
+
     events_settings();
     $(window).bind('resize', events_settings);
-    
 });
 
 function events_settings() {
@@ -150,6 +150,11 @@ function mouse_moved(evt) {
         element.style.top = (new_position[0] + yFinal) + "px";
         element.style.left = (new_position[1] + xFinal) + "px";
 
+        //Fuera del campo.
+        outside_field(xFinal, yFinal);
+        //End Fuera del campo.
+
+
         // Esquinas:
         // 205 X 305 Y, 305 X 305 Y, 205 X 450 Y, 305 X 450 Y
         // Hay que tener en cuenta el width (100px) y el height (140px) que les hemos puesto a las cartas. 
@@ -158,13 +163,50 @@ function mouse_moved(evt) {
     }
 }
 
+function outside_field(xFinal, yFinal) {
+    //Fuera del campo.
+
+    mediaquerytablet = window.matchMedia("(max-width: 768px)");
+    mediaquerymv = window.matchMedia("(max-width: 425px)");
+
+    //Ancho
+
+    cart_width = mediaquerytablet.matches ? 60 : 100;
+    cart_width = mediaquerymv.matches ? 40 : 100;
+
+    if (new_position[1] + xFinal >= viewportToPixels("100vw") - cart_width ||
+        new_position[1] + xFinal <= 0) {
+        element.style.top = yOriginal + "px";
+        element.style.left = xOriginal + "px";
+        is_pressed = false;
+    }
+
+    //End Ancho
+
+    //Alto
+
+    cart_height = mediaquerytablet.matches ? 100 : 140;
+    cart_height = mediaquerymv.matches ? 70 : 140;
+
+    if (new_position[0] + yFinal >= viewportToPixels("100vh") - cart_height ||
+        new_position[0] + yFinal <= 0) {
+        element.style.top = yOriginal + "px";
+        element.style.left = xOriginal + "px";
+        is_pressed = false;
+    }
+
+    //End Alto
+
+    //End Fuera del campo.
+}
+
 function is_discard() {
 
     var top_stack_discard = viewportToPixels("48vh");
     var left_stack_discard = viewportToPixels("15vw");
 
     var mediaquery = window.matchMedia("(max-width: 768px)");
-    radio = mediaquery.matches ? 50 : 150;
+    radio = mediaquery.matches ? 50 : 100;
 
     if (new_position[0] <= top_stack_discard + radio && new_position[0] >= top_stack_discard - radio &&
         new_position[1] <= left_stack_discard + radio && new_position[1] >= left_stack_discard - radio) {
@@ -384,9 +426,11 @@ function reveal_next_cart() {
             // crear reverse_helper.
             create_reverse($(".tier" + tier + " img[data-position='" + parseInt(tier_position - 1) + "']"));
 
+            console.log(tier + " / " + tier_position + " ");
+
             // añadir id de su tier.
             $(".tier" + tier + " .hide[data-position='" + parseInt(tier_position - 1) + "']").attr({
-                id: "cart_up_tier" + parseInt(tier),
+                id: "cart_up_tier" + tier,
                 alt: "Carta Boca Arriba"
             }).removeClass("hide");
 
@@ -570,12 +614,33 @@ function is_game_started(actual_difficulty) {
     return false;
 }
 
+function dom_difficulty2() {
+    create_reverse($("#cart_up_tier1"));
+    create_reverse($("#cart_up_tier2"));
+    create_reverse($("#cart_up_tier3"));
+
+    input_difficulty = document.getElementsByName("difficulty");
+    //Animación inicial
+    setTimeout(function () {
+        first_flop();
+        //Activa todos los input_difficulty
+        for (var j = 0; j < input_difficulty.length; j++) {
+            input_difficulty[j].disabled = false;
+        }
+    }, 500);
+
+    //Desactiva todos los input_difficulty
+    for (var j = 0; j < input_difficulty.length; j++) {
+        input_difficulty[j].disabled = true;
+    }
+}
+
 function dom_difficulty(max_position_selected, max_position_actual) {
-
-
     if (max_position_selected > max_position_actual) {
         //Agregar filas de los tier.
-        $("#cart_up_tier1, #cart_up_tier2, #cart_up_tier3").attr("src", actual_reverse).attr("data-position", max_position_selected).removeClass("flip");
+        $("#cart_up_tier1, #cart_up_tier2, #cart_up_tier3").attr("src", actual_reverse)
+            .attr("data-position", max_position_selected)
+            .removeClass("flip").removeAttr("style");
         $(".tier .reverse_helper").remove();
         $(".deck_cart").remove();
 
@@ -591,16 +656,7 @@ function dom_difficulty(max_position_selected, max_position_actual) {
         for (tier = 1; tier <= 3; tier++) {
             events_on("cart_up_tier" + tier);
         }
-
-        create_reverse($("#cart_up_tier1"));
-        create_reverse($("#cart_up_tier2"));
-        create_reverse($("#cart_up_tier3"));
-
-        //Animación inicial
-        setTimeout(function () {
-            first_flop();
-        }, 500);
-
+        dom_difficulty2();
     } else {
         //Borrar filas de los tier.
         $(".deck_cart").remove();
@@ -617,20 +673,11 @@ function dom_difficulty(max_position_selected, max_position_actual) {
             }).removeClass("hide");
             events_on("cart_up_tier" + tier);
         }
-
-        create_reverse($("#cart_up_tier1"));
-        create_reverse($("#cart_up_tier2"));
-        create_reverse($("#cart_up_tier3"));
-
-        //Animación inicial
-        setTimeout(function () {
-            first_flop();
-        }, 500);
+        dom_difficulty2();
     }
 }
 
 function swap_difficulty() {
-
     //Comprobamos si ha empezado la partida.
     var input_difficulty = document.getElementsByName("difficulty");
     game_started = is_game_started(actual_difficulty);
@@ -659,7 +706,6 @@ function swap_difficulty() {
             break;
         }
     }
-
     // En base al data-difficulty seleccionado estableceremos las bases para el resto.
     switch (input_difficulty[i].getAttribute("data-difficulty")) {
         case "Facil":

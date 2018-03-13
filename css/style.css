@@ -102,13 +102,13 @@ body {
 
 .reverse_helper,
 .deck_reverse {
-    transform: perspective(600px) rotateY(0deg);
+    transform: rotateY(0deg);
     transition: transform 0.5s linear 0s;
 }
 
 .reverse_helper.flip {
     backface-visibility: hidden;
-    transform: perspective(600px) rotateY(180deg);
+    transform: rotateY(180deg);
 }
 
 .deck_cart {
@@ -125,15 +125,20 @@ body {
 #cart_up_tier2,
 #cart_up_tier3,
 .deck_cart {
-    transform: perspective(600px) rotateY(-180deg);
+    transform: rotateY(-180deg);
     transition: transform 0.5s linear 0s;
+}
+
+.carts[alt="Dorso"] {
+    background-color: white;
 }
 
 #cart_up_tier1.flip,
 #cart_up_tier2.flip,
-#cart_up_tier3.flip {
+#cart_up_tier3.flip,
+.carts[alt="Dorso"].flip {
     backface-visibility: hidden;
-    transform: perspective(600px) rotateY(0deg);
+    transform: rotateY(0deg);
 }
 
 .deck_cart.new_cart {
@@ -161,7 +166,7 @@ body {
     }
     100% {
         left: 11vw;
-        transform: perspective(600px) rotateY(0deg);
+        transform: rotateY(0deg);
         backface-visibility: hidden;
     }
 }
@@ -175,7 +180,7 @@ body {
     }
     100% {
         left: 11vw;
-        transform: perspective(600px) rotateY(180deg);
+        transform: rotateY(180deg);
         backface-visibility: hidden;
     }
 }
