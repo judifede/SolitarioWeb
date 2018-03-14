@@ -133,6 +133,10 @@ body {
     background-color: white;
 }
 
+.carts[src="img/dorsos/dorso_hs.png"] {
+    background-color: transparent;
+}
+
 #cart_up_tier1.flip,
 #cart_up_tier2.flip,
 #cart_up_tier3.flip,
