@@ -26,19 +26,20 @@ var array_deck = ["copa1", "copa2", "copa3", "copa4", "copa5", "copa6", "copa7",
 
 /*------------------------------------------------------Eventos------------------------------------------------------*/
 $(document).ready(function () {
+    events_settings();
     first_flop();
     //Firefox guarda cual estaba checked al recargar, asi que los inicializamos aqui.
     document.getElementsByName("reverse")[0].checked = "checked";
     document.getElementsByName("difficulty")[0].checked = "checked";
     //End Firefox.
 
-    events_settings();
     $(window).bind('resize', events_settings);
 });
 
 function events_settings() {
     carts_missing = document.getElementsByClassName("carts_missing")[0].innerHTML;
-
+    console.log(carts_missing + " 1");
+    
     //Añadir eventos y eventos táctiles.
     if ("ontouchstart" in window) {
         move_event = "touchmove";
@@ -52,7 +53,7 @@ function events_settings() {
         .bind(up_event, mouse_released)
         .bind(down_event, mouse_pressed);
 
-    $(".reverse_fixed, .carts_missing").click(function () {
+    $(".reverse_fixed, .carts_missing").bind("click", function () {
         new_cart_from_deck();
         //Contador.
         if (date_start == null) {
@@ -153,7 +154,6 @@ function mouse_moved(evt) {
         //Fuera del campo.
         outside_field(xFinal, yFinal);
         //End Fuera del campo.
-
 
         // Esquinas:
         // 205 X 305 Y, 305 X 305 Y, 205 X 450 Y, 305 X 450 Y
@@ -330,6 +330,8 @@ function first_flop() {
     $('#cart_up_tier2').addClass("flip").attr('src', path_cart());
     $('#cart_up_tier3').addClass("flip").attr('src', path_cart());
     new_cart_from_deck();
+    console.log(carts_missing + " 2");
+    
 }
 
 function path_cart() {
@@ -343,6 +345,8 @@ function random_cart() {
 
 function new_cart_from_deck() {
     carts_missing = document.getElementsByClassName("carts_missing")[0].innerHTML;
+    console.log(carts_missing + " 3");
+    
     if (carts_missing > 0) {
         var new_cart = path_cart();
         var deck_cart = $("<img>").attr({
@@ -369,11 +373,11 @@ function new_cart_from_deck() {
 
     //Desactivamos temporalmente el onclick para evitar que se haga clic muchas veces seguidas. (600, 100 ms más que la animación).
     setTimeout(function () {
-        $(".reverse_fixed, .carts_missing").bind("click", function () {
-            new_cart_from_deck();
-        });
+        $(".reverse_fixed, .carts_missing").bind("click", new_cart_from_deck);
     }, 600);
     $(".reverse_fixed, .carts_missing").unbind("click");
+    console.log(carts_missing + " 4");
+    
 }
 
 function get_value_of_cart(cart_path) {
@@ -426,7 +430,6 @@ function reveal_next_cart() {
             // crear reverse_helper.
             create_reverse($(".tier" + tier + " img[data-position='" + parseInt(tier_position - 1) + "']"));
 
-            console.log(tier + " / " + tier_position + " ");
 
             // añadir id de su tier.
             $(".tier" + tier + " .hide[data-position='" + parseInt(tier_position - 1) + "']").attr({
