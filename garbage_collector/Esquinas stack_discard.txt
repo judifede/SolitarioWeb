@@ -1,2 +1,0 @@
-        // 430 X 365 Y, 530 X 365 Y, 430 X 510 Y, 530 X 510 Y
-        // Al restar y sumar, mínimos y máximos, sabremos si hay un "choque" con -> 330-530 X, 225-510 Y.

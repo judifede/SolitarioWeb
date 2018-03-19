@@ -13,8 +13,6 @@ var carts_missing;
 var carts_to_reveal = 12;
 var top_discarded_cart_path;
 var actual_reverse = "img/dorsos/dorso_azul.jpg";
-var actual_difficulty = "Facil";
-var max_position_actual;
 var move_event = "mousemove";
 var up_event = "mouseup";
 var down_event = "mousedown";
@@ -26,18 +24,23 @@ var array_deck = ["copa1", "copa2", "copa3", "copa4", "copa5", "copa6", "copa7",
 
 /*------------------------------------------------------Eventos------------------------------------------------------*/
 $(document).ready(function () {
-    first_flop();
+    events_settings();
     //Firefox guarda cual estaba checked al recargar, asi que los inicializamos aqui.
     document.getElementsByName("reverse")[0].checked = "checked";
-    document.getElementsByName("difficulty")[0].checked = "checked";
+    document.getElementsByName("wallpaper")[0].checked = "checked";
     //End Firefox.
-
-    events_settings();
-    $(window).bind('resize', events_settings);
 });
 
 function events_settings() {
     carts_missing = document.getElementsByClassName("carts_missing")[0].innerHTML;
+
+    //Evento Elegir dificultad.
+    $(".button_difficulty").click(function (e) {
+        difficulty_selected = $(this).attr("data-difficulty");
+        choose_difficulty(difficulty_selected);
+        $(".start_difficulty").removeClass("opened");
+        $(".background_start").removeClass("opened");
+    });
 
     //Añadir eventos y eventos táctiles.
     if ("ontouchstart" in window) {
@@ -63,18 +66,16 @@ function events_settings() {
     //End Añadir eventos y eventos táctiles.
 
     //Options.
-    $(".option_instruccions").click(function () {
-        $(".container_data_info").addClass("on");
+    $(".open_options_instruccions").click(function () {
         $(".instruccions").addClass("on");
+        $(".options").addClass("on");
+        $(".background_options_instruccions").addClass("opened");
     });
 
-    $(".close_instruccions, .container_data_info").click(function () {
-        $(".container_data_info").removeClass("on");
+    $(".background_options_instruccions").click(function () {
         $(".instruccions").removeClass("on");
-    });
-
-    $(".options_collapsed").click(function () {
-        expand_and_collapse();
+        $(".options").removeClass("on");
+        $(".background_options_instruccions").removeClass("opened");
     });
 
     $(".reverse_collapsed").click(function () {
@@ -85,16 +86,11 @@ function events_settings() {
         sub_expand_and_collapse("difficulty");
     });
 
-    $(".background_alert").click(function () {
-        $(".alert").removeClass("on");
-        $(".background_alert").removeClass("on");
-    });
-
     //Evento Cambio de dorso.
     $(".container_checkbox input[name='reverse']").bind("change", swap_reverse);
 
-    //Evento Cambio de dificultad.
-    $(".container_checkbox input[name='difficulty']").bind("change", swap_difficulty);
+    //Evento Cambio de fondo.
+    $(".container_checkbox input[name='wallpaper']").bind("change", swap_wallpaper);
 
     //Nueva partida.
     $(".new_game").click(function () {
@@ -102,6 +98,69 @@ function events_settings() {
     });
 
     //End Options.
+}
+
+function choose_difficulty(difficulty_selected) {
+    //Comprobamos si ha empezado la partida.
+
+    var position_difficulty_selected = 0;
+
+    // En base al data-difficulty seleccionado estableceremos las bases para el resto.
+    switch (difficulty_selected) {
+        case "Facil":
+            carts_missing = "28";
+            carts_to_reveal = 12;
+            position_difficulty_selected = 4;
+            document.getElementsByClassName("carts_missing")[0].innerHTML = carts_missing;
+            break;
+        case "Medio":
+            carts_missing = "25";
+            carts_to_reveal = 15;
+            position_difficulty_selected = 5;
+            document.getElementsByClassName("carts_missing")[0].innerHTML = carts_missing;
+            break;
+        case "Dificil":
+            carts_missing = "22";
+            carts_to_reveal = 18;
+            position_difficulty_selected = 6;
+            document.getElementsByClassName("carts_missing")[0].innerHTML = carts_missing;
+            break;
+        default:
+            break;
+    }
+
+    if (position_difficulty_selected > 4) {
+        dom_difficulty(position_difficulty_selected);
+    }
+
+    //Animación inicial
+    setTimeout(first_flop, 500);
+}
+
+function dom_difficulty(position_difficulty_selected) {
+    //Agregar filas de los tier.
+    $("#cart_up_tier1, #cart_up_tier2, #cart_up_tier3").attr("src", actual_reverse)
+        .attr("data-position", position_difficulty_selected)
+        .removeClass("flip").removeAttr("style");
+    $(".tier .reverse_helper").remove();
+    $(".deck_cart").remove();
+
+    for (var i = 4; i < position_difficulty_selected; i++) {
+        var row = $("<img>").attr({
+            src: actual_reverse,
+            alt: "Dorso"
+        }).attr("data-position", i).addClass("carts hide");
+        row.insertAfter($(".tier img[data-position='" + parseInt(i - 1) + "']"));
+    }
+
+    // añadir eventos de movimiento a los nuevos id.
+    for (tier = 1; tier <= 3; tier++) {
+        events_on("cart_up_tier" + tier);
+    }
+
+    create_reverse($("#cart_up_tier1"));
+    create_reverse($("#cart_up_tier2"));
+    create_reverse($("#cart_up_tier3"));
 }
 
 function events_on(cart_up_tier) {
@@ -154,7 +213,6 @@ function mouse_moved(evt) {
         outside_field(xFinal, yFinal);
         //End Fuera del campo.
 
-
         // Esquinas:
         // 205 X 305 Y, 305 X 305 Y, 205 X 450 Y, 305 X 450 Y
         // Hay que tener en cuenta el width (100px) y el height (140px) que les hemos puesto a las cartas. 
@@ -203,10 +261,10 @@ function outside_field(xFinal, yFinal) {
 function is_discard() {
 
     var top_stack_discard = viewportToPixels("48vh");
-    var left_stack_discard = viewportToPixels("15vw");
+    var left_stack_discard = viewportToPixels("20vw");
 
     var mediaquery = window.matchMedia("(max-width: 768px)");
-    radio = mediaquery.matches ? 50 : 100;
+    radio = mediaquery.matches ? 50 : 150;
 
     if (new_position[0] <= top_stack_discard + radio && new_position[0] >= top_stack_discard - radio &&
         new_position[1] <= left_stack_discard + radio && new_position[1] >= left_stack_discard - radio) {
@@ -251,40 +309,32 @@ function get_position(element) {
     return position;
 }
 
-function expand_and_collapse() {
-    if (!$(".options_expanded").hasClass("expand_anim")) {
-        $(".options_expanded").removeClass("collapse_anim");
-        $(".options_expanded").addClass("expand_anim");
-        $(".arrow_with_circle").attr("src", "img/icons/arrow_with_circle_up.svg");
-    } else {
-        $(".options_expanded").removeClass("expand_anim");
-        $(".options_expanded").addClass("collapse_anim");
-        $(".arrow_with_circle").attr("src", "img/icons/arrow_with_circle_down.svg");
-    }
-}
-
 function sub_expand_and_collapse(option) {
     switch (option) {
         case "reverse":
             if (!$(".reverse_expanded").hasClass("sub_expand_anim")) {
                 $(".reverse_expanded").removeClass("sub_collapse_anim");
                 $(".reverse_expanded").addClass("sub_expand_anim");
-                $(".reverse_collapsed .sub_arrow_with_circle").attr("src", "img/icons/arrow_with_circle_up.svg");
+                $(".reverse_collapsed i").removeClass("fa-angle-down");
+                $(".reverse_collapsed i").addClass("fa-angle-up");
             } else {
                 $(".reverse_expanded").removeClass("sub_expand_anim");
                 $(".reverse_expanded").addClass("sub_collapse_anim");
-                $(".reverse_collapsed .sub_arrow_with_circle").attr("src", "img/icons/arrow_with_circle_down.svg");
+                $(".reverse_collapsed i").removeClass("fa-angle-up");
+                $(".reverse_collapsed i").addClass("fa-angle-down");
             }
             break;
         case "difficulty":
             if (!$(".difficulty_expanded").hasClass("sub_expand_anim")) {
                 $(".difficulty_expanded").removeClass("sub_collapse_anim");
                 $(".difficulty_expanded").addClass("sub_expand_anim");
-                $(".difficulty_collapsed .sub_arrow_with_circle").attr("src", "img/icons/arrow_with_circle_up.svg");
+                $(".difficulty_collapsed i").removeClass("fa-angle-down");
+                $(".difficulty_collapsed i").addClass("fa-angle-up");
             } else {
                 $(".difficulty_expanded").removeClass("sub_expand_anim");
                 $(".difficulty_expanded").addClass("sub_collapse_anim");
-                $(".difficulty_collapsed .sub_arrow_with_circle").attr("src", "img/icons/arrow_with_circle_down.svg");
+                $(".difficulty_collapsed i").removeClass("fa-angle-up");
+                $(".difficulty_collapsed i").addClass("fa-angle-down");
             }
             break;
         default:
@@ -426,8 +476,6 @@ function reveal_next_cart() {
             // crear reverse_helper.
             create_reverse($(".tier" + tier + " img[data-position='" + parseInt(tier_position - 1) + "']"));
 
-            console.log(tier + " / " + tier_position + " ");
-
             // añadir id de su tier.
             $(".tier" + tier + " .hide[data-position='" + parseInt(tier_position - 1) + "']").attr({
                 id: "cart_up_tier" + tier,
@@ -455,12 +503,12 @@ function reveal_next_cart() {
                     default:
                         break;
                 }
-
+                
                 if (carts_missing == 0) {
                     lose_game();
                 }
-
             }, 200);
+
         }
 
         if (carts_to_reveal == 0) {
@@ -470,8 +518,10 @@ function reveal_next_cart() {
 }
 
 function win_game() {
-    document.getElementsByClassName("results")[0].innerHTML = "VICTORIA";
+    document.getElementsByClassName("result")[0].innerHTML = "¡Felicidades!";
     document.getElementsByClassName("container_results")[0].classList.add("end_game");
+    document.getElementsByClassName("background_results")[0].classList.add("end_game");
+    document.getElementsByClassName("icon_result")[0].setAttribute("src", "img/victory.png");
     $(".reverse_fixed, .carts_missing").unbind("click");
     get_timer("win");
 
@@ -487,16 +537,16 @@ function lose_game() {
     var play2 = cart_can_go_to_stack_discard(cart_up_tier2_src);
     var play3 = cart_can_go_to_stack_discard(cart_up_tier3_src);
 
-
     if (!play1 && !play2 && !play3) {
-        document.getElementsByClassName("results")[0].innerHTML = "DERROTA";
+        document.getElementsByClassName("result")[0].innerHTML = "¡Suerte la próxima vez!";
         document.getElementsByClassName("container_results")[0].classList.add("end_game");
+        document.getElementsByClassName("background_results")[0].classList.add("end_game");
+        document.getElementsByClassName("icon_result")[0].setAttribute("src", "img/defeat.png");
         get_timer("lose");
     }
 }
 
 function get_timer(result) {
-
     var date_end = new Date();
     var msecPerMinute = 1000 * 60;
     var text_timer = "";
@@ -509,25 +559,21 @@ function get_timer(result) {
 
     //Posibilidades del mensaje text_timer.
     if (minutes == 0) {
-        text_timer = seconds + " segundos. ";
-    } else if (seconds == 0 && minutes == 1) {
-        text_timer = minutes + " minuto. ";
-    } else if (minutes == 1) {
-        text_timer = minutes + " minuto y " + seconds + " segundos. ";
+        text_timer = seconds + " seg. ";
     } else if (seconds == 0) {
-        text_timer = minutes + " minutos. ";
+        text_timer = minutes + " min. ";
     } else {
-        text_timer = minutes + " minutos y " + seconds + " segundos. ";
+        text_timer = minutes + " min. y " + seconds + " seg. ";
     }
     //End Posibilidades del mensaje text_timer.
 
     document.getElementsByClassName("time_result")[0].innerHTML = text_timer;
 
     if (result == "win") {
-        document.getElementsByClassName("programmer_greeting")[0].innerHTML = "¿Podrás mejorarlo?";
+        document.getElementsByClassName("programmer_greeting")[0].innerHTML = "¿Quieres superarlo?";
     }
     if (result == "lose") {
-        document.getElementsByClassName("programmer_greeting")[0].innerHTML = "Suerte la próxima vez.";
+        document.getElementsByClassName("programmer_greeting")[0].innerHTML = "¿Quieres volver a intentarlo?";
     }
 }
 
@@ -575,172 +621,25 @@ function swap_reverse() {
     }
 }
 
-function is_cart_moved_to_stack_discard(max_position) {
-    var position1 = document.getElementById("cart_up_tier1").getAttribute("data-position");
-    var position2 = document.getElementById("cart_up_tier2").getAttribute("data-position");
-    var position3 = document.getElementById("cart_up_tier3").getAttribute("data-position");
 
-    if (position1 < max_position || position2 < max_position || position3 < max_position) {
-        return true;
-    } else {
-        return false;
+function swap_wallpaper() {
+    var input_wallpaper = document.getElementsByName("wallpaper");
+    // Buscamos el dorso seleccionado.
+    for (var i = 0; i < input_wallpaper.length; i++) {
+        if (input_wallpaper[i].checked) {
+            break;
+        }
     }
+
+    var body = document.getElementsByTagName("body")[0];
+    // En base al data-wallpaper seleccionado cambiamos la clase del body, que contiene el fondo.
+    var wallpaper_selected = input_wallpaper[i].getAttribute("data-wallpaper");
+    
+    body.removeAttribute("class");
+    body.classList.add(wallpaper_selected.toLowerCase())
+
 }
 
-function is_game_started(actual_difficulty) {
-    carts_missing = document.getElementsByClassName("carts_missing")[0].innerHTML;
-    switch (actual_difficulty) {
-        case "Facil":
-            max_position_actual = 4;
-            if (carts_missing < 27 || is_cart_moved_to_stack_discard(max_position_actual)) {
-                return true;
-            }
-            break;
-        case "Medio":
-            max_position_actual = 5;
-            if (carts_missing < 24 || is_cart_moved_to_stack_discard(max_position_actual)) {
-                return true;
-            }
-            break;
-        case "Dificil":
-            max_position_actual = 6;
-            if (carts_missing < 21 || is_cart_moved_to_stack_discard(max_position_actual)) {
-                return true;
-            }
-            break;
-        default:
-            break;
-    }
-    return false;
-}
-
-function dom_difficulty2() {
-    create_reverse($("#cart_up_tier1"));
-    create_reverse($("#cart_up_tier2"));
-    create_reverse($("#cart_up_tier3"));
-
-    input_difficulty = document.getElementsByName("difficulty");
-    //Animación inicial
-    setTimeout(function () {
-        first_flop();
-        //Activa todos los input_difficulty
-        for (var j = 0; j < input_difficulty.length; j++) {
-            input_difficulty[j].disabled = false;
-        }
-    }, 500);
-
-    //Desactiva todos los input_difficulty
-    for (var j = 0; j < input_difficulty.length; j++) {
-        input_difficulty[j].disabled = true;
-    }
-}
-
-function dom_difficulty(max_position_selected, max_position_actual) {
-    if (max_position_selected > max_position_actual) {
-        //Agregar filas de los tier.
-        $("#cart_up_tier1, #cart_up_tier2, #cart_up_tier3").attr("src", actual_reverse)
-            .attr("data-position", max_position_selected)
-            .removeClass("flip").removeAttr("style");
-        $(".tier .reverse_helper").remove();
-        $(".deck_cart").remove();
-
-        for (var i = max_position_actual; i < max_position_selected; i++) {
-            var row = $("<img>").attr({
-                src: actual_reverse,
-                alt: "Dorso"
-            }).attr("data-position", i).addClass("carts hide");
-            row.insertAfter($(".tier img[data-position='" + parseInt(i - 1) + "']"));
-        }
-
-        // añadir eventos de movimiento a los nuevos id.
-        for (tier = 1; tier <= 3; tier++) {
-            events_on("cart_up_tier" + tier);
-        }
-        dom_difficulty2();
-    } else {
-        //Borrar filas de los tier.
-        $(".deck_cart").remove();
-
-        for (var i = max_position_actual; i > max_position_selected; i--) {
-            $(".tier img[data-position='" + parseInt(i) + "']").remove();
-        }
-
-        // añadir id de su tier.
-        for (tier = 1; tier <= 3; tier++) {
-            $(".tier" + tier + " .hide[data-position='" + max_position_selected + "']").attr({
-                id: "cart_up_tier" + parseInt(tier),
-                alt: "Carta Boca Arriba"
-            }).removeClass("hide");
-            events_on("cart_up_tier" + tier);
-        }
-        dom_difficulty2();
-    }
-}
-
-function swap_difficulty() {
-    //Comprobamos si ha empezado la partida.
-    var input_difficulty = document.getElementsByName("difficulty");
-    game_started = is_game_started(actual_difficulty);
-    if (game_started) {
-        $(".alert").addClass("on");
-        $(".background_alert").addClass("on");
-        $(".container_checkbox input[name='difficulty']").unbind("change");
-
-        //Volvemos a seleccionar la dificultad que estaba seleccionada.
-        for (var j = 0; j < input_difficulty.length; j++) {
-            if (input_difficulty[j].getAttribute("data-difficulty") == actual_difficulty) {
-                input_difficulty[j].checked = "checked";
-                break;
-            }
-        }
-
-        $(".container_checkbox input[name='difficulty']").bind("change", swap_difficulty);
-        return;
-    }
-
-    var max_position_selected = 0;
-
-    // Buscamos la dificultad seleccionada.
-    for (var i = 0; i < input_difficulty.length; i++) {
-        if (input_difficulty[i].checked) {
-            break;
-        }
-    }
-    // En base al data-difficulty seleccionado estableceremos las bases para el resto.
-    switch (input_difficulty[i].getAttribute("data-difficulty")) {
-        case "Facil":
-            carts_missing = "28";
-            carts_to_reveal = 12;
-            max_position_selected = 4;
-            document.getElementsByClassName("carts_missing")[0].innerHTML = carts_missing;
-            actual_difficulty = "Facil";
-            break;
-        case "Medio":
-            carts_missing = "25";
-            carts_to_reveal = 15;
-            max_position_selected = 5;
-            document.getElementsByClassName("carts_missing")[0].innerHTML = carts_missing;
-            actual_difficulty = "Medio";
-            break;
-        case "Dificil":
-            carts_missing = "22";
-            carts_to_reveal = 18;
-            max_position_selected = 6;
-            document.getElementsByClassName("carts_missing")[0].innerHTML = carts_missing;
-            actual_difficulty = "Dificil";
-            break;
-        default:
-            break;
-    }
-
-    array_deck = ["copa1", "copa2", "copa3", "copa4", "copa5", "copa6", "copa7", "copa10", "copa11", "copa12",
-        "oro1", "oro2", "oro3", "oro4", "oro5", "oro6", "oro7", "oro10", "oro11", "oro12",
-        "espada1", "espada2", "espada3", "espada4", "espada5", "espada6", "espada7", "espada10", "espada11", "espada12",
-        "basto1", "basto2", "basto3", "basto4", "basto5", "basto6", "basto7", "basto10", "basto11", "basto12"
-    ];
-
-    dom_difficulty(max_position_selected, max_position_actual);
-}
 
 
 /*------------------------------------------------------End Opciones------------------------------------------------------*/

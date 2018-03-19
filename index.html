@@ -5,13 +5,15 @@
     <title>Solitario</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="shortcut icon" href="img/icons/dorso_favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/style.min.css">
+    <link rel="shortcut icon" href="img/icons/icon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="fontawesome-free-5.0.8/web-fonts-with-css/css/fontawesome-all.min.css" />
+    <link rel="stylesheet" href="css/style.css">
     <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/scripts.min.js"></script>
+    <script src="js/scripts.js"></script>
 </head>
 
-<body>
+<body class="verde">
+
     <div class="tier tier1">
         <img src="img/dorsos/dorso_azul.jpg" alt="Dorso" data-position="1" class="carts hide">
         <img src="img/dorsos/dorso_azul.jpg" alt="Dorso" data-position="2" class="carts hide">
@@ -39,25 +41,42 @@
         <img src="img/dorsos/dorso_azul.jpg" alt="Dorso" class="carts reverse_fixed">
     </div>
 
-    <div class="option_instruccions">
+    <div class="background_start opened"></div>
+
+    <div class="start_difficulty opened">
+        <h1>¡Bienvenido/a!</h1>
+        <p>Selecciona dificultad</p>
+        <button class="button_difficulty" data-difficulty="Facil">Fácil</button>
+        <button class="button_difficulty" data-difficulty="Medio">Medio</button>
+        <button class="button_difficulty" data-difficulty="Dificil">Difícil</button>
+    </div>
+
+
+    <div class="background_options_instruccions"></div>
+
+    <div class="open_options_instruccions">
         <a>
-            <p>Ver instrucciones</p>
+            <p>Opciones e<br> Instrucciones</p>
         </a>
     </div>
-    <div class="options">
-        <a class="options_collapsed">
-            <img src="img/icons/arrow_with_circle_up.svg" class="arrow_with_circle" alt="Flecha abajo" />
+    <div class="options_instruccions">
+        <div class="instruccions">
+            <h1>Instrucciones</h1>
+            <p>Para ganar, arrastra al montón principal la carta anterior o siguiente a la que aparece en éste, sin importar
+                del palo que sea.</p>
+            <p>Si te quedas sin opciones, haz clic sobre el montón de cartas de la izquierda para que salga una carta nueva.</p>
+            <p>Ganarás la partida cuando no queden cartas en ninguna de las tres columnas.</p>
+            <p>¡Buena suerte!</p>
+        </div>
+        <div class="options">
             <h1>Opciones</h1>
-        </a>
-        <div class="options_expanded expand_anim">
             <div class="open_option reverse_collapsed">
                 <a>
-                    <img src="img/icons/arrow_with_circle_up.svg" class="sub_arrow_with_circle" alt="Flecha abajo" />
+                    <i class="fa fa-angle-up fa-lg"></i>
                     <p>Dorso</p>
                 </a>
             </div>
             <div class="reverse_expanded sub_expand_anim">
-                <p>Puedes cambiar en cualquier momento de la partida.</p>
                 <label class="container_checkbox">Azul
                     <input type="radio" name="reverse" data-reverse="Azul">
                     <span class="checkmark"></span>
@@ -73,67 +92,45 @@
             </div>
             <div class="open_option difficulty_collapsed">
                 <a>
-                    <img src="img/icons/arrow_with_circle_up.svg" class="sub_arrow_with_circle" alt="Flecha abajo" />
-                    <p>Dificultad</p>
+                    <i class="fa fa-angle-up fa-lg"></i>
+                    <p>Fondo</p>
                 </a>
             </div>
             <div class="difficulty_expanded sub_expand_anim">
-                <p>Puedes cambiar si la partida no ha empezado.</p>
-                <label class="container_checkbox">Fácil
-                    <input type="radio" name="difficulty" data-difficulty="Facil">
+                <label class="container_checkbox">Verde
+                    <input type="radio" name="wallpaper" data-wallpaper="Verde">
                     <span class="checkmark"></span>
                 </label>
-                <label class="container_checkbox">Medio
-                    <input type="radio" name="difficulty" data-difficulty="Medio">
+                <label class="container_checkbox">Azul
+                    <input type="radio" name="wallpaper" data-wallpaper="Azul">
                     <span class="checkmark"></span>
                 </label>
-                <label class="container_checkbox">Difícil
-                    <input type="radio" name="difficulty" data-difficulty="Dificil">
+                <label class="container_checkbox">Windows
+                    <input type="radio" name="wallpaper" data-wallpaper="Windows">
                     <span class="checkmark"></span>
                 </label>
+            </div>
+            <div class="container_options_new_game">
+                <p>Para <strong>cambiar de dificultad</strong> debes</p>
+                <a class="new_game">Comenzar nueva partida</a>
             </div>
         </div>
     </div>
 
-    <div class="background_alert">
-        
-    </div>
-    <div class="alert">
-        <p>Hemos visto que la partida ya ha empezado. Si quiere cambiar de dificultad tendrá que recargar está página.</p>
-        <a class="new_game">Nueva partida</a>
-    </div>
-
-    <div class="container_data_info">
-        <p data-info="1">1</p>
-        <p data-info="2">2</p>
-        <div data-info="3">
-            <p>3</p>
-        </div>
-    </div>
-    <div class="instruccions">
-        <h1>Instrucciones</h1>
-        <p>Para ganar tendremos que colocar todas las cartas de ("3") en ("2").</p>
-        <p>La carta de ("3") debe tener el valor siguiente o anterior de ("2"), teniendo en cuenta que el siguiente de
-            12(rey) sería 1 y, por tanto, el anterior de 1 sería 12(rey).</p>
-        <p>Habremos perdido cuando no queden cartas en ("1") y no se pueda arrastrar ninguna carta de ("3") a ("2").</p>
-        <p>Si en ("3") no hay ninguna carta que se pueda arrastrar a ("2"), tendremos que hacer clic en ("1") para que haya una nueva
-            carta en ("2").</p>
-        <h2>Movimientos</h2>
-        <p>Arrastrar: Cada carta de ("3").</p>
-        <p>Clic: En el mazo ("1").</p>
-        <a class="close_instruccions">
-            He entendido las reglas
-        </a>
-    </div>
-
+    <div class="background_results"></div>
+    
     <div class="container_results">
-        <p class="results"></p>
-        <p class="text_time_result">Has tardado: <span class="time_result"></span><span class="programmer_greeting"></span></p>
-        <a class="new_game">Nueva partida</a>
+        <img src="" alt="Icono resultado" class="icon_result">
+        <p class="result"></p>
+        <p class="text_time_result">Has tardado:
+            <span class="time_result"></span>
+        </p>
+        <p class="programmer_greeting"></p>
+        <a class="new_game">Volver a jugar</a>
     </div>
 
     <div class="tablet_vertical_alert">
-        Jugar en vertical ha sido deshabilitado, por favor, gire su dispositivo y colóquelo horizontalmente. Gracias.
+        Para jugar, por favor, gire su dispositivo en modo horizontal. Gracias.
     </div>
 
 </body>
