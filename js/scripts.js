@@ -29,6 +29,8 @@ $(document).ready(function () {
     document.getElementsByName("reverse")[0].checked = "checked";
     document.getElementsByName("wallpaper")[0].checked = "checked";
     //End Firefox.
+
+    $(window).bind('resize', events_settings);
 });
 
 function events_settings() {
@@ -55,7 +57,7 @@ function events_settings() {
         .bind(up_event, mouse_released)
         .bind(down_event, mouse_pressed);
 
-    $(".reverse_fixed, .carts_missing").click(function () {
+    $(".reverse_fixed, .carts_missing").bind("click", function () {
         new_cart_from_deck();
         //Contador.
         if (date_start == null) {
@@ -380,6 +382,8 @@ function first_flop() {
     $('#cart_up_tier2').addClass("flip").attr('src', path_cart());
     $('#cart_up_tier3').addClass("flip").attr('src', path_cart());
     new_cart_from_deck();
+    console.log(carts_missing + " 2");
+    
 }
 
 function path_cart() {
@@ -393,6 +397,8 @@ function random_cart() {
 
 function new_cart_from_deck() {
     carts_missing = document.getElementsByClassName("carts_missing")[0].innerHTML;
+    console.log(carts_missing + " 3");
+    
     if (carts_missing > 0) {
         var new_cart = path_cart();
         var deck_cart = $("<img>").attr({
@@ -419,11 +425,11 @@ function new_cart_from_deck() {
 
     //Desactivamos temporalmente el onclick para evitar que se haga clic muchas veces seguidas. (600, 100 ms más que la animación).
     setTimeout(function () {
-        $(".reverse_fixed, .carts_missing").bind("click", function () {
-            new_cart_from_deck();
-        });
+        $(".reverse_fixed, .carts_missing").bind("click", new_cart_from_deck);
     }, 600);
     $(".reverse_fixed, .carts_missing").unbind("click");
+    console.log(carts_missing + " 4");
+    
 }
 
 function get_value_of_cart(cart_path) {
