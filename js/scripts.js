@@ -30,7 +30,6 @@ $(document).ready(function () {
     document.getElementsByName("wallpaper")[0].checked = "checked";
     //End Firefox.
 
-    $(window).bind('resize', events_settings);
 });
 
 function events_settings() {
@@ -84,8 +83,8 @@ function events_settings() {
         sub_expand_and_collapse("reverse");
     });
 
-    $(".difficulty_collapsed").click(function () {
-        sub_expand_and_collapse("difficulty");
+    $(".wallpaper_collapsed").click(function () {
+        sub_expand_and_collapse("wallpaper");
     });
 
     //Evento Cambio de dorso.
@@ -326,17 +325,17 @@ function sub_expand_and_collapse(option) {
                 $(".reverse_collapsed i").addClass("fa-angle-down");
             }
             break;
-        case "difficulty":
-            if (!$(".difficulty_expanded").hasClass("sub_expand_anim")) {
-                $(".difficulty_expanded").removeClass("sub_collapse_anim");
-                $(".difficulty_expanded").addClass("sub_expand_anim");
-                $(".difficulty_collapsed i").removeClass("fa-angle-down");
-                $(".difficulty_collapsed i").addClass("fa-angle-up");
+        case "wallpaper":
+            if (!$(".wallpaper_expanded").hasClass("sub_expand_anim")) {
+                $(".wallpaper_expanded").removeClass("sub_collapse_anim");
+                $(".wallpaper_expanded").addClass("sub_expand_anim");
+                $(".wallpaper_collapsed i").removeClass("fa-angle-down");
+                $(".wallpaper_collapsed i").addClass("fa-angle-up");
             } else {
-                $(".difficulty_expanded").removeClass("sub_expand_anim");
-                $(".difficulty_expanded").addClass("sub_collapse_anim");
-                $(".difficulty_collapsed i").removeClass("fa-angle-up");
-                $(".difficulty_collapsed i").addClass("fa-angle-down");
+                $(".wallpaper_expanded").removeClass("sub_expand_anim");
+                $(".wallpaper_expanded").addClass("sub_collapse_anim");
+                $(".wallpaper_collapsed i").removeClass("fa-angle-up");
+                $(".wallpaper_collapsed i").addClass("fa-angle-down");
             }
             break;
         default:
@@ -381,9 +380,7 @@ function first_flop() {
     $('#cart_up_tier1').addClass("flip").attr('src', path_cart());
     $('#cart_up_tier2').addClass("flip").attr('src', path_cart());
     $('#cart_up_tier3').addClass("flip").attr('src', path_cart());
-    new_cart_from_deck();
-    console.log(carts_missing + " 2");
-    
+    new_cart_from_deck();    
 }
 
 function path_cart() {
@@ -397,7 +394,6 @@ function random_cart() {
 
 function new_cart_from_deck() {
     carts_missing = document.getElementsByClassName("carts_missing")[0].innerHTML;
-    console.log(carts_missing + " 3");
     
     if (carts_missing > 0) {
         var new_cart = path_cart();
@@ -428,7 +424,6 @@ function new_cart_from_deck() {
         $(".reverse_fixed, .carts_missing").bind("click", new_cart_from_deck);
     }, 600);
     $(".reverse_fixed, .carts_missing").unbind("click");
-    console.log(carts_missing + " 4");
     
 }
 

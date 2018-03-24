@@ -20,18 +20,20 @@ body {
     padding: 0;
     overflow: hidden;
     font-family: Nunito;
+    min-width: 300px;
+    min-height: 300px;
 }
 
-body.verde{
-    background-image: url('../img/wallpaper/fondo_verde.jpg');    
+body.verde {
+    background-image: url('../img/wallpaper/fondo_verde.jpg');
 }
 
-body.azul{
-    background-image: url('../img/wallpaper/fondo_azul.jpg');    
+body.azul {
+    background-image: url('../img/wallpaper/fondo_azul.jpg');
 }
 
-body.windows{
-    background-image: url('../img/wallpaper/fondo_windows.jpg');    
+body.windows {
+    background-image: url('../img/wallpaper/fondo_windows.jpg');
 }
 
 .tier {
@@ -106,7 +108,7 @@ body.windows{
     position: absolute;
 }
 
-.deck p {
+.deck .carts_missing {
     color: white;
     margin: 0;
     font-size: 40px;
@@ -225,11 +227,11 @@ body.windows{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 70vw;
-    height: 70vh;
+    width: 80vw;
+    height: 80vh;
     text-align: center;
-    background-image: url('../img/wallpaper//fondo_start.jpg');
-    background-size: 100%;
+    background-image: url('../img/wallpaper/fondo_madera.jpg');
+    background-size: cover;
     background-repeat: no-repeat;
     z-index: 1000;
 }
@@ -313,15 +315,15 @@ body.windows{
     top: 10vh;
     left: 4vw;
     display: block;
+    width: 150px;
     height: 100px;
-    line-height: 40px;
+    line-height: 50px;
     border-radius: 10px;
     font-size: 25px;
     text-align: center;
     color: black;
     background: linear-gradient(to top, rgb(235, 235, 235), rgb(230, 230, 230));
-    box-sizing: border-box;
-    padding: 10px;
+    padding: 0 10px 0 10px;
     cursor: pointer;
     z-index: 800;
 }
@@ -331,8 +333,8 @@ body.windows{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 70vw;
-    height: 70vh;
+    width: 80vw;
+    height: 80vh;
     text-align: center;
     padding: 0;
     visibility: hidden;
@@ -341,6 +343,7 @@ body.windows{
 
 .options_instruccions h1 {
     text-decoration: underline;
+    font-size: 30px;
 }
 
 /*-----------------------------------------------Instruciones-----------------------------------------------*/
@@ -476,7 +479,7 @@ body.windows{
 }
 
 .reverse_expanded,
-.difficulty_expanded {
+.wallpaper_expanded {
     overflow: hidden;
     height: 0;
     width: 100%;
@@ -485,7 +488,7 @@ body.windows{
 }
 
 .reverse_expanded p,
-.difficulty_expanded p {
+.wallpaper_expanded p {
     margin: 5px 0 5px 0;
 }
 
@@ -533,12 +536,11 @@ body.windows{
 }
 
 .container_options_new_game {
-    position: absolute;
-    bottom: 0;
-    right: 10%;
-    width: 80%;
+    position: relative;
+    width: 100%;
+    height: 15%;
     text-align: center;
-    height: 15vh;
+    transform: translateY(50%);
 }
 
 .container_options_new_game p {
@@ -549,7 +551,7 @@ body.windows{
 .container_options_new_game .new_game {
     color: black;
     font-size: 25px;
-    font-weight: bold;    
+    font-weight: bold;
     text-align: center;
     position: relative;
     top: 10px;
@@ -647,11 +649,11 @@ body.windows{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 70vw;
-    height: 70vh;
+    width: 80vw;
+    height: 80vh;
     text-align: center;
-    background-image: url('../img/wallpaper//fondo_start.jpg');
-    background-size: 100%;
+    background-image: url('../img/wallpaper/fondo_madera.jpg');
+    background-size: cover;
     background-repeat: no-repeat;
     z-index: 1000;
 }
@@ -672,7 +674,7 @@ body.windows{
     font-size: 35px;
     color: white;
     margin: 0;
-    display: block;
+    margin-top: 10px;
     text-shadow: 2px 2px 0px black, -2px -2px 0px black, 2px 0px 0px black, -2px 0px 0px black, 0px 2px 0px black, 0px -2px 0px black, 2px -2px 0px black, -2px 2px 0px black;
 }
 
@@ -684,6 +686,7 @@ body.windows{
     color: white;
     font-size: 35px;
     text-align: center;
+    display: inline-block;
     margin-top: 10px;
     padding: 1px 6px 3px 6px;
     border: 2px solid black;
@@ -701,18 +704,23 @@ body.windows{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    margin: auto;
-    padding: 10px;
+    padding: 30px;
     font-size: 30px;
     color: black;
-    background-color: rgb(70, 200, 70);
+    background-image: url('../img/wallpaper/fondo_madera.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
     z-index: 1000;
+}
+
+.tablet_vertical_alert_text {
+    margin: 0;
 }
 
 /*Vertical*/
 
 @media only screen and (orientation:portrait) {
-    *:not(html):not(body):not(.tablet_vertical_alert) {
+    *:not(html):not(body):not(.tablet_vertical_alert):not(.tablet_vertical_alert_text) {
         opacity: 0;
     }
     .tablet_vertical_alert {
@@ -726,62 +734,119 @@ body.windows{
 
 /*-----------------------------------------------End Orientación-----------------------------------------------*/
 
+/*--------------------------------------------------------------- 4K ---------------------------------------------------------------*/
+
+@media (min-width: 1500px) {
+    .deck,
+    .carts {
+        width: 160px;
+        height: 220px;
+    }
+    .deck .carts_missing {
+        font-size: 55px;
+    }
+    .start_difficulty h1 {
+        font-size: 85pt;
+    }
+    .start_difficulty p {
+        font-size: 40pt;
+        margin-top: 5%;
+    }
+    .start_difficulty button {
+        font-size: 40pt;
+        margin-left: 15%;
+        margin-top: 10%;
+    }
+    .start_difficulty button:first-of-type {
+        margin-left: 20%;
+    }
+    .open_options_instruccions {
+        width: 250px;
+        height: 100px;
+        line-height: 50px;
+        font-size: 40px;
+    }
+    .open_option {
+        height: 50px;
+        line-height: 50px;
+    }
+    .options_instruccions h1 {
+        font-size: 60px;
+    }
+    .container_options_new_game .new_game {
+        font-size: 30px;
+    }
+    .container_results .new_game,
+    .container_results .programmer_greeting {
+        margin-top: 15px;
+    }
+    .container_options_new_game p,
+    .options p {
+        font-size: 30px;
+    }
+    .instruccions p,
+    .container_checkbox {
+        font-size: 30px;
+    }
+    .checkmark {
+        top: 7px;
+        width: 25px;
+        height: 25px;
+    }
+}
+
+/*-------------------------------------------------------------End 4K-------------------------------------------------------------*/
+
 /*---------------------------------------------------------------Laptop---------------------------------------------------------------*/
 
 @media (max-width: 1024px) {
-    .tier1 img {
-        left: 28vw;
+    .deck,
+    .carts {
+        width: 100px;
+        height: 140px;
+        border-radius: 5px;
     }
-    .tier2 img {
-        left: 40vw;
+    .start_difficulty h1 {
+        font-size: 60pt;
     }
-    .tier3 img {
-        left: 52vw;
+    .start_difficulty p {
+        font-size: 30pt;
+        margin-top: 5%;
+    }
+    .start_difficulty button {
+        font-size: 22pt;
+        margin-left: 15%;
+        margin-top: 5%;
+    }
+    .start_difficulty button:first-of-type {
+        margin-left: 20%;
     }
     .open_options_instruccions {
-        right: 1vw;
-        width: 30vw;
-        top: 3vh;
+        height: 60px;
+        line-height: 30px;
+        font-size: 20px
     }
-    .options {
-        right: 1vw;
-        width: 30vw;
-        top: 13vh;
+    .open_option {
+        height: 30px;
+        line-height: 30px;
     }
-    .options p,
-    .open_options_instruccions p {
+    .options_instruccions h1 {
         font-size: 20px;
     }
-    .options .reverse_expanded p,
-    .options .difficulty_expanded p {
-        font-size: 15px;
+    .container_options_new_game .new_game {
+        font-size: 20px;
     }
+    .container_results .new_game,
+    .container_results .programmer_greeting {
+        margin-top: 15px;
+    }
+    .container_options_new_game p,
+    .options p {
+        font-size: 20px;
+    }
+    .instruccions p,
     .container_checkbox {
-        font-size: 15px;
-    }
-    .checkmark {
-        width: 20px;
-        height: 20px;
-    }
-    .container_checkbox .checkmark:after {
-        top: 7px;
-        left: 7px;
-        width: 6px;
-        height: 6px;
-    }
-    .instruccions {
-        width: 35vw;
-    }
-    .container_results {
-        width: 20vw;
-    }
-    .container_results p {
-        font-size: 28px;
-    }
-    .container_results .text_time_result,
-    .container_results .new_game {
-        font-size: 25px;
-        margin-top: 10px;
+        font-size: 18px;
     }
 }
 
@@ -794,60 +859,125 @@ body.windows{
     .carts {
         width: 60px;
         height: 100px;
+        border-radius: 5px;
     }
-    .open_option,
-    .open_options_instruccions {
-        height: 30px;
-        line-height: 30px;
+    .deck .carts_missing {
+        font-size: 25px;
     }
-    .open_option .sub_arrow_with_circle {
-        width: 30px;
+    .start_difficulty h1 {
+        font-size: 50pt;
     }
-    .instruccions h1 {
-        font-size: 1.5em;
+    .start_difficulty p {
+        margin-top: 2%;
     }
-    .instruccions h2 {
-        font-size: 1.17em;
+    .start_difficulty button {
+        margin-top: 2%;
     }
-    .options p,
-    .open_options_instruccions p,
-    .instruccions p {
+    .start_difficulty button:first-of-type {
+        margin-left: 10%;
+    }
+    @keyframes sub_expand_tablet {
+        0% {
+            height: 0px;
+            opacity: 0;
+        }
+        100% {
+            height: 23%;
+            opacity: 1;
+        }
+    }
+    @keyframes sub_collapse_tablet {
+        0% {
+            opacity: 1;
+            height: 23%;
+            padding-top: 5px;
+        }
+        50% {
+            opacity: 0;
+        }
+        90% {
+            padding-top: 5px;
+        }
+        100% {
+            padding-top: 0;
+            opacity: 0;
+            height: 0px;
+        }
+    }
+    .sub_expand_anim {
+        animation-name: sub_expand_tablet;
+    }
+    .sub_collapse_anim {
+        animation-name: sub_collapse_tablet;
+    }
+    .container_options_new_game {
+        height: 0;
+    }
+    .container_options_new_game .new_game {
         font-size: 15px;
     }
-    .close_instruccions {
-        font-size: unset;
-        width: 85%;
-    }
-    .instruccions * {
-        padding: 10px;
-    }
-    .options .reverse_expanded p,
-    .options .difficulty_expanded p {
-        display: none;
-    }
-    .container_results .text_time_result,
-    .container_results .new_game {
-        font-size: 20px;
-    }
+    .container_options_new_game p,
+    .options p,
+    .instruccions p,
     .container_checkbox {
-        margin-bottom: 10px;
+        font-size: 12px;
     }
     .checkmark {
-        width: 25px;
-        height: 25px;
+        width: 15px;
+        height: 15px;
     }
-    .container_checkbox .checkmark:after {
-        top: 9px;
-        left: 9px;
-        width: 7px;
-        height: 7px;
+    .container_results .new_game,
+    .container_results p,
+    .container_results .programmer_greeting {
+        margin-top: 5px;
     }
-    .container_results {
-        top: 4vh;
+    .container_results .text_time_result,
+    .container_results p,
+    .container_results .new_game {
+        font-size: 20px;
     }
 }
 
 /*-------------------------------------------------------------End Tablet-------------------------------------------------------------*/
+
+/*---------------------------------------------------------------Móvil Large----------------------------------------------------------------*/
+@media (max-width: 550px) {
+    .start_difficulty h1 {
+        font-size: 40pt;
+    }
+    .start_difficulty p {
+        font-size: 20pt;
+        margin-top: 2%;
+    }
+    .start_difficulty button {
+        margin-left: 5%;
+        margin-top: 0%;
+        position: absolute;
+        bottom: 10%;
+    }
+    .start_difficulty button:first-of-type {
+        left: 0%;
+    }
+    .start_difficulty button:nth-of-type(2) {
+        left: 35%;
+    }
+    .start_difficulty button:last-of-type {
+        left: 70%;
+    }
+    .open_option{
+        height: 15px;
+        line-height: 15px;
+        font-size: 10px;
+    }
+    .options p {
+        font-size: 12px;
+    }
+    .instruccions p {
+        font-size: 9px;
+        padding: 5px;
+    }
+}
+/*-------------------------------------------------------------End Móvil Large-------------------------------------------------------------*/
 
 /*---------------------------------------------------------------Móvil----------------------------------------------------------------*/
 
@@ -857,28 +987,42 @@ body.windows{
         width: 40px;
         height: 70px;
     }
+    .start_difficulty h1 {
+        font-size: 32pt;
+    }
+    .start_difficulty p {
+        font-size: 18pt;
+        margin-top: 0%;
+    }
+    .start_difficulty button {
+        font-size: 14pt;
+    }
+    
+    .open_options_instruccions {
+        width: 120px;
+        height: 45px;
+        line-height: 20px;
+        font-size: 15px;
+    }
+    .options_instruccions h1 {
+        font-size: 16px;
+    }
+    .container_options_new_game .new_game {
+        font-size: 12px;
+    }
     .container_results .text_time_result,
+    .container_results .programmer_greeting,
     .container_results .new_game {
-        font-size: 10px;
+        font-size: 20px;
     }
-    .container_results .new_game {
-        margin-top: 3px;
-    }
-    .options p,
-    .open_options_instruccions p,
-    .instruccions p,
+    
+    .container_options_new_game p,
     .container_checkbox {
         font-size: 10px;
     }
     .checkmark {
-        width: 20px;
-        height: 20px;
-    }
-    .container_checkbox .checkmark:after {
-        top: 7px;
-        left: 7px;
-        width: 6px;
-        height: 6px;
+        width: 10px;
+        height: 10px;
     }
 }
 

@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="shortcut icon" href="img/icons/icon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="fontawesome-free-5.0.8/web-fonts-with-css/css/fontawesome-all.min.css" />
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.min.css">
     <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/scripts.js"></script>
+    <script src="js/scripts.min.js"></script>
 </head>
 
 <body class="verde">
@@ -42,7 +42,6 @@
     </div>
 
     <div class="background_start opened"></div>
-
     <div class="start_difficulty opened">
         <h1>¡Bienvenido/a!</h1>
         <p>Selecciona dificultad</p>
@@ -53,11 +52,8 @@
 
 
     <div class="background_options_instruccions"></div>
-
     <div class="open_options_instruccions">
-        <a>
-            <p>Opciones e<br> Instrucciones</p>
-        </a>
+        <p>Opciones e<br> Instrucciones</p>
     </div>
     <div class="options_instruccions">
         <div class="instruccions">
@@ -90,13 +86,13 @@
                     <span class="checkmark"></span>
                 </label>
             </div>
-            <div class="open_option difficulty_collapsed">
+            <div class="open_option wallpaper_collapsed">
                 <a>
                     <i class="fa fa-angle-up fa-lg"></i>
                     <p>Fondo</p>
                 </a>
             </div>
-            <div class="difficulty_expanded sub_expand_anim">
+            <div class="wallpaper_expanded sub_expand_anim">
                 <label class="container_checkbox">Verde
                     <input type="radio" name="wallpaper" data-wallpaper="Verde">
                     <span class="checkmark"></span>
@@ -118,7 +114,6 @@
     </div>
 
     <div class="background_results"></div>
-    
     <div class="container_results">
         <img src="" alt="Icono resultado" class="icon_result">
         <p class="result"></p>
@@ -130,7 +125,9 @@
     </div>
 
     <div class="tablet_vertical_alert">
-        Para jugar, por favor, gire su dispositivo en modo horizontal. Gracias.
+        <p class="tablet_vertical_alert_text">
+            Para jugar, por favor, gire su dispositivo en modo horizontal. Gracias.
+        </p>
     </div>
 
 </body>
