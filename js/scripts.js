@@ -440,6 +440,8 @@ function get_value_of_cart(cart_path) {
 
 function cart_can_go_to_stack_discard(cart_path) {
     //Si el elemento no existe porque no quedan cartas en algún tier, dejamos el valor a false.    
+    console.log("/" + cart_path + "/");
+    
     if (!cart_path) {
         return false;
     }
@@ -504,18 +506,23 @@ function reveal_next_cart() {
                     default:
                         break;
                 }
-                
-                if (carts_missing == 0) {
-                    lose_game();
-                }
             }, 200);
 
         }
 
+        setTimeout(function () {
+            if (carts_missing == 0) {
+                lose_game();
+            }
+        }, 800);
+
         if (carts_to_reveal == 0) {
             win_game();
         }
+
     }
+
+    console.log("&" + carts_missing + "&")
 }
 
 function win_game() {
@@ -537,6 +544,11 @@ function lose_game() {
     var play1 = cart_can_go_to_stack_discard(cart_up_tier1_src);
     var play2 = cart_can_go_to_stack_discard(cart_up_tier2_src);
     var play3 = cart_can_go_to_stack_discard(cart_up_tier3_src);
+
+    console.log("$" + play1 + "$")
+    console.log("$" + play2 + "$")
+    console.log("$" + play3 + "$")
+
 
     if (!play1 && !play2 && !play3) {
         document.getElementsByClassName("result")[0].innerHTML = "¡Suerte la próxima vez!";
