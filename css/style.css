@@ -1026,4 +1026,19 @@ body.windows {
     }
 }
 
+@media (max-height: 400px) {
+    .start_difficulty h1 {
+        font-size: 28pt;
+    }
+    .start_difficulty p {
+        font-size: 18pt;
+        margin-top: 5%;
+    }
+    .start_difficulty button {
+        font-size: 18pt;
+        margin: 10%;
+        margin-top: 5%;
+    }
+}
+
 /*--------------------------------------------------------------End Móvil--------------------------------------------------------------*/
