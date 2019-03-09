@@ -29,7 +29,9 @@ $(document).ready(function () {
     document.getElementsByName("reverse")[0].checked = "checked";
     document.getElementsByName("wallpaper")[0].checked = "checked";
     //End Firefox.
-
+    if (/Edge/.test(navigator.userAgent)) {
+        alert('El comportamiento CSS3 de este navegador impide el normal funcionamiento de esta aplicación.\nLe rogamos que utilice otro en su lugar.\nDisculpe las molestias y esperamos que disfrute de sus partidas.');
+    }
 });
 
 function events_settings() {
