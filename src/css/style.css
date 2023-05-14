@@ -1,0 +1,1089 @@
+@font-face {
+    font-family: Nunito;
+    src: url('../fonts/Nunito-Regular.ttf')
+}
+
+@font-face {
+    font-family: Pacifico;
+    src: url('../fonts/Pacifico.ttf')
+}
+
+@font-face {
+    font-family: Slaptick;
+    src: url('../fonts/SF Slapstick Comic.ttf')
+}
+
+body {
+    background-size: 100vw 100vh;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: Nunito;
+    min-width: 300px;
+    min-height: 300px;
+
+}
+
+body.verde {
+    background-image: url('../img/wallpaper/fondo_verde.jpg');
+}
+
+body.azul {
+    background-image: url('../img/wallpaper/fondo_azul.jpg');
+}
+
+body.windows {
+    background-image: url('../img/wallpaper/fondo_windows.jpg');
+}
+
+.tier {
+    display: inline;
+}
+
+.tier img {
+    position: absolute;
+}
+
+.tier1 img {
+    left: 40vw;
+}
+
+.tier2 img {
+    left: 60vw;
+}
+
+.tier3 img {
+    left: 80vw;
+}
+
+.carts {
+    width: 140px;
+    height: 200px;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    border-radius: 10px;
+    z-index: 100;
+}
+
+.tier img[data-position="1"] {
+    top: 10vh;
+}
+
+.tier img[data-position="2"] {
+    top: calc(20vh - 20px);
+}
+
+.tier img[data-position="3"] {
+    top: calc(30vh - 40px);
+}
+
+.tier img[data-position="4"] {
+    top: calc(40vh - 60px);
+}
+
+.tier img[data-position="5"] {
+    top: calc(50vh - 80px);
+}
+
+.tier img[data-position="6"] {
+    top: calc(60vh - 100px);
+}
+
+.deck.empty {
+    border: 1px solid white;
+}
+
+.deck {
+    border: none;
+    width: 140px;
+    height: 200px;
+    display: inline-block;
+    position: absolute;
+    top: 48vh;
+    left: 4vw;
+}
+
+.deck img {
+    position: absolute;
+}
+
+.deck .carts_missing {
+    color: white;
+    margin: 0;
+    font-size: 40px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    user-select: none;
+    -moz-user-select: none;
+    text-shadow: 2px 2px 0px black, -2px -2px 0px black, 2px 0px 0px black, -2px 0px 0px black, 0px 2px 0px black, 0px -2px 0px black, 2px -2px 0px black, -2px 2px 0px black;
+    z-index: 200;
+}
+
+.stack_discard {
+    border: none;
+    position: absolute;
+    top: 48vh !important;
+    left: 20vw !important;
+    z-index: 3;
+}
+
+.reverse_helper,
+.deck_reverse {
+    transform: rotateY(0deg);
+    transition: transform 0.5s linear 0s;
+}
+
+.reverse_helper.flip {
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
+}
+
+.deck_cart {
+    z-index: 40;
+}
+
+#cart_up_tier1:active,
+#cart_up_tier2:active,
+#cart_up_tier3:active {
+    z-index: 250;
+}
+
+#cart_up_tier1,
+#cart_up_tier2,
+#cart_up_tier3,
+.deck_cart {
+    transform: rotateY(-180deg);
+    transition: transform 0.5s linear 0s;
+}
+
+.carts[alt="Dorso"] {
+    background-color: white;
+}
+
+.carts[src="src/img/dorsos/dorso_hs.png"] {
+    background-color: transparent;
+}
+
+#cart_up_tier1.flip,
+#cart_up_tier2.flip,
+#cart_up_tier3.flip,
+.carts[alt="Dorso"].flip {
+    backface-visibility: hidden;
+    transform: rotateY(0deg);
+}
+
+.deck_cart.new_cart {
+    animation: new_cart_front 0.7s linear 1 forwards;
+}
+
+.deck_reverse.new_cart {
+    animation: new_cart_back 0.7s linear 1 forwards;
+}
+
+.carts_missing {
+    cursor: default;
+}
+
+.carts_missing.no_carts {
+    visibility: hidden;
+}
+
+@keyframes new_cart_front {
+    0% {
+        left: 1vw;
+    }
+
+    50% {
+        backface-visibility: hidden;
+    }
+
+    100% {
+        left: 16vw;
+        transform: rotateY(0deg);
+        backface-visibility: hidden;
+    }
+}
+
+@keyframes new_cart_back {
+    0% {
+        left: 1vw;
+    }
+
+    50% {
+        backface-visibility: hidden;
+    }
+
+    100% {
+        left: 16vw;
+        transform: rotateY(180deg);
+        backface-visibility: hidden;
+    }
+}
+
+/*---------------------------------------------------Inicio---------------------------------------------------*/
+
+.start_difficulty {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70vw;
+    height: 70vh;
+    text-align: center;
+    background-image: url('../img/wallpaper/fondo_madera.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 1000;
+}
+
+.start_difficulty.opened {
+    display: block;
+}
+
+.start_difficulty h1 {
+    font-size: 78pt;
+    font-weight: normal;
+    font-family: Pacifico;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    text-shadow: 3px 3px 0px black, -3px -3px 0px black, 3px 0px 0px black, -3px 0px 0px black, 0px 3px 0px black, 0px -3px 0px black, 3px -3px 0px black, -3px 3px 0px black;
+    color: white;
+}
+
+.start_difficulty p {
+    font-size: 30pt;
+    color: black;
+    font-weight: bold;
+}
+
+.start_difficulty .container_buttons_difficulty {
+    display: flex;
+    gap: 10%;
+    justify-content: center;
+}
+
+.start_difficulty button {
+    cursor: pointer;
+    font-size: 30pt;
+    font-family: Nunito;
+    display: inline;
+    color: white;
+    text-shadow: 0.5px 0.5px 0px black, -0.5px -0.5px 0px black, 0.5px 0px 0px black, -0.5px 0px 0px black, 0px 0.5px 0px black, 0px -0.5px 0px black, 0.5px -0.5px 0px black, -0.5px 0.5px 0px black;
+    box-shadow: 0.5px 0.5px 0px black, -0.5px -0.5px 0px black, 0.5px 0px 0px black, -0.5px 0px 0px black, 0px 0.5px 0px black, 0px -0.5px 0px black, 0.5px -0.5px 0px black, -0.5px 0.5px 0px black;
+}
+
+.start_difficulty button:hover {
+    transform: scale(1.1);
+}
+
+.start_difficulty button:first-of-type {
+    background: #5B995A;
+}
+
+.start_difficulty button:nth-of-type(2) {
+    background: #EF993E;
+}
+
+.start_difficulty button:last-of-type {
+    background: #E84340;
+}
+
+.background_start,
+.background_options_instruccions,
+.background_results {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(20, 20, 20, 0.7);
+    z-index: 1000;
+    visibility: hidden;
+    display: none;
+}
+
+.background_start.opened,
+.background_options_instruccions.opened,
+.background_results.end_game {
+    display: block;
+    visibility: visible !important;
+}
+
+/*-------------------------------------------------End Inicio-------------------------------------------------*/
+
+/*-------------------------------------------------Opciones-------------------------------------------------*/
+
+.open_options_instruccions {
+    position: absolute;
+    top: 10vh;
+    left: 4vw;
+    display: block;
+    width: 150px;
+    height: 100px;
+    line-height: 50px;
+    border-radius: 10px;
+    font-size: 25px;
+    text-align: center;
+    color: black;
+    background: linear-gradient(to top, rgb(235, 235, 235), rgb(230, 230, 230));
+    padding: 0 10px 0 10px;
+    cursor: pointer;
+    z-index: 800;
+}
+
+.options_instruccions {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: 80vh;
+    text-align: center;
+    padding: 0;
+    visibility: hidden;
+    z-index: 1000;
+}
+
+.options_instruccions h1 {
+    text-decoration: underline;
+    font-size: 30px;
+}
+
+/*-----------------------------------------------Instruciones-----------------------------------------------*/
+
+.instruccions {
+    width: 50%;
+    height: 100%;
+    font-size: 15px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #F6F6F6;
+    border-right: 2px solid black;
+    float: left;
+    box-sizing: border-box;
+    display: none;
+    transform: translateY(-200%);
+    visibility: hidden;
+    opacity: 0;
+}
+
+.instruccions.on {
+    display: inline-block;
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.instruccions * {
+    text-align: justify;
+    padding: 10px 15px 10px 15px;
+    margin: auto;
+}
+
+.instruccions h1 {
+    margin: 2% 0 2% 0;
+    padding: 0;
+    text-align: center;
+}
+
+.instruccions p {
+    font-size: 20px;
+}
+
+.close_instruccions {
+    font-size: 25px;
+    width: 70%;
+    display: block;
+    margin: auto;
+    text-align: center;
+    color: white;
+    background-color: darkolivegreen;
+    padding: 3px 6px 3px 6px;
+    border: 2px dashed black;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/*---------------------------------------------End Instruciones---------------------------------------------*/
+
+.options {
+    width: 50%;
+    height: 100%;
+    font-size: 15px;
+    text-align: left;
+    border-radius: 10px;
+    background-color: #F6F6F6;
+    position: relative;
+    border-left: 2px solid black;
+    float: left;
+    box-sizing: border-box;
+    display: none;
+    transform: translateY(-200%);
+    visibility: hidden;
+    opacity: 0;
+}
+
+.options.on {
+    display: inline-block;
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.options h1 {
+    text-align: center;
+    margin: 2% 0 2% 0;
+}
+
+.open_option:hover img {
+    transform: scale(1.15, 1.15);
+}
+
+.open_option img {
+    transition: all .25s;
+}
+
+.options_expanded {
+    overflow: hidden;
+    height: 0;
+}
+
+.options_expanded label {
+    color: black
+}
+
+.open_option {
+    display: block;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 10px;
+    font-size: 25px;
+    color: black;
+    background: linear-gradient(to top, rgb(235, 235, 235), rgb(230, 230, 230));
+    box-sizing: border-box;
+    padding: 3px 6px 3px 6px;
+    cursor: pointer;
+    z-index: 800;
+}
+
+.open_option a {
+    font-weight: bold;
+}
+
+.open_option .fa {
+    margin-right: 5%;
+}
+
+.open_option p,
+.open_options_instruccions p {
+    margin: 0;
+    display: inline;
+}
+
+.reverse_expanded,
+.wallpaper_expanded {
+    overflow: hidden;
+    height: 0;
+    width: 100%;
+    background: linear-gradient(to bottom, rgb(206, 206, 206), rgb(216, 216, 216));
+    border-radius: 10px;
+}
+
+.reverse_expanded p,
+.wallpaper_expanded p {
+    margin: 5px 0 5px 0;
+}
+
+@keyframes sub_expand {
+    0% {
+        height: 0px;
+        opacity: 0;
+    }
+
+    100% {
+        height: 20%;
+        opacity: 1;
+    }
+}
+
+@keyframes sub_collapse {
+    0% {
+        opacity: 1;
+        height: 20%;
+        padding-top: 5px;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    90% {
+        padding-top: 5px;
+    }
+
+    100% {
+        padding-top: 0;
+        opacity: 0;
+        height: 0px;
+    }
+}
+
+.sub_expand_anim {
+    animation-name: sub_expand;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+    padding-top: 5px;
+}
+
+.sub_collapse_anim {
+    animation-name: sub_collapse;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.container_options_new_game {
+    position: relative;
+    width: 100%;
+    height: 15%;
+    text-align: center;
+    transform: translateY(50%);
+}
+
+.container_options_new_game p {
+    font-size: 20px;
+    margin: auto;
+}
+
+.container_options_new_game .new_game {
+    color: black;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    top: 10px;
+    border: 2px solid black;
+    background-color: white;
+    cursor: pointer;
+}
+
+/*---------------------------------------------------------Custom Radio Button---------------------------------------------------------*/
+
+/* The container */
+
+.container_checkbox {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    user-select: none;
+    -moz-user-select: none;
+}
+
+/* Hide the browser's default radio button */
+
+.container_checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom radio button */
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+
+.container_checkbox:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+
+.container_checkbox input:checked~.checkmark {
+    background-color: #2E2E2E;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+
+/*
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+*/
+
+/* Show the indicator (dot/circle) when checked */
+
+.container_checkbox input:checked~.checkmark:after {
+    display: block;
+}
+
+/* Style the indicator (dot/circle) */
+
+/*
+.container_checkbox .checkmark:after {
+    top: 7px;
+    left: 7px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: white;
+}*/
+
+/*-------------------------------------------------------End Custom Radio Button-------------------------------------------------------*/
+
+/*-----------------------------------------------End Opciones-----------------------------------------------*/
+
+/*----------------------------------------------Fin de partida----------------------------------------------*/
+
+.container_results {
+    visibility: hidden;
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: 80vh;
+    text-align: center;
+    background-image: url('../img/wallpaper/fondo_madera.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 1000;
+}
+
+.icon_result {
+    display: block;
+    width: 25vw;
+    height: 35vh;
+    margin: auto;
+}
+
+.container_results.end_game {
+    visibility: visible;
+    display: block;
+}
+
+.container_results p {
+    font-size: 35px;
+    color: white;
+    margin: 0;
+    margin-top: 10px;
+    text-shadow: 2px 2px 0px black, -2px -2px 0px black, 2px 0px 0px black, -2px 0px 0px black, 0px 2px 0px black, 0px -2px 0px black, 2px -2px 0px black, -2px 2px 0px black;
+}
+
+.container_results .text_time_result {
+    font-size: 30px;
+}
+
+.container_results .new_game {
+    color: white;
+    font-size: 35px;
+    text-align: center;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 1px 6px 3px 6px;
+    border: 2px solid black;
+    background-color: rgb(59, 89, 152);
+    cursor: pointer;
+}
+
+/*---------------------------------------------End Fin de partida---------------------------------------------*/
+
+/*-------------------------------------------------Orientación-------------------------------------------------*/
+
+.tablet_vertical_alert {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    font-size: 30px;
+    color: black;
+    background-image: url('../img/wallpaper/fondo_madera.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 1000;
+}
+
+.tablet_vertical_alert_text {
+    margin: 0;
+}
+
+/*Vertical*/
+
+@media only screen and (orientation:portrait) {
+    *:not(html):not(body):not(.tablet_vertical_alert):not(.tablet_vertical_alert_text) {
+        opacity: 0;
+    }
+
+    .tablet_vertical_alert {
+        display: block;
+    }
+}
+
+/*Horizontal*/
+/*
+@media only screen and (orientation:landscape) {}
+*/
+/*-----------------------------------------------End Orientación-----------------------------------------------*/
+
+/*--------------------------------------------------------------- 4K ---------------------------------------------------------------*/
+
+@media (min-width: 1500px) {
+
+    .deck,
+    .carts {
+        width: 160px;
+        height: 220px;
+    }
+
+    .deck .carts_missing {
+        font-size: 55px;
+    }
+
+    .start_difficulty h1 {
+        font-size: 85pt;
+    }
+
+    .start_difficulty p {
+        font-size: 40pt;
+    }
+
+    .start_difficulty button {
+        font-size: 40pt;
+    }
+
+    .open_options_instruccions {
+        width: 250px;
+        height: 100px;
+        line-height: 50px;
+        font-size: 40px;
+    }
+
+    .open_option {
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .options_instruccions h1 {
+        font-size: 60px;
+    }
+
+    .container_options_new_game .new_game {
+        font-size: 30px;
+    }
+
+    .container_results .new_game,
+    .container_results .programmer_greeting {
+        margin-top: 15px;
+    }
+
+    .container_options_new_game p,
+    .options p {
+        font-size: 30px;
+    }
+
+    .instruccions p,
+    .container_checkbox {
+        font-size: 30px;
+    }
+
+    .checkmark {
+        top: 7px;
+        width: 25px;
+        height: 25px;
+    }
+}
+
+/*-------------------------------------------------------------End 4K-------------------------------------------------------------*/
+
+/*---------------------------------------------------------------Laptop---------------------------------------------------------------*/
+
+@media (max-width: 1024px) {
+
+    .deck,
+    .carts {
+        width: 100px;
+        height: 140px;
+        border-radius: 5px;
+    }
+
+    .start_difficulty h1 {
+        font-size: 60pt;
+    }
+
+    .start_difficulty p {
+        font-size: 30pt;
+    }
+
+    .start_difficulty button {
+        font-size: 22pt;
+    }
+
+    .open_options_instruccions {
+        height: 60px;
+        line-height: 30px;
+        font-size: 20px
+    }
+
+    .open_option {
+        height: 30px;
+        line-height: 30px;
+    }
+
+    .options_instruccions h1 {
+        font-size: 20px;
+    }
+
+    .container_options_new_game .new_game {
+        font-size: 20px;
+    }
+
+    .container_results .new_game,
+    .container_results .programmer_greeting {
+        margin-top: 15px;
+    }
+
+    .container_options_new_game p,
+    .options p {
+        font-size: 20px;
+    }
+
+    .instruccions p,
+    .container_checkbox {
+        font-size: 18px;
+    }
+}
+
+/*-------------------------------------------------------------End Laptop-------------------------------------------------------------*/
+
+/*---------------------------------------------------------------Tablet---------------------------------------------------------------*/
+
+@media (max-width: 768px) {
+
+    .deck,
+    .carts {
+        width: 60px;
+        height: 100px;
+        border-radius: 5px;
+    }
+
+    .deck .carts_missing {
+        font-size: 25px;
+    }
+
+    .start_difficulty h1 {
+        font-size: 50pt;
+    }
+
+    @keyframes sub_expand_tablet {
+        0% {
+            height: 0px;
+            opacity: 0;
+        }
+
+        100% {
+            height: 23%;
+            opacity: 1;
+        }
+    }
+
+    @keyframes sub_collapse_tablet {
+        0% {
+            opacity: 1;
+            height: 23%;
+            padding-top: 5px;
+        }
+
+        50% {
+            opacity: 0;
+        }
+
+        90% {
+            padding-top: 5px;
+        }
+
+        100% {
+            padding-top: 0;
+            opacity: 0;
+            height: 0px;
+        }
+    }
+
+    .sub_expand_anim {
+        animation-name: sub_expand_tablet;
+    }
+
+    .sub_collapse_anim {
+        animation-name: sub_collapse_tablet;
+    }
+
+    .container_options_new_game {
+        height: 0;
+    }
+
+    .container_options_new_game .new_game {
+        font-size: 15px;
+    }
+
+    .container_options_new_game p,
+    .options p,
+    .instruccions p,
+    .container_checkbox {
+        font-size: 12px;
+    }
+
+    .checkmark {
+        width: 15px;
+        height: 15px;
+    }
+
+    .container_results .new_game,
+    .container_results p,
+    .container_results .programmer_greeting {
+        margin-top: 5px;
+    }
+
+    .container_results .text_time_result,
+    .container_results p,
+    .container_results .new_game {
+        font-size: 20px;
+    }
+}
+
+/*-------------------------------------------------------------End Tablet-------------------------------------------------------------*/
+
+/*---------------------------------------------------------------Móvil Large----------------------------------------------------------------*/
+@media (max-width: 550px) {
+    .start_difficulty h1 {
+        font-size: 40pt;
+    }
+
+    .start_difficulty p {
+        font-size: 20pt;
+    }
+
+    .start_difficulty button {
+        position: absolute;
+        bottom: 10%;
+    }
+
+    .start_difficulty button:first-of-type {
+        left: 0%;
+    }
+
+    .start_difficulty button:nth-of-type(2) {
+        left: 35%;
+    }
+
+    .start_difficulty button:last-of-type {
+        left: 70%;
+    }
+
+    .open_option {
+        height: 15px;
+        line-height: 15px;
+        font-size: 10px;
+    }
+
+    .options p {
+        font-size: 12px;
+    }
+
+    .instruccions p {
+        font-size: 9px;
+        padding: 5px;
+    }
+}
+
+/*-------------------------------------------------------------End Móvil Large-------------------------------------------------------------*/
+
+/*---------------------------------------------------------------Móvil----------------------------------------------------------------*/
+
+@media (max-width: 425px) {
+
+    .deck,
+    .carts {
+        width: 40px;
+        height: 70px;
+    }
+
+    .start_difficulty h1 {
+        font-size: 32pt;
+    }
+
+    .start_difficulty p {
+        font-size: 18pt;
+    }
+
+    .start_difficulty button {
+        font-size: 14pt;
+    }
+
+    .open_options_instruccions {
+        width: 120px;
+        height: 45px;
+        line-height: 20px;
+        font-size: 15px;
+    }
+
+    .options_instruccions h1 {
+        font-size: 16px;
+    }
+
+    .container_options_new_game .new_game {
+        font-size: 12px;
+    }
+
+    .container_results .text_time_result,
+    .container_results .programmer_greeting,
+    .container_results .new_game {
+        font-size: 20px;
+    }
+
+    .container_options_new_game p,
+    .container_checkbox {
+        font-size: 10px;
+    }
+
+    .checkmark {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+@media (max-height: 400px) {
+    .start_difficulty h1 {
+        font-size: 28pt;
+    }
+
+    .start_difficulty p {
+        font-size: 18pt;
+    }
+
+    .start_difficulty button {
+        font-size: 18pt;
+    }
+}
+
+/*--------------------------------------------------------------End Móvil--------------------------------------------------------------*/
