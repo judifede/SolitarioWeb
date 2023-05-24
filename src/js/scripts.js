@@ -384,7 +384,7 @@ function first_flop() {
 }
 
 function path_cart() {
-    return "src/spanish-deck/" + random_cart() + ".jpg";
+    return "src/spanish-deck/" + random_cart() + ".png";
 }
 
 function random_cart() {
