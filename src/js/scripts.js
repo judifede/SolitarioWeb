@@ -25,7 +25,7 @@ var array_deck = ["copa1", "copa2", "copa3", "copa4", "copa5", "copa6", "copa7",
 /*------------------------------------------------------Eventos------------------------------------------------------*/
 $(document).ready(function () {
     events_settings();
-    //Firefox guarda cual estaba checked al recargar, asi que los inicializamos aqui.
+    //Firefox guarda cual estaba checked al recargar, asi que los inicializamos aquí.
     document.getElementsByName("reverse")[0].checked = "checked";
     document.getElementsByName("wallpaper")[0].checked = "checked";
     //End Firefox.
@@ -73,7 +73,7 @@ function events_settings() {
         $(".background_options_instruccions").addClass("opened");
     });
 
-    $(".background_options_instruccions").click(function () {
+    $(".background_options_instruccions, .close_options").click(function () {
         $(".instruccions").removeClass("on");
         $(".options").removeClass("on");
         $(".background_options_instruccions").removeClass("opened");
@@ -440,7 +440,6 @@ function get_value_of_cart(cart_path) {
 
 function cart_can_go_to_stack_discard(cart_path) {
     //Si el elemento no existe porque no quedan cartas en algún tier, dejamos el valor a false.    
-    console.log("/" + cart_path + "/");
     
     if (!cart_path) {
         return false;
@@ -506,23 +505,21 @@ function reveal_next_cart() {
                     default:
                         break;
                 }
-            }, 200);
+            }, 300);
 
+        }
+
+        if (carts_to_reveal == 0) {
+            win_game();
         }
 
         setTimeout(function () {
             if (carts_missing == 0) {
                 lose_game();
             }
-        }, 800);
-
-        if (carts_to_reveal == 0) {
-            win_game();
-        }
+        }, 1000);
 
     }
-
-    console.log("&" + carts_missing + "&")
 }
 
 function win_game() {
@@ -532,7 +529,6 @@ function win_game() {
     document.getElementsByClassName("icon_result")[0].setAttribute("src", "src/img/victory.png");
     $(".reverse_fixed, .carts_missing").unbind("click");
     get_timer("win");
-
 }
 
 function lose_game() {
@@ -544,11 +540,6 @@ function lose_game() {
     var play1 = cart_can_go_to_stack_discard(cart_up_tier1_src);
     var play2 = cart_can_go_to_stack_discard(cart_up_tier2_src);
     var play3 = cart_can_go_to_stack_discard(cart_up_tier3_src);
-
-    console.log("$" + play1 + "$")
-    console.log("$" + play2 + "$")
-    console.log("$" + play3 + "$")
-
 
     if (!play1 && !play2 && !play3) {
         document.getElementsByClassName("result")[0].innerHTML = "¡Suerte la próxima vez!";

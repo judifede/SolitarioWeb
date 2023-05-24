@@ -376,6 +376,7 @@ body.windows {
     display: inline-block;
     visibility: visible;
     opacity: 1;
+    overflow-y: auto;
     transform: translateY(0);
 }
 
@@ -470,6 +471,15 @@ body.windows {
     padding: 3px 6px 3px 6px;
     cursor: pointer;
     z-index: 800;
+}
+
+.close_options{
+    float: right;
+    margin: 15px;
+}
+
+.close_options:hover{
+    cursor: pointer;
 }
 
 .open_option a {

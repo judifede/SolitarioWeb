@@ -6,41 +6,41 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="shortcut icon" href="src/img/icons/icon.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="src/fontawesome-free-5.0.8/web-fonts-with-css/css/fontawesome-all.min.css" />
+    <link rel="stylesheet" href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
     <link rel="stylesheet" href="src/css/style.min.css">
     <script src="src/js/jquery-3.3.1.min.js"></script>
     <script src="src/js/scripts.min.js"></script>
 </head>
 
 <body class="verde">
-
     <div class="tier tier1">
         <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" data-position="1" class="carts hide">
         <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" data-position="2" class="carts hide">
         <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" data-position="3" class="carts hide">
-        <img src="src/img/dorsos/dorso_azul.jpg" alt="Carta Boca Arriba" data-position="4" class="carts" id="cart_up_tier1">
+        <img src="src/img/dorsos/dorso_azul.jpg" alt="Carta Boca Arriba" data-position="4" class="carts"
+            id="cart_up_tier1">
         <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso Auxiliar" data-position="4" class="carts reverse_helper">
     </div>
     <div class="tier tier2">
         <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" data-position="1" class="carts hide">
         <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" data-position="2" class="carts hide">
         <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" data-position="3" class="carts hide">
-        <img src="src/img/dorsos/dorso_azul.jpg" alt="Carta Boca Arriba" data-position="4" class="carts" id="cart_up_tier2">
+        <img src="src/img/dorsos/dorso_azul.jpg" alt="Carta Boca Arriba" data-position="4" class="carts"
+            id="cart_up_tier2">
         <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso Auxiliar" data-position="4" class="carts reverse_helper">
     </div>
     <div class="tier tier3">
         <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" data-position="1" class="carts hide">
         <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" data-position="2" class="carts hide">
         <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" data-position="3" class="carts hide">
-        <img src="src/img/dorsos/dorso_azul.jpg" alt="Carta Boca Arriba" data-position="4" class="carts" id="cart_up_tier3">
+        <img src="src/img/dorsos/dorso_azul.jpg" alt="Carta Boca Arriba" data-position="4" class="carts"
+            id="cart_up_tier3">
         <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso Auxiliar" data-position="4" class="carts reverse_helper">
     </div>
-
     <div class="deck">
         <p class="carts_missing">28</p>
         <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" class="carts reverse_fixed">
     </div>
-
     <div class="background_start opened"></div>
     <div class="start_difficulty opened">
         <h1>¡Bienvenido/a!</h1>
@@ -51,8 +51,6 @@
             <button class="button_difficulty" data-difficulty="Dificil">Difícil</button>
         </div>
     </div>
-
-
     <div class="background_options_instruccions"></div>
     <div class="open_options_instruccions">
         <p>Opciones e<br> Instrucciones</p>
@@ -60,13 +58,16 @@
     <div class="options_instruccions">
         <div class="instruccions">
             <h1>Instrucciones</h1>
-            <p>Para ganar, arrastra al montón principal la carta anterior o siguiente a la que aparece en éste, sin importar
-                del palo que sea.</p>
-            <p>Si te quedas sin opciones, haz clic sobre el montón de cartas de la izquierda para que salga una carta nueva.</p>
-            <p>Ganarás la partida cuando no queden cartas en ninguna de las tres columnas.</p>
+            <p>- El objetivo es arrastrar al montón principal (junto al mazo) todas las cartas de las 3 columnas, para
+                ello, la carta debe tener el valor anterior o siguiente a la que se muestre, sin preocuparnos por su palo.</p>
+            <p>Ejemplos:<br>Si en el montón principal hay un 5, podemos arrastrar un 4 o un 6.<br> Si hay un rey,
+                podemos arrastrar un caballo o un 1.</p>
+            <p>- Si te quedas sin opciones, haz clic sobre el montón de cartas de la izquierda para que salga una carta
+                nueva.</p>
             <p>¡Buena suerte!</p>
         </div>
         <div class="options">
+            <i class="fa fa-solid fa-xmark fa-2x close_options"></i>
             <h1>Opciones</h1>
             <div class="open_option reverse_collapsed">
                 <a>
@@ -75,16 +76,14 @@
                 </a>
             </div>
             <div class="reverse_expanded sub_expand_anim">
-                <label class="container_checkbox">Azul
-                    <input type="radio" name="reverse" data-reverse="Azul">
+                <label class="container_checkbox">Azul <input type="radio" name="reverse" data-reverse="Azul">
                     <span class="checkmark"></span>
                 </label>
-                <label class="container_checkbox">Oscuro
-                    <input type="radio" name="reverse" data-reverse="Oscuro">
+                <label class="container_checkbox">Oscuro <input type="radio" name="reverse" data-reverse="Oscuro">
                     <span class="checkmark"></span>
                 </label>
-                <label class="container_checkbox">Hearthstone
-                    <input type="radio" name="reverse" data-reverse="Hearthstone">
+                <label class="container_checkbox">Hearthstone <input type="radio" name="reverse"
+                        data-reverse="Hearthstone">
                     <span class="checkmark"></span>
                 </label>
             </div>
@@ -95,16 +94,13 @@
                 </a>
             </div>
             <div class="wallpaper_expanded sub_expand_anim">
-                <label class="container_checkbox">Verde
-                    <input type="radio" name="wallpaper" data-wallpaper="Verde">
+                <label class="container_checkbox">Verde <input type="radio" name="wallpaper" data-wallpaper="Verde">
                     <span class="checkmark"></span>
                 </label>
-                <label class="container_checkbox">Azul
-                    <input type="radio" name="wallpaper" data-wallpaper="Azul">
+                <label class="container_checkbox">Azul <input type="radio" name="wallpaper" data-wallpaper="Azul">
                     <span class="checkmark"></span>
                 </label>
-                <label class="container_checkbox">Windows
-                    <input type="radio" name="wallpaper" data-wallpaper="Windows">
+                <label class="container_checkbox">Windows <input type="radio" name="wallpaper" data-wallpaper="Windows">
                     <span class="checkmark"></span>
                 </label>
             </div>
@@ -114,24 +110,19 @@
             </div>
         </div>
     </div>
-
     <div class="background_results"></div>
     <div class="container_results">
         <img src="" alt="Icono resultado" class="icon_result">
         <p class="result"></p>
-        <p class="text_time_result">Has tardado:
-            <span class="time_result"></span>
+        <p class="text_time_result">Has tardado: <span class="time_result"></span>
         </p>
         <p class="programmer_greeting"></p>
         <a class="new_game">Volver a jugar</a>
     </div>
-
     <div class="tablet_vertical_alert">
-        <p class="tablet_vertical_alert_text">
-            Para jugar, por favor, gire su dispositivo en modo horizontal. Gracias.
+        <p class="tablet_vertical_alert_text"> Para jugar, por favor, gire su dispositivo en modo horizontal. Gracias.
         </p>
     </div>
-
 </body>
 
 </html>
