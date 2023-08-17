@@ -1,0 +1,41 @@
+/* body,
+html {
+	overflow: hidden;
+	background: black;
+} */
+
+.particula {
+	width: 3px;
+	height: 40px;
+	background: black;
+	position: absolute;
+	z-index: 1100;
+}
+/* Fuegos */
+ .particula[data-padre="false"] {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+}
+
+.particula.explotada {
+	animation: desvanecer 2.5s linear 1 forwards;
+}
+
+@keyframes desvanecer {
+	50% {
+		opacity: 0.5;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+/* End Fuegos */
+/* Lluvia */
+
+.particula.lluvia {
+	height: 25px;
+}
+
+/* End Lluvia */

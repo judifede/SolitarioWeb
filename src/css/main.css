@@ -1,0 +1,108 @@
+@font-face {
+    font-family: Nunito;
+    src: url('../fonts/Nunito-Regular.ttf')
+}
+
+@font-face {
+    font-family: Pacifico;
+    src: url('../fonts/Pacifico.ttf')
+}
+
+@font-face {
+    font-family: Slaptick;
+    src: url('../fonts/SF Slapstick Comic.ttf')
+}
+
+body {
+    background-size: 100vw 100vh;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: Nunito;
+    min-width: 300px;
+    min-height: 300px;
+
+}
+
+/*---------------------------------------------------Inicio---------------------------------------------------*/
+
+
+.background_start,
+.background_customs_instruccions,
+.background_results {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(20, 20, 20, 0.8);
+    z-index: 1000;
+    visibility: hidden;
+    display: none;
+}
+
+.background_start.opened,
+.background_customs_instruccions.opened,
+.background_results.end_game {
+    display: block;
+    visibility: visible !important;
+}
+
+.language_container{
+    text-align: right;
+}
+
+/*-------------------------------------------------End Inicio-------------------------------------------------*/
+
+/*----------------------------------------------Fin de partida----------------------------------------------*/
+
+.container_results {
+    visibility: hidden;
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: 80vh;
+    text-align: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 1000;
+}
+
+.container_results.end_game {
+    visibility: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container_results p {
+    font-size: 40px;
+    color: white;
+    margin: 0;
+    margin-top: 10px;
+    text-shadow: 2px 2px 0px black, -2px -2px 0px black, 2px 0px 0px black, -2px 0px 0px black, 0px 2px 0px black, 0px -2px 0px black, 2px -2px 0px black, -2px 2px 0px black;
+}
+
+
+
+.container_results .new_game {
+    color: white;
+    font-size: 35px;
+    text-align: center;
+    display: none;
+    margin-top: 10px;
+    padding: 5px 10px 5px 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: rgb(59, 89, 152);
+    cursor: pointer;
+}
+.container_results .new_game.opened {
+    display: inline-block;
+}
+
+/*---------------------------------------------End Fin de partida---------------------------------------------*/

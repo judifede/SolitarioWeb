@@ -5,119 +5,161 @@
     <title>Solitario</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="shortcut icon" href="src/img/icons/icon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="src/img/iconos/icon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
-    <link rel="stylesheet" href="src/css/style.min.css">
+    <link rel="stylesheet" href="src/css/main.css">
+    <link rel="stylesheet" href="src/css/config.css">
+    <link rel="stylesheet" href="src/css/game.css">
+    <link rel="stylesheet" href="src/css/responsive.css">
+    <link rel="stylesheet" href="src/css/particula.css">
     <script src="src/js/jquery-3.3.1.min.js"></script>
-    <script src="src/js/scripts.min.js"></script>
+    <script type="module" src="src/js/main.js"></script>
+    <script type="module" src="src/js/utils.js"></script>
+    <script type="module" src="src/js/particula.js"></script>
 </head>
 
-<body class="verde">
-    <div class="tier tier1">
-        <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" data-position="1" class="carts hide">
-        <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" data-position="2" class="carts hide">
-        <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" data-position="3" class="carts hide">
-        <img src="src/img/dorsos/dorso_azul.jpg" alt="Carta Boca Arriba" data-position="4" class="carts"
-            id="cart_up_tier1">
-        <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso Auxiliar" data-position="4" class="carts reverse_helper">
+<body class="picnic">
+    <div class="column column1">
     </div>
-    <div class="tier tier2">
-        <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" data-position="1" class="carts hide">
-        <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" data-position="2" class="carts hide">
-        <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" data-position="3" class="carts hide">
-        <img src="src/img/dorsos/dorso_azul.jpg" alt="Carta Boca Arriba" data-position="4" class="carts"
-            id="cart_up_tier2">
-        <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso Auxiliar" data-position="4" class="carts reverse_helper">
+    <div class="column column2">
     </div>
-    <div class="tier tier3">
-        <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" data-position="1" class="carts hide">
-        <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" data-position="2" class="carts hide">
-        <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" data-position="3" class="carts hide">
-        <img src="src/img/dorsos/dorso_azul.jpg" alt="Carta Boca Arriba" data-position="4" class="carts"
-            id="cart_up_tier3">
-        <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso Auxiliar" data-position="4" class="carts reverse_helper">
+    <div class="column column3">
     </div>
-    <div class="deck">
-        <p class="carts_missing">28</p>
-        <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" class="carts reverse_fixed">
+    <div class="baraja">
+        <p class="cartas_restantes">28</p>
+        <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" class="carts dorso_fixed">
     </div>
-    <div class="background_start opened"></div>
-    <div class="start_difficulty opened">
-        <h1>¡Bienvenido/a!</h1>
-        <p>Selecciona dificultad</p>
-        <div class="container_buttons_difficulty">
-            <button class="button_difficulty" data-difficulty="Facil">Fácil</button>
-            <button class="button_difficulty" data-difficulty="Medio">Medio</button>
-            <button class="button_difficulty" data-difficulty="Dificil">Difícil</button>
-        </div>
-    </div>
-    <div class="background_options_instruccions"></div>
-    <div class="open_options_instruccions">
-        <p>Opciones e<br> Instrucciones</p>
+    <div class="background_customs_instruccions opened"></div>
+    <!--  <div class="open_customs_instruccions">
+        <img src="src/img/iconos/engranaje.png" alt="Engranaje">
+        <p>Configuración</p>
+    </div>-->
+    <div class="open_customs_instruccions">
+        <img src="src/img/iconos/engranaje_azul.png" alt="Menu" class="menu_icon">
     </div>
     <div class="options_instruccions">
-        <div class="instruccions">
-            <h1>Instrucciones</h1>
-            <p>- El objetivo es arrastrar al montón principal (junto al mazo) todas las cartas de las 3 columnas, para
-                ello, la carta debe tener el valor anterior o siguiente a la que se muestre, sin preocuparnos por su palo.</p>
-            <p>Ejemplos:<br>Si en el montón principal hay un 5, podemos arrastrar un 4 o un 6.<br> Si hay un rey,
-                podemos arrastrar un caballo o un 1.</p>
-            <p>- Si te quedas sin opciones, haz clic sobre el montón de cartas de la izquierda para que salga una carta
-                nueva.</p>
+        <!-- TODO: Pestañas para cada grupo. Comenzar partida al final.
+             ¿Cómo se juega? / Apariencia / Empezar partida. Flecha de siguiente como cuando instalas un programa. https://www.solitar.io/-->
+        <div class="instruccions opened">
+            <h1>¿Cómo se juega?</h1>
+            <p>-El <strong>objetivo</strong> es arrastrar al montón principal (junto al mazo) todas las cartas de las 3
+                columnas, para ello, la carta debe tener el valor <strong>anterior</strong> o <strong>siguiente</strong>
+                a la que se muestre, sin preocuparnos por su <strong>palo</strong>.</p>
+            <div>
+                <p><strong>Ejemplos:</strong></p>
+                <ul>
+                    <li>Si en el montón principal hay un 5, podemos arrastrar un 4 o un 6.</li>
+                    <li>Si hay un rey, podemos arrastrar un caballo o un 1.</li>
+                </ul>
+                <img src="src/img/gameplay.gif" alt="gameplay" class="gameplay">
+            </div>
+            <p>-Si te quedas sin opciones, haz clic sobre el montón de cartas de la <strong>izquierda</strong> para que
+                salga una carta nueva.</p>
             <p>¡Buena suerte!</p>
         </div>
-        <div class="options">
-            <i class="fa fa-solid fa-xmark fa-2x close_options"></i>
-            <h1>Opciones</h1>
-            <div class="open_option reverse_collapsed">
+        <div class="options opened">
+            <i class="fa fa-solid fa-xmark fa-2x close_customs"></i>
+            <h1>Apariencia</h1>
+            <div class="open_custom dorso_collapsed">
                 <a>
                     <i class="fa fa-angle-up fa-lg"></i>
                     <p>Dorso</p>
                 </a>
             </div>
-            <div class="reverse_expanded sub_expand_anim">
-                <label class="container_checkbox">Azul <input type="radio" name="reverse" data-reverse="Azul">
-                    <span class="checkmark"></span>
-                </label>
-                <label class="container_checkbox">Oscuro <input type="radio" name="reverse" data-reverse="Oscuro">
-                    <span class="checkmark"></span>
-                </label>
-                <label class="container_checkbox">Hearthstone <input type="radio" name="reverse"
-                        data-reverse="Hearthstone">
-                    <span class="checkmark"></span>
-                </label>
+            <div class="dorso_expanded sub_expand_anim">
+                <div class="dorso_container">
+                    <label class="container_checkbox">Azul <input type="radio" name="dorso" data-dorso="Azul">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container_checkbox">Negro <input type="radio" name="dorso" data-dorso="Negro">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container_checkbox">Hearthstone <input type="radio" name="dorso"
+                            data-dorso="Hearthstone">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div class="dorso_ejemplo_container">
+                    <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" class="dorso_ejemplo">
+                </div>
             </div>
-            <div class="open_option wallpaper_collapsed">
+            <div class="open_custom fondo_pantalla_collapsed">
                 <a>
                     <i class="fa fa-angle-up fa-lg"></i>
                     <p>Fondo</p>
                 </a>
             </div>
-            <div class="wallpaper_expanded sub_expand_anim">
-                <label class="container_checkbox">Verde <input type="radio" name="wallpaper" data-wallpaper="Verde">
-                    <span class="checkmark"></span>
-                </label>
-                <label class="container_checkbox">Azul <input type="radio" name="wallpaper" data-wallpaper="Azul">
-                    <span class="checkmark"></span>
-                </label>
-                <label class="container_checkbox">Windows <input type="radio" name="wallpaper" data-wallpaper="Windows">
-                    <span class="checkmark"></span>
-                </label>
+            <div class="fondo_pantalla_expanded sub_expand_anim">
+                <div>
+                    <label class="container_checkbox">Picnic <input type="radio" name="fondo_pantalla"
+                            data-fondo_pantalla="Picnic">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container_checkbox">Casino <input type="radio" name="fondo_pantalla"
+                            data-fondo_pantalla="Casino">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container_checkbox">Steampunk <input type="radio" name="fondo_pantalla"
+                            data-fondo_pantalla="Steampunk">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div class="fondo_pantalla_ejemplo_container">
+                    <img src="src/img/fondos_pantalla/picnic.jpg" alt="fondo_pantalla_ejemplo"
+                        class="fondo_pantalla_ejemplo">
+                </div>
             </div>
-            <div class="container_options_new_game">
-                <p>Para <strong>cambiar de dificultad</strong> debes</p>
-                <a class="new_game">Comenzar nueva partida</a>
+            <div class="open_custom baraja_collapsed">
+                <a>
+                    <i class="fa fa-angle-up fa-lg"></i>
+                    <p>Baraja</p>
+                </a>
+            </div>
+            <div class="baraja_expanded sub_expand_anim">
+                <div>
+                    <label class="container_checkbox">Española <input type="radio" name="baraja" data-baraja="Spain">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container_checkbox">Francesa (Póquer) <input type="radio" name="baraja"
+                            data-baraja="Poquer">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div class="baraja_ejemplo_container">
+                    <img src="src/spanish-deck/copa1.png" alt="baraja_ejemplo" class="baraja_ejemplo">
+                </div>
+            </div>
+            <div class="language_container">
+                <!--TODO: Idiomas como Bluy Bay Hotels-->
+                <select id="languageSelect">
+                    <option value="es">Español</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+        </div>
+        <div class="start_game opened">
+            <h1>Comenzar partida</h1>
+            <p>¿Qué dificultad quieres jugar?</p>
+            <div class="container_buttons_dificultad">
+                <button class="button_dificultad" data-dificultad="Facil">Fácil</button>
+                <button class="button_dificultad" data-dificultad="Medio">Medio</button>
+                <button class="button_dificultad" data-dificultad="Dificil">Difícil</button>
             </div>
         </div>
     </div>
     <div class="background_results"></div>
     <div class="container_results">
-        <img src="" alt="Icono resultado" class="icon_result">
         <p class="result"></p>
-        <p class="text_time_result">Has tardado: <span class="time_result"></span>
-        </p>
         <p class="programmer_greeting"></p>
         <a class="new_game">Volver a jugar</a>
+        <div class="restart_game">
+            <p>¿Qué dificultad quieres jugar?</p>
+            <div class="container_buttons_dificultad">
+                <button class="button_dificultad" data-dificultad="Facil">Fácil</button>
+                <button class="button_dificultad" data-dificultad="Medio">Medio</button>
+                <button class="button_dificultad" data-dificultad="Dificil">Difícil</button>
+            </div>
+        </div>
     </div>
     <div class="tablet_vertical_alert">
         <p class="tablet_vertical_alert_text"> Para jugar, por favor, gire su dispositivo en modo horizontal. Gracias.

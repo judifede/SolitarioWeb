@@ -1,0 +1,404 @@
+
+/*-------------------------------------------------Orientación-------------------------------------------------*/
+
+.tablet_vertical_alert {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    font-size: 30px;
+    color: black;
+    /* background-image: url('../img/fondos_pantalla/fondo_madera.jpg'); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 1000;
+}
+
+.tablet_vertical_alert_text {
+    margin: 0;
+}
+
+/*Vertical*/
+
+@media only screen and (orientation:portrait) {
+    *:not(html):not(body):not(.tablet_vertical_alert):not(.tablet_vertical_alert_text) {
+        opacity: 0;
+    }
+
+    .tablet_vertical_alert {
+        display: block;
+    }
+}
+
+/*Horizontal*/
+/*
+@media only screen and (orientation:landscape) {}
+*/
+/*-----------------------------------------------End Orientación-----------------------------------------------*/
+
+/*--------------------------------------------------------------- 4K ---------------------------------------------------------------*/
+
+@media (min-width: 1500px) {
+
+    .baraja,
+    .carts {
+        width: 160px;
+        height: 220px;
+    }
+
+    .baraja .cartas_restantes {
+        font-size: 55px;
+    }
+
+    .start_dificultad h1 {
+        font-size: 85pt;
+    }
+
+    .start_dificultad p {
+        font-size: 40pt;
+    }
+
+    .start_dificultad button {
+        font-size: 40pt;
+    }
+
+    .open_customs_instruccions {
+        font-size: 40px;
+    }
+
+    .open_custom {
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .options_instruccions h1 {
+        font-size: 60px;
+    }
+
+    .container_results .new_game,
+    .container_results .programmer_greeting {
+        margin-top: 15px;
+    }
+
+    .options p {
+        font-size: 30px;
+    }
+
+    .instruccions p, .instruccions li,
+    .container_checkbox {
+        font-size: 30px;
+    }
+
+    .checkmark {
+        top: 7px;
+        width: 25px;
+        height: 25px;
+    }
+}
+
+/*-------------------------------------------------------------End 4K-------------------------------------------------------------*/
+
+/*--------------------------------------------------------------- Grandes ---------------------------------------------------------------*/
+
+@media (min-width: 1200px) {
+
+    .baraja,
+    .carts {
+        width: 160px;
+        height: 220px;
+    }
+
+    .baraja .cartas_restantes {
+        font-size: 35px;
+    }
+
+    .start_dificultad h1 {
+        font-size: 85pt;
+    }
+
+    .start_dificultad p {
+        font-size: 40pt;
+    }
+
+    .start_dificultad button {
+        font-size: 40pt;
+    }
+
+    .open_customs_instruccions {
+        font-size: 40px;
+    }
+
+    .open_custom {
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .options_instruccions h1 {
+        font-size: 60px;
+    }
+
+    .container_results .new_game,
+    .container_results .programmer_greeting {
+        margin-top: 15px;
+    }
+
+    .options p {
+        font-size: 25px;
+    }
+
+    .instruccions p, .instruccions li,
+    .container_checkbox {
+        font-size: 25px;
+    }
+
+    
+}
+
+/*-------------------------------------------------------------End Grandes-------------------------------------------------------------*/
+
+/*---------------------------------------------------------------Laptop---------------------------------------------------------------*/
+
+@media (max-width: 1024px) {
+
+    .baraja,
+    .carts {
+        width: 100px;
+        height: 140px;
+        border-radius: 5px;
+    }
+
+    .start_dificultad h1 {
+        font-size: 60pt;
+    }
+
+    .start_dificultad p {
+        font-size: 30pt;
+    }
+
+    .start_dificultad button {
+        font-size: 22pt;
+    }
+
+    .open_customs_instruccions {
+        font-size: 20px;
+    }
+
+    .open_custom {
+        height: 30px;
+        line-height: 30px;
+    }
+
+    .options_instruccions h1 {
+        font-size: 20px;
+    }
+
+    .container_results .new_game,
+    .container_results .programmer_greeting {
+        margin-top: 15px;
+    }
+
+    .options p {
+        font-size: 20px;
+    }
+
+    .instruccions p, .instruccions li,
+    .container_checkbox {
+        font-size: 18px;
+    }
+}
+
+/*-------------------------------------------------------------End Laptop-------------------------------------------------------------*/
+
+/*---------------------------------------------------------------Tablet---------------------------------------------------------------*/
+
+@media (max-width: 768px) {
+
+    .baraja,
+    .carts {
+        width: 60px;
+        height: 100px;
+        border-radius: 5px;
+    }
+
+    .baraja .cartas_restantes {
+        font-size: 25px;
+    }
+
+    .start_dificultad h1 {
+        font-size: 50pt;
+    }
+
+    @keyframes expandir_tablet {
+        0% {
+            height: 0px;
+            opacity: 0;
+        }
+
+        100% {
+            height: 23%;
+            opacity: 1;
+        }
+    }
+
+    @keyframes sub_collapse_tablet {
+        0% {
+            opacity: 1;
+            height: 23%;
+            padding-top: 5px;
+        }
+
+        50% {
+            opacity: 0;
+        }
+
+        90% {
+            padding-top: 5px;
+        }
+
+        100% {
+            padding-top: 0;
+            opacity: 0;
+            height: 0px;
+        }
+    }
+
+    .expandir_anim {
+        animation-name: expandir_tablet;
+    }
+
+    .sub_collapse_anim {
+        animation-name: sub_collapse_tablet;
+    }
+
+    .options p,
+    .instruccions p, .instruccions li,
+    .container_checkbox {
+        font-size: 12px;
+    }
+
+    .checkmark {
+        width: 15px;
+        height: 15px;
+    }
+
+    .container_results .new_game,
+    .container_results p,
+    .container_results .programmer_greeting {
+        margin-top: 5px;
+    }
+
+    .container_results p,
+    .container_results .new_game {
+        font-size: 20px;
+    }
+}
+
+/*-------------------------------------------------------------End Tablet-------------------------------------------------------------*/
+
+/*---------------------------------------------------------------Móvil Large----------------------------------------------------------------*/
+@media (max-width: 550px) {
+    .start_dificultad h1 {
+        font-size: 40pt;
+    }
+
+    .start_dificultad p {
+        font-size: 20pt;
+    }
+
+    .start_dificultad button {
+        position: absolute;
+        bottom: 10%;
+    }
+
+    .start_dificultad button:first-of-type {
+        left: 0%;
+    }
+
+    .start_dificultad button:nth-of-type(2) {
+        left: 35%;
+    }
+
+    .start_dificultad button:last-of-type {
+        left: 70%;
+    }
+
+    .open_custom {
+        height: 15px;
+        line-height: 15px;
+        font-size: 10px;
+    }
+
+    .options p {
+        font-size: 12px;
+    }
+
+    .instruccions p, .instruccions li {
+        font-size: 9px;
+        padding: 5px;
+    }
+}
+
+/*-------------------------------------------------------------End Móvil Large-------------------------------------------------------------*/
+
+/*---------------------------------------------------------------Móvil----------------------------------------------------------------*/
+
+@media (max-width: 425px) {
+
+    .baraja,
+    .carts {
+        width: 40px;
+        height: 70px;
+    }
+
+    .start_dificultad h1 {
+        font-size: 32pt;
+    }
+
+    .start_dificultad p {
+        font-size: 18pt;
+    }
+
+    .start_dificultad button {
+        font-size: 14pt;
+    }
+
+    .open_customs_instruccions {
+        font-size: 15px;
+    }
+
+    .options_instruccions h1 {
+        font-size: 16px;
+    }
+
+    .container_results .programmer_greeting,
+    .container_results .new_game {
+        font-size: 20px;
+    }
+
+    .container_checkbox {
+        font-size: 10px;
+    }
+
+    .checkmark {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+@media (max-height: 400px) {
+    .start_dificultad h1 {
+        font-size: 28pt;
+    }
+
+    .start_dificultad p {
+        font-size: 18pt;
+    }
+
+    .start_dificultad button {
+        font-size: 18pt;
+    }
+}
+
+/*--------------------------------------------------------------End Móvil--------------------------------------------------------------*/

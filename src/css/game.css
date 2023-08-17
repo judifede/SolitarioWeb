@@ -1,0 +1,201 @@
+
+body.casino {
+    background-image: url('../img/fondos_pantalla/casino.jpg');
+}
+
+body.picnic {
+    background-image: url('../img/fondos_pantalla/picnic.jpg');
+}
+
+body.steampunk {
+    background-image: url('../img/fondos_pantalla/steampunk.jpg');
+}
+
+.column {
+    display: inline;
+}
+
+.column img {
+    position: absolute;
+}
+
+.column1 img {
+    left: 40vw;
+}
+
+.column2 img {
+    left: 60vw;
+}
+
+.column3 img {
+    left: 80vw;
+}
+
+.carts {
+    width: 140px;
+    height: 200px;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    border-radius: 10px;
+    z-index: 100;
+}
+
+.column img[data-posicion="1"] {
+    top: 10vh;
+}
+
+.column img[data-posicion="2"] {
+    top: calc(20vh - 20px);
+}
+
+.column img[data-posicion="3"] {
+    top: calc(30vh - 40px);
+}
+
+.column img[data-posicion="4"] {
+    top: calc(40vh - 60px);
+}
+
+.column img[data-posicion="5"] {
+    top: calc(50vh - 80px);
+}
+
+.column img[data-posicion="6"] {
+    top: calc(60vh - 100px);
+}
+
+.baraja.empty {
+    border: 1px solid white;
+}
+
+.baraja {
+    border: none;
+    width: 140px;
+    height: 200px;
+    display: inline-block;
+    position: absolute;
+    top: 48vh;
+    left: 4vw;
+}
+
+.baraja img {
+    position: absolute;
+}
+
+.baraja .cartas_restantes {
+    color: black;
+    margin: 0;
+    font-size: 30px;
+    background: radial-gradient(white 50%, black 120%);;
+    border-radius: 50%;
+    padding: 10px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    user-select: none;
+    -moz-user-select: none;
+    text-shadow: 1px 1px 0px black, -1px -1px 0px black, 1px 0px 0px black, -1px 0px 0px black, 0px 1px 0px black, 0px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black;
+    z-index: 200;
+}
+
+.stack_discard {
+    border: none;
+    position: absolute;
+    top: 48vh !important;
+    left: 20vw !important;
+    z-index: 3;
+}
+
+.dorso_helper,
+.baraja_dorso {
+    transform: rotateY(0deg);
+    transition: transform 0.5s linear 0s;
+}
+
+.dorso_helper.flip {
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
+}
+
+.baraja_carta {
+    z-index: 40;
+}
+
+#cart_up_column1:active,
+#cart_up_column2:active,
+#cart_up_column3:active {
+    z-index: 250;
+}
+
+#cart_up_column1,
+#cart_up_column2,
+#cart_up_column3,
+.baraja_carta {
+    transform: rotateY(-180deg);
+    transition: transform 0.5s linear 0s;
+}
+
+.carts[alt="Dorso"] {
+    background-color: white;
+}
+
+.carts[src="src/img/dorsos/dorso_hs.png"] {
+    background-color: transparent;
+}
+
+#cart_up_column1.flip,
+#cart_up_column2.flip,
+#cart_up_column3.flip,
+.carts[alt="Dorso"].flip {
+    backface-visibility: hidden;
+    transform: rotateY(0deg);
+}
+
+.baraja_carta.nueva_carta {
+    animation: nueva_carta_front 0.7s linear 1 forwards;
+}
+
+.baraja_dorso.nueva_carta {
+    animation: nueva_carta_back 0.7s linear 1 forwards;
+}
+
+.cartas_restantes {
+    cursor: default;
+}
+
+.cartas_restantes.no_carts {
+    visibility: hidden;
+}
+
+@keyframes nueva_carta_front {
+    0% {
+        left: 1vw;
+    }
+
+    50% {
+        backface-visibility: hidden;
+    }
+
+    100% {
+        left: 16vw;
+        transform: rotateY(0deg);
+        backface-visibility: hidden;
+    }
+}
+
+@keyframes nueva_carta_back {
+    0% {
+        left: 1vw;
+    }
+
+    50% {
+        backface-visibility: hidden;
+    }
+
+    100% {
+        left: 16vw;
+        transform: rotateY(180deg);
+        backface-visibility: hidden;
+    }
+}
