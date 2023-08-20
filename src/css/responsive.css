@@ -64,7 +64,7 @@
         font-size: 40pt;
     }
 
-    .open_customs_instruccions {
+    .menu_configuracion_container {
         font-size: 40px;
     }
 
@@ -73,20 +73,16 @@
         line-height: 50px;
     }
 
-    .options_instruccions h1 {
-        font-size: 60px;
-    }
-
     .container_results .new_game,
     .container_results .programmer_greeting {
         margin-top: 15px;
     }
 
-    .options p {
+    .apariencia p {
         font-size: 30px;
     }
 
-    .instruccions p, .instruccions li,
+    ul.tabs li a, .instrucciones p, .instrucciones li,
     .container_checkbox {
         font-size: 30px;
     }
@@ -126,7 +122,7 @@
         font-size: 40pt;
     }
 
-    .open_customs_instruccions {
+    .menu_configuracion_container {
         font-size: 40px;
     }
 
@@ -135,20 +131,16 @@
         line-height: 50px;
     }
 
-    .options_instruccions h1 {
-        font-size: 60px;
-    }
-
     .container_results .new_game,
     .container_results .programmer_greeting {
         margin-top: 15px;
     }
 
-    .options p {
+    .apariencia p {
         font-size: 25px;
     }
 
-    .instruccions p, .instruccions li,
+    .instrucciones p, .instrucciones li,
     .container_checkbox {
         font-size: 25px;
     }
@@ -181,7 +173,7 @@
         font-size: 22pt;
     }
 
-    .open_customs_instruccions {
+    .menu_configuracion_container {
         font-size: 20px;
     }
 
@@ -190,20 +182,16 @@
         line-height: 30px;
     }
 
-    .options_instruccions h1 {
-        font-size: 20px;
-    }
-
     .container_results .new_game,
     .container_results .programmer_greeting {
         margin-top: 15px;
     }
 
-    .options p {
+    .apariencia p {
         font-size: 20px;
     }
 
-    .instruccions p, .instruccions li,
+    ul.tabs li a, .instrucciones p, .instrucciones li,
     .container_checkbox {
         font-size: 18px;
     }
@@ -272,8 +260,8 @@
         animation-name: sub_collapse_tablet;
     }
 
-    .options p,
-    .instruccions p, .instruccions li,
+    ul.tabs li a, .apariencia p,
+    .instrucciones p, .instrucciones li,
     .container_checkbox {
         font-size: 12px;
     }
@@ -330,11 +318,11 @@
         font-size: 10px;
     }
 
-    .options p {
+    .apariencia p {
         font-size: 12px;
     }
 
-    .instruccions p, .instruccions li {
+    ul.tabs li a, .instrucciones p, .instrucciones li {
         font-size: 9px;
         padding: 5px;
     }
@@ -364,12 +352,8 @@
         font-size: 14pt;
     }
 
-    .open_customs_instruccions {
+    .menu_configuracion_container {
         font-size: 15px;
-    }
-
-    .options_instruccions h1 {
-        font-size: 16px;
     }
 
     .container_results .programmer_greeting,

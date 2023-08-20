@@ -24,57 +24,18 @@ var actual_dorso = "src/img/dorsos/dorso_azul.jpg";
 var move_event = "mousemove";
 var up_event = "mouseup";
 var down_event = "mousedown";
+var OPCIONES_ACORDEON = { DORSO: "dorso", FONDO: "fondo_pantalla", BARAJA: "baraja", IDIOMA: "idioma"};
 var DIFICULTADES = { FACIL: "Facil", MEDIO: "Medio", DIFICIL: "Dificil" };
-var array_baraja = [
-  "copa1",
-  "copa2",
-  "copa3",
-  "copa4",
-  "copa5",
-  "copa6",
-  "copa7",
-  "copa10",
-  "copa11",
-  "copa12",
-  "oro1",
-  "oro2",
-  "oro3",
-  "oro4",
-  "oro5",
-  "oro6",
-  "oro7",
-  "oro10",
-  "oro11",
-  "oro12",
-  "espada1",
-  "espada2",
-  "espada3",
-  "espada4",
-  "espada5",
-  "espada6",
-  "espada7",
-  "espada10",
-  "espada11",
-  "espada12",
-  "basto1",
-  "basto2",
-  "basto3",
-  "basto4",
-  "basto5",
-  "basto6",
-  "basto7",
-  "basto10",
-  "basto11",
-  "basto12",
-];
+var array_baraja = [ "copa1", "copa2", "copa3", "copa4", "copa5", "copa6", "copa7", "copa10", "copa11", "copa12", "oro1", "oro2", "oro3", "oro4", "oro5", "oro6", "oro7", "oro10", "oro11", "oro12", "espada1", "espada2", "espada3", "espada4", "espada5", "espada6", "espada7", "espada10", "espada11", "espada12", "basto1", "basto2", "basto3", "basto4", "basto5", "basto6", "basto7", "basto10", "basto11", "basto12", ];
 
 /*------------------------------------------------------Eventos------------------------------------------------------*/
 $(document).ready(function () {
   events_settings();
   //Firefox guarda cual estaba checked al recargar, asi que los inicializamos aquí.
-  document.getElementsByName("dorso")[0].checked = "checked";
-  document.getElementsByName("fondo_pantalla")[0].checked = "checked";
-  document.getElementsByName("baraja")[0].checked = "checked";
+  document.getElementsByName(OPCIONES_ACORDEON.DORSO)[0].checked = "checked";
+  document.getElementsByName(OPCIONES_ACORDEON.FONDO)[0].checked = "checked";
+  document.getElementsByName(OPCIONES_ACORDEON.BARAJA)[0].checked = "checked";
+  document.getElementsByName(OPCIONES_ACORDEON.IDIOMA)[0].checked = "checked";
   //End Firefox.
 });
 
@@ -86,8 +47,10 @@ function events_settings() {
   $(".button_dificultad").click(function () {
     var dificultad_seleccionada = $(this).attr("data-dificultad");
     elegir_dificultad(dificultad_seleccionada);
-    $(".options_instruccions div").removeClass("opened");
-    $(".background_customs_instruccions").removeClass("opened");
+    $(".close_customs").addClass("active");
+    $(".configuracion div").removeClass("opened");
+    $(".tabs").removeClass("opened");
+    $(".background_customs_instrucciones").removeClass("opened");
     partida_empezada = true;
   });
 
@@ -114,37 +77,63 @@ function events_settings() {
   });
   //End Añadir eventos y eventos táctiles.
 
-  //Options.
-  $(".open_customs_instruccions").click(function () {
-    // TODO: Pestañas para cada grupo. Comenzar partida al final.
-    $(".instruccions").addClass("opened");
-    $(".options").addClass("opened");
-    $(".start_game").addClass("opened");
-    $(".background_customs_instruccions").addClass("opened");
-    
+  //Tabs.
+
+  $(".tab_content").hide();
+  $("ul.tabs li:first").addClass("active").show();
+  $(".tab_content:first").show();
+
+  $("ul.tabs li").click(function () {
+    $("ul.tabs li").removeClass("active");
+    $(this).addClass("active");
+    $(".tab_content").hide();
+
+    var activeTab = $(this).find("a").attr("href");
+    $(activeTab).fadeIn();
+    return false;
   });
 
-  $(".background_customs_instruccions, .close_customs").click(function () {
+  //End Tabs.
+
+  //apariencia.
+  $(".menu_configuracion_container").click(function () {
+    // TODO: Pestañas para cada grupo. Comenzar partida al final.
+    $(".configuracion div").addClass("opened");
+    $(".tabs").addClass("opened");
+    $(".background_customs_instrucciones").addClass("opened");
+  });
+
+  $(".background_customs_instrucciones, .close_customs").click(function () {
     if (partida_empezada) {
-      $(".instruccions").removeClass("opened");
-      $(".options").removeClass("opened");
-      $(".start_game").removeClass("opened");
-      $(".background_customs_instruccions").removeClass("opened");
+      $(".configuracion div").removeClass("opened");
+      $(".tabs").removeClass("opened");
+      $(".background_customs_instrucciones").removeClass("opened");
     } else {
-      $(".start_game").css("border", "10px solid darkred");
+      // $(".start_game").css("border", "10px solid darkred");
     }
   });
 
+  $(".arrow_next_tab").click(function () {
+    $("ul.tabs li:nth-child(1)").removeClass("active");
+    $("ul.tabs li:nth-child(2)").addClass("active");
+    $(".tab_content").hide();
+    $("#tab2").fadeIn();
+  });
+
   $(".dorso_collapsed").click(function () {
-    sub_expand_and_collapse("dorso");
+    sub_expand_and_collapse(OPCIONES_ACORDEON.DORSO);
   });
 
   $(".fondo_pantalla_collapsed").click(function () {
-    sub_expand_and_collapse("fondo_pantalla");
+    sub_expand_and_collapse(OPCIONES_ACORDEON.FONDO);
   });
 
   $(".baraja_collapsed").click(function () {
-    sub_expand_and_collapse("baraja");
+    sub_expand_and_collapse(OPCIONES_ACORDEON.BARAJA);
+  });
+
+  $(".idioma_collapsed").click(function () {
+    sub_expand_and_collapse(OPCIONES_ACORDEON.IDIOMA);
   });
 
   //Evento Cambio de dorso.
@@ -159,6 +148,9 @@ function events_settings() {
   //Evento Cambio de fondo.
   $(".container_checkbox input[name='baraja']").bind("change", cambiar_baraja);
 
+  //Evento Cambio de idioma.
+  $(".container_checkbox input[name='idioma']").bind("change", cambiar_idioma);
+
   //Nueva partida.
   $(".new_game").click(function () {
     $(".restart_game").addClass("opened");
@@ -169,7 +161,7 @@ function events_settings() {
     reset();
   });
 
-  //End Options.
+  //End apariencia.
 }
 
 function elegir_dificultad(dificultad_seleccionada) {
@@ -438,36 +430,19 @@ function get_posicion(element) {
   return posicion;
 }
 
-function sub_expand_and_collapse(option) {
-  switch (option) {
-    case "dorso":
-      if (!$(".dorso_expanded").hasClass("sub_expand_anim")) {
-        $(".dorso_expanded").removeClass("sub_collapse_anim");
-        $(".dorso_expanded").addClass("sub_expand_anim");
-        $(".dorso_collapsed i").removeClass("fa-angle-down");
-        $(".dorso_collapsed i").addClass("fa-angle-up");
-      } else {
-        $(".dorso_expanded").removeClass("sub_expand_anim");
-        $(".dorso_expanded").addClass("sub_collapse_anim");
-        $(".dorso_collapsed i").removeClass("fa-angle-up");
-        $(".dorso_collapsed i").addClass("fa-angle-down");
-      }
-      break;
-    case "fondo_pantalla":
-      if (!$(".fondo_pantalla_expanded").hasClass("sub_expand_anim")) {
-        $(".fondo_pantalla_expanded").removeClass("sub_collapse_anim");
-        $(".fondo_pantalla_expanded").addClass("sub_expand_anim");
-        $(".fondo_pantalla_collapsed i").removeClass("fa-angle-down");
-        $(".fondo_pantalla_collapsed i").addClass("fa-angle-up");
-      } else {
-        $(".fondo_pantalla_expanded").removeClass("sub_expand_anim");
-        $(".fondo_pantalla_expanded").addClass("sub_collapse_anim");
-        $(".fondo_pantalla_collapsed i").removeClass("fa-angle-up");
-        $(".fondo_pantalla_collapsed i").addClass("fa-angle-down");
-      }
-      break;
-    default:
-      break;
+function sub_expand_and_collapse(opcion) {
+  var opcion_acordeon_expanded = "." + opcion + "_expanded";
+  var opcion_acordeon_collapsed = "." + opcion + "_collapsed";
+  if (!$(opcion_acordeon_expanded).hasClass("sub_expand_anim")) {
+    $(opcion_acordeon_expanded).removeClass("sub_collapse_anim");
+    $(opcion_acordeon_expanded).addClass("sub_expand_anim");
+    $(opcion_acordeon_collapsed + " i").removeClass("fa-angle-down");
+    $(opcion_acordeon_collapsed + " i").addClass("fa-angle-up");
+  } else {
+    $(opcion_acordeon_expanded).removeClass("sub_expand_anim");
+    $(opcion_acordeon_expanded).addClass("sub_collapse_anim");
+    $(opcion_acordeon_collapsed + " i").removeClass("fa-angle-up");
+    $(opcion_acordeon_collapsed + " i").addClass("fa-angle-down");
   }
 }
 
@@ -509,7 +484,7 @@ function first_flop() {
 }
 
 function ruta_carta() {
-  return "src/spanish-deck/" + carta_aleatoria() + ".png";
+  return "src/barajas/spanish-baraja/" + carta_aleatoria() + ".png";
 }
 
 function carta_aleatoria() {
@@ -811,10 +786,53 @@ function cambiar_baraja() {
     */
 }
 
+function cambiar_idioma() {
+  //TODO: Cambio de idioma
+  /*var input_fondo_pantalla = document.getElementsByName("fondo_pantalla");
+    var fondo_pantalla_ejemplo = document.getElementsByClassName("fondo_pantalla_ejemplo");
+  
+  
+  /*
+  body.casino {
+      background-image: url('../img/fondos_pantalla/casino.jpg');
+  }
+  
+  body.picnic {
+      background-image: url('../img/fondos_pantalla/picnic.jpg');
+  }
+  
+  body.steampunk {
+      background-image: url('../img/fondos_pantalla/steampunk.jpg');
+  */
+  // Buscamos el dorso seleccionado.
+  /*
+    for (var i = 0; i < input_fondo_pantalla.length; i++) {
+      if (input_fondo_pantalla[i].checked) {
+        break;
+      }
+    }
+  
+    var body = document.getElementsByTagName("body")[0];
+    var menu_icon = document.getElementsByClassName("menu_icon")[0];
+    // En base al data-fondo_pantalla seleccionado cambiamos la clase del body, que contiene el fondo.
+    var fondo_pantalla_seleccionada = input_fondo_pantalla[i].getAttribute("data-fondo_pantalla");
+    fondo_pantalla_ejemplo[0].setAttribute("src", "src/img/fondos_pantalla/" + fondo_pantalla_seleccionada.toLowerCase() + ".jpg");
+    if(fondo_pantalla_seleccionada == "Picnic"){
+      menu_icon.setAttribute("src", "src/img/iconos/engranaje_azul.png");
+    }else if(fondo_pantalla_seleccionada == "Casino"){
+      menu_icon.setAttribute("src", "src/img/iconos/engranaje_gris.png");
+    }else if(fondo_pantalla_seleccionada == "Steampunk"){
+      menu_icon.setAttribute("src", "src/img/iconos/engranaje_gris.png");
+    }
+    body.removeAttribute("class");
+    body.classList.add(fondo_pantalla_seleccionada.toLowerCase());
+    */
+}
+
 /*------------------------------------------------------End Opciones------------------------------------------------------*/
 
 /*------------------------------------------------------Idiomas------------------------------------------------------*/
-//TODO: Idiomas como Bluy Bay Hotels
+//TODO: Idiomas como Blue Bay Hotels
 
 /*------------------------------------------------------End Idiomas------------------------------------------------------*/
 
@@ -830,16 +848,54 @@ function win_game() {
     .getElementsByClassName("background_results")[0]
     .classList.add("end_game");
 
-    $(".container_results .new_game").addClass("opened");
-
+  $(".container_results .new_game").addClass("opened");
 
   $(".dorso_fixed, .cartas_restantes").unbind("click");
+  array_baraja = [
+    "copa1",
+    "copa2",
+    "copa3",
+    "copa4",
+    "copa5",
+    "copa6",
+    "copa7",
+    "copa10",
+    "copa11",
+    "copa12",
+    "oro1",
+    "oro2",
+    "oro3",
+    "oro4",
+    "oro5",
+    "oro6",
+    "oro7",
+    "oro10",
+    "oro11",
+    "oro12",
+    "espada1",
+    "espada2",
+    "espada3",
+    "espada4",
+    "espada5",
+    "espada6",
+    "espada7",
+    "espada10",
+    "espada11",
+    "espada12",
+    "basto1",
+    "basto2",
+    "basto3",
+    "basto4",
+    "basto5",
+    "basto6",
+    "basto7",
+    "basto10",
+    "basto11",
+    "basto12",
+  ];
 }
 
 function lose_game() {
-  
-
-
   //Si el elemento no existe porque no quedan cartas en algún column, dejamos el valor a false.
   var cart_up_column1_src = document.getElementById("cart_up_column1")
     ? document.getElementById("cart_up_column1").getAttribute("src")
@@ -869,6 +925,49 @@ function lose_game() {
     document
       .getElementsByClassName("background_results")[0]
       .classList.add("end_game");
+
+    array_baraja = [
+      "copa1",
+      "copa2",
+      "copa3",
+      "copa4",
+      "copa5",
+      "copa6",
+      "copa7",
+      "copa10",
+      "copa11",
+      "copa12",
+      "oro1",
+      "oro2",
+      "oro3",
+      "oro4",
+      "oro5",
+      "oro6",
+      "oro7",
+      "oro10",
+      "oro11",
+      "oro12",
+      "espada1",
+      "espada2",
+      "espada3",
+      "espada4",
+      "espada5",
+      "espada6",
+      "espada7",
+      "espada10",
+      "espada11",
+      "espada12",
+      "basto1",
+      "basto2",
+      "basto3",
+      "basto4",
+      "basto5",
+      "basto6",
+      "basto7",
+      "basto10",
+      "basto11",
+      "basto12",
+    ];
   }
 }
 
@@ -881,7 +980,49 @@ function reset() {
     .getElementsByClassName("background_results")[0]
     .classList.remove("end_game");
 
-    $(".restart_game").removeClass("opened");
+  $(".restart_game").removeClass("opened");
+  array_baraja = [
+    "copa1",
+    "copa2",
+    "copa3",
+    "copa4",
+    "copa5",
+    "copa6",
+    "copa7",
+    "copa10",
+    "copa11",
+    "copa12",
+    "oro1",
+    "oro2",
+    "oro3",
+    "oro4",
+    "oro5",
+    "oro6",
+    "oro7",
+    "oro10",
+    "oro11",
+    "oro12",
+    "espada1",
+    "espada2",
+    "espada3",
+    "espada4",
+    "espada5",
+    "espada6",
+    "espada7",
+    "espada10",
+    "espada11",
+    "espada12",
+    "basto1",
+    "basto2",
+    "basto3",
+    "basto4",
+    "basto5",
+    "basto6",
+    "basto7",
+    "basto10",
+    "basto11",
+    "basto12",
+  ];
 
   var particulas = document.getElementsByClassName("particula");
   while (particulas.length > 0) {
@@ -890,7 +1031,6 @@ function reset() {
   }
   clearTimeout(timeoutCrearParticulaPadre);
   clearTimeout(timeoutMoverParticulaPadre);
-
 
   reset_particulas();
 }

@@ -29,7 +29,7 @@ body {
 
 
 .background_start,
-.background_customs_instruccions,
+.background_customs_instrucciones,
 .background_results {
     position: absolute;
     top: 0;
@@ -43,7 +43,7 @@ body {
 }
 
 .background_start.opened,
-.background_customs_instruccions.opened,
+.background_customs_instrucciones.opened,
 .background_results.end_game {
     display: block;
     visibility: visible !important;
