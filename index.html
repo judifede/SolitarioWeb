@@ -34,8 +34,6 @@
         <img src="src/img/iconos/engranaje_azul.png" alt="Menu" class="menu_icon">
     </div>
     <div class="configuracion">
-        <!-- TODO: Pestañas para cada grupo. Comenzar partida al final.
-             ¿Cómo se juega? / Apariencia / Empezar partida. Flecha de siguiente como cuando instalas un programa. https://www.solitar.io/-->
         <ul class="tabs opened">
             <li><a href="#tab1">¿Cómo se juega?</a></li>
             <li><a href="#tab2">Apariencia</a></li>
@@ -46,7 +44,7 @@
             <div class="tab_content" id="tab1">
                 <div class="instrucciones opened">
                     <i class="fa fa-arrow-right fa-2x arrow_next_tab"></i>
-                    <p>-El <strong>objetivo</strong> es arrastrar al montón principal (junto al mazo) todas las cartas
+                    <p>El <strong>objetivo</strong> es arrastrar al montón principal (junto al mazo) todas las cartas
                         de las 3 columnas, para ello, la carta debe tener el valor <strong>anterior</strong> o
                         <strong>siguiente</strong> a la que se muestre, sin preocuparnos por su <strong>palo</strong>.
                     </p>
@@ -58,20 +56,20 @@
                         </ul>
                         <img src="src/img/gameplay.gif" alt="gameplay" class="gameplay">
                     </div>
-                    <p>-Si te quedas sin opciones, haz clic sobre el montón de cartas de la <strong>izquierda</strong>
+                    <p>Si te quedas sin opciones, haz clic sobre el montón de cartas de la <strong>izquierda</strong>
                         para que salga una carta nueva.</p>
                     <p>¡Buena suerte!</p>
                 </div>
             </div>
             <div class="tab_content" id="tab2">
                 <div class="apariencia opened">
-                    <div class="open_custom dorso_collapsed">
+                    <div class="title_acordeon">
                         <a>
                             <i class="fa fa-angle-up fa-lg"></i>
                             <p>Dorso</p>
                         </a>
                     </div>
-                    <div class="dorso_expanded sub_expand_anim">
+                    <div class="content_acordeon">
                         <div class="dorso_container">
                             <label class="container_checkbox">Azul <input type="radio" name="dorso" data-dorso="Azul">
                                 <span class="checkmark"></span>
@@ -88,13 +86,13 @@
                             <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" class="dorso_ejemplo">
                         </div>
                     </div>
-                    <div class="open_custom fondo_pantalla_collapsed">
+                    <div class="title_acordeon">
                         <a>
                             <i class="fa fa-angle-up fa-lg"></i>
                             <p>Fondo</p>
                         </a>
                     </div>
-                    <div class="fondo_pantalla_expanded sub_expand_anim">
+                    <div class="content_acordeon">
                         <div>
                             <label class="container_checkbox">Picnic <input type="radio" name="fondo_pantalla"
                                     data-fondo_pantalla="Picnic">
@@ -114,13 +112,13 @@
                                 class="fondo_pantalla_ejemplo">
                         </div>
                     </div>
-                    <div class="open_custom baraja_collapsed">
+                    <div class="title_acordeon">
                         <a>
                             <i class="fa fa-angle-up fa-lg"></i>
                             <p>Baraja</p>
                         </a>
                     </div>
-                    <div class="baraja_expanded sub_expand_anim">
+                    <div class="content_acordeon">
                         <div>
                             <label class="container_checkbox">Española <input type="radio" name="baraja"
                                     data-baraja="Spain">
@@ -136,13 +134,13 @@
                         </div>
                     </div>
                     <!--TODO: Idiomas como Blue Bay Hotels-->
-                    <div class="open_custom idioma_collapsed">
+                    <div class="title_acordeon">
                         <a>
                             <i class="fa fa-angle-up fa-lg"></i>
                             <p>Idioma</p>
                         </a>
                     </div>
-                    <div class="idioma_expanded sub_expand_anim">
+                    <div class="content_acordeon">
                         <div>
                             <label class="container_checkbox">Español <input type="radio" name="idioma"
                                     data-idioma="Spain">

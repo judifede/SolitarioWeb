@@ -68,7 +68,7 @@
         font-size: 40px;
     }
 
-    .open_custom {
+    .title_acordeon {
         height: 50px;
         line-height: 50px;
     }
@@ -126,7 +126,7 @@
         font-size: 40px;
     }
 
-    .open_custom {
+    .title_acordeon {
         height: 50px;
         line-height: 50px;
     }
@@ -177,7 +177,7 @@
         font-size: 20px;
     }
 
-    .open_custom {
+    .title_acordeon {
         height: 30px;
         line-height: 30px;
     }
@@ -312,7 +312,7 @@
         left: 70%;
     }
 
-    .open_custom {
+    .title_acordeon {
         height: 15px;
         line-height: 15px;
         font-size: 10px;

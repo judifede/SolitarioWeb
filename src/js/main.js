@@ -21,12 +21,106 @@ var cartas_restantes;
 var cartas_columnas = 12;
 var ruta_carta_pila_descartada;
 var actual_dorso = "src/img/dorsos/dorso_azul.jpg";
+var BARAJAS = {
+  SPAIN: "Spain",
+  POQUER: "Poquer",
+};
+var actual_baraja = BARAJAS.SPAIN;
 var move_event = "mousemove";
 var up_event = "mouseup";
 var down_event = "mousedown";
-var OPCIONES_ACORDEON = { DORSO: "dorso", FONDO: "fondo_pantalla", BARAJA: "baraja", IDIOMA: "idioma"};
+var OPCIONES_ACORDEON = {
+  DORSO: "dorso",
+  FONDO: "fondo_pantalla",
+  BARAJA: "baraja",
+  IDIOMA: "idioma",
+};
 var DIFICULTADES = { FACIL: "Facil", MEDIO: "Medio", DIFICIL: "Dificil" };
-var array_baraja = [ "copa1", "copa2", "copa3", "copa4", "copa5", "copa6", "copa7", "copa10", "copa11", "copa12", "oro1", "oro2", "oro3", "oro4", "oro5", "oro6", "oro7", "oro10", "oro11", "oro12", "espada1", "espada2", "espada3", "espada4", "espada5", "espada6", "espada7", "espada10", "espada11", "espada12", "basto1", "basto2", "basto3", "basto4", "basto5", "basto6", "basto7", "basto10", "basto11", "basto12", ];
+var array_baraja_game;
+var array_baraja_spanish = [
+  "copa1",
+  "copa2",
+  "copa3",
+  "copa4",
+  "copa5",
+  "copa6",
+  "copa7",
+  "copa10",
+  "copa11",
+  "copa12",
+  "oro1",
+  "oro2",
+  "oro3",
+  "oro4",
+  "oro5",
+  "oro6",
+  "oro7",
+  "oro10",
+  "oro11",
+  "oro12",
+  "espada1",
+  "espada2",
+  "espada3",
+  "espada4",
+  "espada5",
+  "espada6",
+  "espada7",
+  "espada10",
+  "espada11",
+  "espada12",
+  "basto1",
+  "basto2",
+  "basto3",
+  "basto4",
+  "basto5",
+  "basto6",
+  "basto7",
+  "basto10",
+  "basto11",
+  "basto12",
+];
+var array_baraja_french = [
+  "corazon1",
+  "corazon2",
+  "corazon3",
+  "corazon4",
+  "corazon5",
+  "corazon6",
+  "corazon7",
+  "corazon10",
+  "corazon11",
+  "corazon12",
+  "diamante1",
+  "diamante2",
+  "diamante3",
+  "diamante4",
+  "diamante5",
+  "diamante6",
+  "diamante7",
+  "diamante10",
+  "diamante11",
+  "diamante12",
+  "pica1",
+  "pica2",
+  "pica3",
+  "pica4",
+  "pica5",
+  "pica6",
+  "pica7",
+  "pica10",
+  "pica11",
+  "pica12",
+  "trebol1",
+  "trebol2",
+  "trebol3",
+  "trebol4",
+  "trebol5",
+  "trebol6",
+  "trebol7",
+  "trebol10",
+  "trebol11",
+  "trebol12",
+];
 
 /*------------------------------------------------------Eventos------------------------------------------------------*/
 $(document).ready(function () {
@@ -52,6 +146,7 @@ function events_settings() {
     $(".tabs").removeClass("opened");
     $(".background_customs_instrucciones").removeClass("opened");
     partida_empezada = true;
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
   });
 
   //Añadir eventos y eventos táctiles.
@@ -97,7 +192,6 @@ function events_settings() {
 
   //apariencia.
   $(".menu_configuracion_container").click(function () {
-    // TODO: Pestañas para cada grupo. Comenzar partida al final.
     $(".configuracion div").addClass("opened");
     $(".tabs").addClass("opened");
     $(".background_customs_instrucciones").addClass("opened");
@@ -108,8 +202,6 @@ function events_settings() {
       $(".configuracion div").removeClass("opened");
       $(".tabs").removeClass("opened");
       $(".background_customs_instrucciones").removeClass("opened");
-    } else {
-      // $(".start_game").css("border", "10px solid darkred");
     }
   });
 
@@ -120,21 +212,19 @@ function events_settings() {
     $("#tab2").fadeIn();
   });
 
-  $(".dorso_collapsed").click(function () {
-    sub_expand_and_collapse(OPCIONES_ACORDEON.DORSO);
-  });
-
-  $(".fondo_pantalla_collapsed").click(function () {
-    sub_expand_and_collapse(OPCIONES_ACORDEON.FONDO);
-  });
-
-  $(".baraja_collapsed").click(function () {
-    sub_expand_and_collapse(OPCIONES_ACORDEON.BARAJA);
-  });
-
-  $(".idioma_collapsed").click(function () {
-    sub_expand_and_collapse(OPCIONES_ACORDEON.IDIOMA);
-  });
+    $(".title_acordeon").click(function(){
+      var acordeon_seleccionado = $(this)[0];
+      console.log(acordeon_seleccionado);
+        if($(acordeon_seleccionado).find(".fa").hasClass("fa-angle-down")){
+            $(acordeon_seleccionado).find(".fa").removeClass("fa-angle-down");				
+            $(acordeon_seleccionado).find(".fa").addClass("fa-angle-up");		
+            $(this).next().show(750);
+          }else{
+            $(acordeon_seleccionado).find(".fa").addClass("fa-angle-down");				
+            $(acordeon_seleccionado).find(".fa").removeClass("fa-angle-up");				
+            $(this).next().hide(750);
+        }
+    });
 
   //Evento Cambio de dorso.
   $(".container_checkbox input[name='dorso']").bind("change", cambiar_dorso);
@@ -167,6 +257,9 @@ function events_settings() {
 function elegir_dificultad(dificultad_seleccionada) {
   //Comprobamos si ha empezado la partida.
   var posicion_dificultad = 0;
+  array_baraja_game = array_baraja_spanish.slice();
+  console.log(array_baraja_game, " game");
+  console.log(array_baraja_spanish, " spanish");
 
   // En base al data-dificultad seleccionado estableceremos las bases para el resto.
   switch (dificultad_seleccionada) {
@@ -430,22 +523,6 @@ function get_posicion(element) {
   return posicion;
 }
 
-function sub_expand_and_collapse(opcion) {
-  var opcion_acordeon_expanded = "." + opcion + "_expanded";
-  var opcion_acordeon_collapsed = "." + opcion + "_collapsed";
-  if (!$(opcion_acordeon_expanded).hasClass("sub_expand_anim")) {
-    $(opcion_acordeon_expanded).removeClass("sub_collapse_anim");
-    $(opcion_acordeon_expanded).addClass("sub_expand_anim");
-    $(opcion_acordeon_collapsed + " i").removeClass("fa-angle-down");
-    $(opcion_acordeon_collapsed + " i").addClass("fa-angle-up");
-  } else {
-    $(opcion_acordeon_expanded).removeClass("sub_expand_anim");
-    $(opcion_acordeon_expanded).addClass("sub_collapse_anim");
-    $(opcion_acordeon_collapsed + " i").removeClass("fa-angle-up");
-    $(opcion_acordeon_collapsed + " i").addClass("fa-angle-down");
-  }
-}
-
 /*------------------------------------------------------End Eventos------------------------------------------------------*/
 
 /*------------------------------------------------------Lógica del juego------------------------------------------------------*/
@@ -488,11 +565,13 @@ function ruta_carta() {
 }
 
 function carta_aleatoria() {
-  var posicion_aleatoria = Math.floor(Math.random() * array_baraja.length);
-  return array_baraja.splice(posicion_aleatoria, 1);
+  var posicion_aleatoria = Math.floor(Math.random() * array_baraja_game.length);
+  return array_baraja_game.splice(posicion_aleatoria, 1);
 }
 
 function nueva_carta_baraja() {
+  console.log(array_baraja_game, " game");
+  console.log(array_baraja_spanish, " spanish");
   cartas_restantes =
     document.getElementsByClassName("cartas_restantes")[0].innerHTML;
 
@@ -532,9 +611,9 @@ function nueva_carta_baraja() {
 }
 
 function get_value_of_cart(cart_path) {
-  var path_to_check = cart_path.split(".jpg")[0];
+  var path_to_check = cart_path.split(".png")[0];
   var check_nums = path_to_check.match(/[0-9]/g);
-
+//Comprobamos si el valor tiene 1 o 2 dígitos
   if (typeof check_nums[1] == "undefined") {
     return parseInt(check_nums);
   } else {
@@ -745,52 +824,55 @@ function cambiar_fondo_pantalla() {
 
 function cambiar_baraja() {
   //TODO: Cambio de baraja
-  /*var input_fondo_pantalla = document.getElementsByName("fondo_pantalla");
-    var fondo_pantalla_ejemplo = document.getElementsByClassName("fondo_pantalla_ejemplo");
-  
-  
-  /*
-  body.casino {
-      background-image: url('../img/fondos_pantalla/casino.jpg');
-  }
-  
-  body.picnic {
-      background-image: url('../img/fondos_pantalla/picnic.jpg');
-  }
-  
-  body.steampunk {
-      background-image: url('../img/fondos_pantalla/steampunk.jpg');
-  */
-  // Buscamos el dorso seleccionado.
-  /*
-    for (var i = 0; i < input_fondo_pantalla.length; i++) {
-      if (input_fondo_pantalla[i].checked) {
-        break;
-      }
+  var input_baraja = document.getElementsByName("baraja");
+  var baraja_ejemplo = document.getElementsByClassName("baraja_ejemplo");
+
+  // Buscar todas las cartas boca arriba.
+
+  // Buscamos la baraja seleccionado.
+
+  for (var i = 0; i < input_baraja.length; i++) {
+    if (input_baraja[i].checked) {
+      break;
     }
-  
-    var body = document.getElementsByTagName("body")[0];
-    var menu_icon = document.getElementsByClassName("menu_icon")[0];
-    // En base al data-fondo_pantalla seleccionado cambiamos la clase del body, que contiene el fondo.
-    var fondo_pantalla_seleccionada = input_fondo_pantalla[i].getAttribute("data-fondo_pantalla");
-    fondo_pantalla_ejemplo[0].setAttribute("src", "src/img/fondos_pantalla/" + fondo_pantalla_seleccionada.toLowerCase() + ".jpg");
-    if(fondo_pantalla_seleccionada == "Picnic"){
-      menu_icon.setAttribute("src", "src/img/iconos/engranaje_azul.png");
-    }else if(fondo_pantalla_seleccionada == "Casino"){
-      menu_icon.setAttribute("src", "src/img/iconos/engranaje_gris.png");
-    }else if(fondo_pantalla_seleccionada == "Steampunk"){
-      menu_icon.setAttribute("src", "src/img/iconos/engranaje_gris.png");
-    }
-    body.removeAttribute("class");
-    body.classList.add(fondo_pantalla_seleccionada.toLowerCase());
-    */
+  }
+
+  var equivalentes_cambiar_a_french = {
+    copa: "corazon",
+    oro: "diamante",
+    espada: "pica",
+    basto: "trebol",
+  };
+  var equivalentes_cambiar_a_spanish = {
+    corazon: "copa",
+    diamante: "oro",
+    pica: "espada",
+    trebol: "basto",
+  };
+
+  // En base al data-baraja seleccionado cambiamos las cartas visibles por sus equivalentes.
+  var baraja_seleccionada = input_baraja[i].getAttribute("data-baraja");
+
+  var oro = "oro";
+
+  if (baraja_seleccionada == "Spain") {
+    $(".img[alt='Carta Boca']");
+    baraja_ejemplo[0].setAttribute(
+      "src",
+      "src/barajas/spanish-baraja/copa1.png"
+    );
+  } else if (baraja_seleccionada == "Poquer") {
+    baraja_ejemplo[0].setAttribute(
+      "src",
+      "src/barajas/french-baraja/corazon1.png"
+    );
+  }
 }
 
 function cambiar_idioma() {
   //TODO: Cambio de idioma
   /*var input_fondo_pantalla = document.getElementsByName("fondo_pantalla");
     var fondo_pantalla_ejemplo = document.getElementsByClassName("fondo_pantalla_ejemplo");
-  
   
   /*
   body.casino {
@@ -851,48 +933,6 @@ function win_game() {
   $(".container_results .new_game").addClass("opened");
 
   $(".dorso_fixed, .cartas_restantes").unbind("click");
-  array_baraja = [
-    "copa1",
-    "copa2",
-    "copa3",
-    "copa4",
-    "copa5",
-    "copa6",
-    "copa7",
-    "copa10",
-    "copa11",
-    "copa12",
-    "oro1",
-    "oro2",
-    "oro3",
-    "oro4",
-    "oro5",
-    "oro6",
-    "oro7",
-    "oro10",
-    "oro11",
-    "oro12",
-    "espada1",
-    "espada2",
-    "espada3",
-    "espada4",
-    "espada5",
-    "espada6",
-    "espada7",
-    "espada10",
-    "espada11",
-    "espada12",
-    "basto1",
-    "basto2",
-    "basto3",
-    "basto4",
-    "basto5",
-    "basto6",
-    "basto7",
-    "basto10",
-    "basto11",
-    "basto12",
-  ];
 }
 
 function lose_game() {
@@ -925,49 +965,6 @@ function lose_game() {
     document
       .getElementsByClassName("background_results")[0]
       .classList.add("end_game");
-
-    array_baraja = [
-      "copa1",
-      "copa2",
-      "copa3",
-      "copa4",
-      "copa5",
-      "copa6",
-      "copa7",
-      "copa10",
-      "copa11",
-      "copa12",
-      "oro1",
-      "oro2",
-      "oro3",
-      "oro4",
-      "oro5",
-      "oro6",
-      "oro7",
-      "oro10",
-      "oro11",
-      "oro12",
-      "espada1",
-      "espada2",
-      "espada3",
-      "espada4",
-      "espada5",
-      "espada6",
-      "espada7",
-      "espada10",
-      "espada11",
-      "espada12",
-      "basto1",
-      "basto2",
-      "basto3",
-      "basto4",
-      "basto5",
-      "basto6",
-      "basto7",
-      "basto10",
-      "basto11",
-      "basto12",
-    ];
   }
 }
 
@@ -981,48 +978,17 @@ function reset() {
     .classList.remove("end_game");
 
   $(".restart_game").removeClass("opened");
-  array_baraja = [
-    "copa1",
-    "copa2",
-    "copa3",
-    "copa4",
-    "copa5",
-    "copa6",
-    "copa7",
-    "copa10",
-    "copa11",
-    "copa12",
-    "oro1",
-    "oro2",
-    "oro3",
-    "oro4",
-    "oro5",
-    "oro6",
-    "oro7",
-    "oro10",
-    "oro11",
-    "oro12",
-    "espada1",
-    "espada2",
-    "espada3",
-    "espada4",
-    "espada5",
-    "espada6",
-    "espada7",
-    "espada10",
-    "espada11",
-    "espada12",
-    "basto1",
-    "basto2",
-    "basto3",
-    "basto4",
-    "basto5",
-    "basto6",
-    "basto7",
-    "basto10",
-    "basto11",
-    "basto12",
-  ];
+
+  $("<img>")
+    .attr({
+      src: actual_dorso,
+      alt: "Dorso",
+    })
+      .addClass("carts dorso_fixed")
+      .appendTo($(".baraja"));
+
+  $(".cartas_restantes").removeClass("no_carts");
+  $(".baraja").removeClass("empty");
 
   var particulas = document.getElementsByClassName("particula");
   while (particulas.length > 0) {

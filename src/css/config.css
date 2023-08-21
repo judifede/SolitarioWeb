@@ -209,7 +209,7 @@ html ul.tabs li.active a:hover {
     margin: 2% 0 2% 0;
 }
 
-.open_custom:hover img {
+.title_acordeon:hover img {
     transform: scale(1.15, 1.15);
 }
 
@@ -220,7 +220,7 @@ html ul.tabs li.active a:hover {
     margin-right: 20px;
 }
 
-.open_custom img {
+.title_acordeon img {
     transition: all .25s;
 }
 
@@ -233,7 +233,7 @@ html ul.tabs li.active a:hover {
     color: black
 }
 
-.open_custom {
+.title_acordeon {
     display: block;
     width: 100%;
     height: 50px;
@@ -278,85 +278,29 @@ html ul.tabs li.active a:hover {
     cursor: pointer;
 }
 
-.open_custom a {
+.title_acordeon a {
     font-weight: bold;
 }
 
-.open_custom .fa {
+.title_acordeon .fa {
     margin-right: 1%;
 }
 
-.open_custom p,
+.title_acordeon p,
 .menu_configuracion_container p {
     margin: 0;
     display: inline;
 }
 
-.dorso_expanded,
-.fondo_pantalla_expanded,
-.idioma_expanded,
-.baraja_expanded {
+.content_acordeon{
     display: flex;
     justify-content: space-between;
     align-items: center;
     overflow: hidden;
-    height: 0;
     width: 100%;
     background: linear-gradient(to bottom, rgb(206, 206, 206), rgb(216, 216, 216));
     border-radius: 10px;
-}
-
-.dorso_expanded p,
-.fondo_pantalla_expanded p {
-    margin: 5px 0 5px 0;
-}
-
-@keyframes sub_expand {
-    0% {
-        height: 0;
-        opacity: 0;
-        padding-top: 0;
-    }
-    50%{
-        opacity: 0.5;
-    }
-
-    100% {
-        height: auto;
-        opacity: 1;
-        padding-top: 5px;
-    }
-}
-
-@keyframes sub_collapse {
-    0% {
-        opacity: 1;
-        height: auto;
-        padding-top: 5px;
-    }
-
-    50% {
-        opacity: 0.5;
-    }
-
-    100% {
-        opacity: 0;
-        height: 0;
-        padding-top: 0;
-    }
-}
-
-.sub_expand_anim {
-    animation-name: sub_expand;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-    padding-top: 5px;
-}
-
-.sub_collapse_anim {
-    animation-name: sub_collapse;
-    animation-duration: 0.8s;
-    animation-fill-mode: forwards;
+    overflow-y: auto;
 }
 
 /*-------------------------------------------------End Opciones-------------------------------------------------*/
