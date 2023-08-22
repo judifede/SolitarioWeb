@@ -22,10 +22,10 @@ var cartas_columnas = 12;
 var ruta_carta_pila_descartada;
 var actual_dorso = "src/img/dorsos/dorso_azul.jpg";
 var BARAJAS = {
-  SPAIN: "Spain",
-  POQUER: "Poquer",
+  SPANISH: "Spanish",
+  FRENCH: "French",
 };
-var actual_baraja = BARAJAS.SPAIN;
+var actual_baraja = BARAJAS.SPANISH;
 var move_event = "mousemove";
 var up_event = "mouseup";
 var down_event = "mousedown";
@@ -33,7 +33,6 @@ var OPCIONES_ACORDEON = {
   DORSO: "dorso",
   FONDO: "fondo_pantalla",
   BARAJA: "baraja",
-  IDIOMA: "idioma",
 };
 var DIFICULTADES = { FACIL: "Facil", MEDIO: "Medio", DIFICIL: "Dificil" };
 var array_baraja_game;
@@ -79,6 +78,7 @@ var array_baraja_spanish = [
   "basto11",
   "basto12",
 ];
+
 var array_baraja_french = [
   "corazon1",
   "corazon2",
@@ -129,7 +129,6 @@ $(document).ready(function () {
   document.getElementsByName(OPCIONES_ACORDEON.DORSO)[0].checked = "checked";
   document.getElementsByName(OPCIONES_ACORDEON.FONDO)[0].checked = "checked";
   document.getElementsByName(OPCIONES_ACORDEON.BARAJA)[0].checked = "checked";
-  document.getElementsByName(OPCIONES_ACORDEON.IDIOMA)[0].checked = "checked";
   //End Firefox.
 });
 
@@ -137,8 +136,19 @@ function events_settings() {
   cartas_restantes =
     document.getElementsByClassName("cartas_restantes")[0].innerHTML;
 
+  if (actual_baraja == BARAJAS.SPANISH) {
+    array_baraja_game = array_baraja_spanish.slice();
+  } else if (actual_baraja == BARAJAS.FRENCH) {
+    array_baraja_game = array_baraja_french.slice();
+  }
+
   //Evento Elegir dificultad.
   $(".button_dificultad").click(function () {
+    if (actual_baraja == BARAJAS.SPANISH) {
+      array_baraja_game = array_baraja_spanish.slice();
+    } else if (actual_baraja == BARAJAS.FRENCH) {
+      array_baraja_game = array_baraja_french.slice();
+    }
     var dificultad_seleccionada = $(this).attr("data-dificultad");
     elegir_dificultad(dificultad_seleccionada);
     $(".close_customs").addClass("active");
@@ -146,7 +156,6 @@ function events_settings() {
     $(".tabs").removeClass("opened");
     $(".background_customs_instrucciones").removeClass("opened");
     partida_empezada = true;
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
   });
 
   //Añadir eventos y eventos táctiles.
@@ -212,19 +221,18 @@ function events_settings() {
     $("#tab2").fadeIn();
   });
 
-    $(".title_acordeon").click(function(){
-      var acordeon_seleccionado = $(this)[0];
-      console.log(acordeon_seleccionado);
-        if($(acordeon_seleccionado).find(".fa").hasClass("fa-angle-down")){
-            $(acordeon_seleccionado).find(".fa").removeClass("fa-angle-down");				
-            $(acordeon_seleccionado).find(".fa").addClass("fa-angle-up");		
-            $(this).next().show(750);
-          }else{
-            $(acordeon_seleccionado).find(".fa").addClass("fa-angle-down");				
-            $(acordeon_seleccionado).find(".fa").removeClass("fa-angle-up");				
-            $(this).next().hide(750);
-        }
-    });
+  $(".title_acordeon").click(function () {
+    var acordeon_seleccionado = $(this)[0];
+    if ($(acordeon_seleccionado).find(".fa").hasClass("fa-angle-down")) {
+      $(acordeon_seleccionado).find(".fa").removeClass("fa-angle-down");
+      $(acordeon_seleccionado).find(".fa").addClass("fa-angle-up");
+      $(this).next().show(750);
+    } else {
+      $(acordeon_seleccionado).find(".fa").addClass("fa-angle-down");
+      $(acordeon_seleccionado).find(".fa").removeClass("fa-angle-up");
+      $(this).next().hide(750);
+    }
+  });
 
   //Evento Cambio de dorso.
   $(".container_checkbox input[name='dorso']").bind("change", cambiar_dorso);
@@ -235,11 +243,8 @@ function events_settings() {
     cambiar_fondo_pantalla
   );
 
-  //Evento Cambio de fondo.
+  //Evento Cambio de baraja.
   $(".container_checkbox input[name='baraja']").bind("change", cambiar_baraja);
-
-  //Evento Cambio de idioma.
-  $(".container_checkbox input[name='idioma']").bind("change", cambiar_idioma);
 
   //Nueva partida.
   $(".new_game").click(function () {
@@ -257,9 +262,6 @@ function events_settings() {
 function elegir_dificultad(dificultad_seleccionada) {
   //Comprobamos si ha empezado la partida.
   var posicion_dificultad = 0;
-  array_baraja_game = array_baraja_spanish.slice();
-  console.log(array_baraja_game, " game");
-  console.log(array_baraja_spanish, " spanish");
 
   // En base al data-dificultad seleccionado estableceremos las bases para el resto.
   switch (dificultad_seleccionada) {
@@ -561,7 +563,13 @@ function first_flop() {
 }
 
 function ruta_carta() {
-  return "src/barajas/spanish-baraja/" + carta_aleatoria() + ".png";
+  return (
+    "src/barajas/" +
+    actual_baraja.toLowerCase() +
+    "-baraja/" +
+    carta_aleatoria() +
+    ".png"
+  );
 }
 
 function carta_aleatoria() {
@@ -570,8 +578,6 @@ function carta_aleatoria() {
 }
 
 function nueva_carta_baraja() {
-  console.log(array_baraja_game, " game");
-  console.log(array_baraja_spanish, " spanish");
   cartas_restantes =
     document.getElementsByClassName("cartas_restantes")[0].innerHTML;
 
@@ -613,7 +619,7 @@ function nueva_carta_baraja() {
 function get_value_of_cart(cart_path) {
   var path_to_check = cart_path.split(".png")[0];
   var check_nums = path_to_check.match(/[0-9]/g);
-//Comprobamos si el valor tiene 1 o 2 dígitos
+  //Comprobamos si el valor tiene 1 o 2 dígitos
   if (typeof check_nums[1] == "undefined") {
     return parseInt(check_nums);
   } else {
@@ -823,14 +829,15 @@ function cambiar_fondo_pantalla() {
 }
 
 function cambiar_baraja() {
-  //TODO: Cambio de baraja
   var input_baraja = document.getElementsByName("baraja");
   var baraja_ejemplo = document.getElementsByClassName("baraja_ejemplo");
 
   // Buscar todas las cartas boca arriba.
+  var cartas_boca_arriba = $(
+    ".baraja_carta, #cart_up_column1, #cart_up_column2, #cart_up_column3, .stack_discard"
+  );
 
   // Buscamos la baraja seleccionado.
-
   for (var i = 0; i < input_baraja.length; i++) {
     if (input_baraja[i].checked) {
       break;
@@ -853,21 +860,85 @@ function cambiar_baraja() {
   // En base al data-baraja seleccionado cambiamos las cartas visibles por sus equivalentes.
   var baraja_seleccionada = input_baraja[i].getAttribute("data-baraja");
 
-  var oro = "oro";
+  if (baraja_seleccionada == BARAJAS.SPANISH) {
+    actual_baraja = BARAJAS.SPANISH;
 
-  if (baraja_seleccionada == "Spain") {
-    $(".img[alt='Carta Boca']");
+    //Bucle para cambiar el array_baraja_game
+    for (
+      var index_baraja_game = 0;
+      index_baraja_game < array_baraja_game.length;
+      index_baraja_game++
+    ) {
+      const array_elemento = array_baraja_game[index_baraja_game];
+      let patron = /[^0-9]+/;
+      let coincidencias = array_elemento.match(patron);
+      let palo = coincidencias[0];
+      array_baraja_game[index_baraja_game] = array_elemento.replace(
+        palo,
+        equivalentes_cambiar_a_spanish[palo]
+      );
+    }
+
+    //Bucle para cambiar las cartas boca arriba
+    for (var index = 0; index < cartas_boca_arriba.length; index++) {
+      const carta_boca_arriba = cartas_boca_arriba[index];
+      const src_carta_boca_arriba = carta_boca_arriba.getAttribute("src");
+      let patron = /\/([^/0-9]+)\d*\.png$/;
+      let coincidencias = src_carta_boca_arriba.match(patron);
+      let palo = coincidencias[1];
+      var nuevo_src = src_carta_boca_arriba
+        .replace("french", "spanish")
+        .replace(palo, equivalentes_cambiar_a_spanish[palo]);
+      carta_boca_arriba.setAttribute("src", nuevo_src);
+    }
+
     baraja_ejemplo[0].setAttribute(
       "src",
       "src/barajas/spanish-baraja/copa1.png"
     );
-  } else if (baraja_seleccionada == "Poquer") {
+  } else if (baraja_seleccionada == BARAJAS.FRENCH) {
+    actual_baraja = BARAJAS.FRENCH;
+
+    //Bucle para cambiar el array_baraja_game
+    for (
+      var index_baraja_game = 0;
+      index_baraja_game < array_baraja_game.length;
+      index_baraja_game++
+    ) {
+      const array_elemento = array_baraja_game[index_baraja_game];
+      let patron = /[^0-9]+/;
+      let coincidencias = array_elemento.match(patron);
+      let palo = coincidencias[0];
+      array_baraja_game[index_baraja_game] = array_elemento.replace(
+        palo,
+        equivalentes_cambiar_a_french[palo]
+      );
+    }
+
+    //Bucle para cambiar las cartas boca arriba
+    for (var index = 0; index < cartas_boca_arriba.length; index++) {
+      const carta_boca_arriba = cartas_boca_arriba[index];
+      const src_carta_boca_arriba = carta_boca_arriba.getAttribute("src");
+      let patron = /\/([^/0-9]+)\d*\.png$/;
+      let coincidencias = src_carta_boca_arriba.match(patron);
+      let palo = coincidencias[1];
+      var nuevo_src = src_carta_boca_arriba
+        .replace("spanish", "french")
+        .replace(palo, equivalentes_cambiar_a_french[palo]);
+      carta_boca_arriba.setAttribute("src", nuevo_src);
+    }
+
     baraja_ejemplo[0].setAttribute(
       "src",
       "src/barajas/french-baraja/corazon1.png"
     );
   }
 }
+
+/*------------------------------------------------------End Opciones------------------------------------------------------*/
+
+/*------------------------------------------------------Idiomas------------------------------------------------------*/
+//TODO: Idiomas como Blue Bay Hotels
 
 function cambiar_idioma() {
   //TODO: Cambio de idioma
@@ -910,12 +981,6 @@ function cambiar_idioma() {
     body.classList.add(fondo_pantalla_seleccionada.toLowerCase());
     */
 }
-
-/*------------------------------------------------------End Opciones------------------------------------------------------*/
-
-/*------------------------------------------------------Idiomas------------------------------------------------------*/
-//TODO: Idiomas como Blue Bay Hotels
-
 /*------------------------------------------------------End Idiomas------------------------------------------------------*/
 
 function win_game() {
@@ -984,8 +1049,8 @@ function reset() {
       src: actual_dorso,
       alt: "Dorso",
     })
-      .addClass("carts dorso_fixed")
-      .appendTo($(".baraja"));
+    .addClass("carts dorso_fixed")
+    .appendTo($(".baraja"));
 
   $(".cartas_restantes").removeClass("no_carts");
   $(".baraja").removeClass("empty");

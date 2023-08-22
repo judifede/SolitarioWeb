@@ -50,7 +50,9 @@ body {
 }
 
 .language_container{
+    position: relative;
     text-align: right;
+    z-index: 2000;
 }
 
 /*-------------------------------------------------End Inicio-------------------------------------------------*/

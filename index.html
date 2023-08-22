@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="src/css/responsive.css">
     <script src="src/js/jquery-3.3.1.min.js"></script>
     <script type="module" src="src/js/utils.js"></script>
-    <script type="module" src="src/js/particula.js"></script> 
+    <script type="module" src="src/js/particula.js"></script>
     <script type="module" src="src/js/main.js"></script>
 </head>
 
@@ -33,6 +33,13 @@
     <div class="menu_configuracion_container">
         <img src="src/img/iconos/engranaje_azul.png" alt="Menu" class="menu_icon">
     </div>
+    <!-- TODO: CV Idiomas -->
+    <div class="language_container">
+        <select id="languageSelect">
+            <option value="es">Español</option>
+            <option value="en">English</option>
+        </select>
+    </div>
     <div class="configuracion">
         <ul class="tabs opened">
             <li><a href="#tab1">¿Cómo se juega?</a></li>
@@ -44,8 +51,8 @@
             <div class="tab_content" id="tab1">
                 <div class="instrucciones opened">
                     <i class="fa fa-arrow-right fa-2x arrow_next_tab"></i>
-                    <p>El <strong>objetivo</strong> es arrastrar al montón principal (junto al mazo) todas las cartas
-                        de las 3 columnas, para ello, la carta debe tener el valor <strong>anterior</strong> o
+                    <p>El <strong>objetivo</strong> es arrastrar al montón principal (junto al mazo) todas las cartas de
+                        las 3 columnas, para ello, la carta debe tener el valor <strong>anterior</strong> o
                         <strong>siguiente</strong> a la que se muestre, sin preocuparnos por su <strong>palo</strong>.
                     </p>
                     <div class="instrucciones_container_ejemplos">
@@ -54,6 +61,7 @@
                             <li>Si en el montón principal hay un 5, podemos arrastrar un 4 o un 6.</li>
                             <li>Si hay un rey, podemos arrastrar un caballo o un 1.</li>
                         </ul>
+                        <!-- TODO: Cambiar gif -->
                         <img src="src/img/gameplay.gif" alt="gameplay" class="gameplay">
                     </div>
                     <p>Si te quedas sin opciones, haz clic sobre el montón de cartas de la <strong>izquierda</strong>
@@ -121,11 +129,11 @@
                     <div class="content_acordeon">
                         <div>
                             <label class="container_checkbox">Española <input type="radio" name="baraja"
-                                    data-baraja="Spain">
+                                    data-baraja="Spanish">
                                 <span class="checkmark"></span>
                             </label>
-                            <label class="container_checkbox">Francesa (Póquer) <input type="radio" name="baraja"
-                                    data-baraja="Poquer">
+                            <label class="container_checkbox">Francesa <input type="radio" name="baraja"
+                                    data-baraja="French">
                                 <span class="checkmark"></span>
                             </label>
                         </div>
@@ -133,32 +141,6 @@
                             <img src="src/barajas/spanish-baraja/copa1.png" alt="baraja_ejemplo" class="baraja_ejemplo">
                         </div>
                     </div>
-                    <!--TODO: Idiomas como Blue Bay Hotels-->
-                    <div class="title_acordeon">
-                        <a>
-                            <i class="fa fa-angle-up fa-lg"></i>
-                            <p>Idioma</p>
-                        </a>
-                    </div>
-                    <div class="content_acordeon">
-                        <div>
-                            <label class="container_checkbox">Español <input type="radio" name="idioma"
-                                    data-idioma="Spain">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="container_checkbox">Inglés <input type="radio" name="idioma"
-                                    data-idioma="Ingles">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
-                    </div>
-                    <!-- TODO: CV Idiomas -->
-                    <!-- <div class="language_container">
-                        <select id="languageSelect">
-                            <option value="es">Español</option>
-                            <option value="en">English</option>
-                        </select>
-                    </div> -->
                 </div>
             </div>
             <div class="tab_content" id="tab3">

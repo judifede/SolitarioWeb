@@ -318,6 +318,10 @@ html ul.tabs li.active a:hover {
     padding: 20px;
 }
 
+.restart_game{
+    border-radius: 10px;
+}
+
 .start_game,
 .restart_game p {
     font-size: 35px;
