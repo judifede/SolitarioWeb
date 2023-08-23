@@ -49,11 +49,55 @@ body {
     visibility: visible !important;
 }
 
-.language_container{
-    position: relative;
-    text-align: right;
+.container_custom_lenguaje {
+    position: absolute;
     z-index: 2000;
+    top: 0.5vh;
+    right: 0.5vw;
 }
+
+.select_selected {
+    background-color: #eee; 
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.select_selected:hover {
+    background-color: #ccc;
+}
+
+.select_selected p {
+    display: inline;
+}
+
+.select_options {
+    display: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    width: 100%;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    list-style-type: none;
+    z-index: 999;
+}
+
+.select_options.active {
+    display: inline;
+}
+
+.select_options li {
+    margin: 0;
+    padding: 5px 10px;
+    width: calc(100% - 20px);
+    cursor: pointer;
+}
+
+.select_options li:hover {
+    background-color: #ccc;
+}
+
 
 /*-------------------------------------------------End Inicio-------------------------------------------------*/
 
@@ -103,6 +147,7 @@ body {
     background-color: rgb(59, 89, 152);
     cursor: pointer;
 }
+
 .container_results .new_game.opened {
     display: inline-block;
 }

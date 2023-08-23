@@ -214,13 +214,6 @@ function events_settings() {
     }
   });
 
-  $(".arrow_next_tab").click(function () {
-    $("ul.tabs li:nth-child(1)").removeClass("active");
-    $("ul.tabs li:nth-child(2)").addClass("active");
-    $(".tab_content").hide();
-    $("#tab2").fadeIn();
-  });
-
   $(".title_acordeon").click(function () {
     var acordeon_seleccionado = $(this)[0];
     if ($(acordeon_seleccionado).find(".fa").hasClass("fa-angle-down")) {
@@ -235,16 +228,35 @@ function events_settings() {
   });
 
   //Evento Cambio de dorso.
-  $(".container_checkbox input[name='dorso']").bind("change", cambiar_dorso);
+  $(".label_checkbox").siblings("input[name='dorso']").bind("change", cambiar_dorso);
 
   //Evento Cambio de fondo.
-  $(".container_checkbox input[name='fondo_pantalla']").bind(
+  $(".label_checkbox").siblings("input[name='fondo_pantalla']").bind(
     "change",
     cambiar_fondo_pantalla
   );
 
   //Evento Cambio de baraja.
-  $(".container_checkbox input[name='baraja']").bind("change", cambiar_baraja);
+  $(".label_checkbox").siblings("input[name='baraja']").bind("change", cambiar_baraja);
+
+  //Eventos Cambio de idioma
+  $(".select_selected").click(function (event) {
+    event.stopPropagation(); //Detiene el evento de Ancestros (window) para poder abrir el menú
+    $(".select_options").toggleClass("active");
+  });
+
+  //Cerrar menú al hacer clic fuera
+  $(window).click(function () {
+    $(".select_options").removeClass("active");
+  });
+
+  $(".select_options").click(function (event) {
+    if (event.target.tagName === "LI") {
+      cambiar_idioma();
+    }
+  });
+
+  //End Eventos Cambio de idioma
 
   //Nueva partida.
   $(".new_game").click(function () {
@@ -938,56 +950,170 @@ function cambiar_baraja() {
 /*------------------------------------------------------End Opciones------------------------------------------------------*/
 
 /*------------------------------------------------------Idiomas------------------------------------------------------*/
-//TODO: Idiomas como Blue Bay Hotels
 
 function cambiar_idioma() {
-  //TODO: Cambio de idioma
-  /*var input_fondo_pantalla = document.getElementsByName("fondo_pantalla");
-    var fondo_pantalla_ejemplo = document.getElementsByClassName("fondo_pantalla_ejemplo");
-  
-  /*
-  body.casino {
-      background-image: url('../img/fondos_pantalla/casino.jpg');
-  }
-  
-  body.picnic {
-      background-image: url('../img/fondos_pantalla/picnic.jpg');
-  }
-  
-  body.steampunk {
-      background-image: url('../img/fondos_pantalla/steampunk.jpg');
-  */
-  // Buscamos el dorso seleccionado.
-  /*
-    for (var i = 0; i < input_fondo_pantalla.length; i++) {
-      if (input_fondo_pantalla[i].checked) {
-        break;
-      }
-    }
-  
-    var body = document.getElementsByTagName("body")[0];
-    var menu_icon = document.getElementsByClassName("menu_icon")[0];
-    // En base al data-fondo_pantalla seleccionado cambiamos la clase del body, que contiene el fondo.
-    var fondo_pantalla_seleccionada = input_fondo_pantalla[i].getAttribute("data-fondo_pantalla");
-    fondo_pantalla_ejemplo[0].setAttribute("src", "src/img/fondos_pantalla/" + fondo_pantalla_seleccionada.toLowerCase() + ".jpg");
-    if(fondo_pantalla_seleccionada == "Picnic"){
-      menu_icon.setAttribute("src", "src/img/iconos/engranaje_azul.png");
-    }else if(fondo_pantalla_seleccionada == "Casino"){
-      menu_icon.setAttribute("src", "src/img/iconos/engranaje_gris.png");
-    }else if(fondo_pantalla_seleccionada == "Steampunk"){
-      menu_icon.setAttribute("src", "src/img/iconos/engranaje_gris.png");
-    }
-    body.removeAttribute("class");
-    body.classList.add(fondo_pantalla_seleccionada.toLowerCase());
-    */
+
+  var html = document.querySelector("html");
+  var custom_select = document.querySelector(".container_custom_lenguaje");
+  var container_select_selected =
+    custom_select.querySelector(".select_selected");
+  var select_selected = container_select_selected.querySelector("p");
+  var select_options = custom_select.querySelector(".select_options");
+  var select_options_listado = select_options.querySelector("li");
+
+  //Intercambia un valor con el otro
+  var select_selected_value = select_selected.getAttribute("value");
+  var idioma_value = event.target.getAttribute("value");
+
+  //Value para el idioma. ejemplos: es, en, fr
+  select_selected.setAttribute("value", idioma_value);
+  event.target.setAttribute("value", select_selected_value);
+
+  select_options.classList.remove("active");
+
+  //Implementa la traducción
+  html.setAttribute("lang", idioma_value);
+  var idioma_code = html.getAttribute("lang");
+
+  // Carga el archivo JSON
+  $.getJSON("src/resources/translations.json", function (jsonData) {
+    // Obtén la traducción del texto al idioma seleccionado
+
+    // Container_custom_lenguaje
+    select_selected.innerHTML = jsonData.languages[0][idioma_code].name;
+    select_options_listado.textContent =
+      jsonData.languages[0][idioma_code].name_li;
+
+    // Tabs
+    document.querySelector(".tabs a[href='#tab1']").innerHTML =
+      jsonData.languages[0][idioma_code].tabs.instrucciones;
+    document.querySelector(".tabs a[href='#tab2']").innerHTML =
+      jsonData.languages[0][idioma_code].tabs.apariencia;
+    document.querySelector(".tabs a[href='#tab3']").innerHTML =
+      jsonData.languages[0][idioma_code].tabs.empezar;
+
+    // Instrucciones
+    document.querySelector(".instrucciones > p:nth-child(1)").innerHTML =
+      jsonData.languages[0][idioma_code].instrucciones.primer_p;
+    document.querySelector(".instrucciones_container_ejemplos > p").innerHTML =
+      jsonData.languages[0][idioma_code].instrucciones.ejemplos_p;
+    document.querySelector(".instrucciones li:nth-child(1)").innerHTML =
+      jsonData.languages[0][idioma_code].instrucciones.ejemplos_primer_li;
+    document.querySelector(".instrucciones li:nth-child(2)").innerHTML =
+      jsonData.languages[0][idioma_code].instrucciones.ejemplos_segundo_li;
+    document.querySelector(".instrucciones > p:nth-child(3)").innerHTML =
+      jsonData.languages[0][idioma_code].instrucciones.segundo_p;
+    document.querySelector(".instrucciones > p:nth-child(4)").innerHTML =
+      jsonData.languages[0][idioma_code].instrucciones.tercer_p;
+
+    // Apariencia
+
+    document.querySelector(
+      ".apariencia .title_acordeon:nth-child(1) p"
+    ).textContent = jsonData.languages[0][idioma_code].apariencia.dorso_titulo;
+    document.querySelector(
+      ".apariencia .label_checkbox[for='radio_dorso1']"
+    ).textContent =
+      jsonData.languages[0][idioma_code].apariencia.dorso_primer_radio;
+    document.querySelector(
+      ".apariencia .label_checkbox[for='radio_dorso2']"
+    ).textContent =
+      jsonData.languages[0][idioma_code].apariencia.dorso_segundo_radio;
+    document.querySelector(
+      ".apariencia .label_checkbox[for='radio_dorso3']"
+    ).textContent =
+      jsonData.languages[0][idioma_code].apariencia.dorso_tercer_radio;
+
+    document.querySelector(
+      ".apariencia .title_acordeon:nth-child(3) p"
+    ).textContent = jsonData.languages[0][idioma_code].apariencia.fondo_titulo;
+    document.querySelector(
+      ".apariencia .label_checkbox[for='radio_fondo1']"
+    ).textContent =
+      jsonData.languages[0][idioma_code].apariencia.fondo_primer_radio;
+    document.querySelector(
+      ".apariencia .label_checkbox[for='radio_fondo2']"
+    ).textContent =
+      jsonData.languages[0][idioma_code].apariencia.fondo_segundo_radio;
+    document.querySelector(
+      ".apariencia .label_checkbox[for='radio_fondo3']"
+    ).textContent =
+      jsonData.languages[0][idioma_code].apariencia.fondo_tercer_radio;
+
+    document.querySelector(
+      ".apariencia .title_acordeon:nth-child(5) p"
+    ).textContent = jsonData.languages[0][idioma_code].apariencia.baraja_titulo;
+    document.querySelector(
+      ".apariencia .label_checkbox[for='radio_baraja1']"
+    ).textContent =
+      jsonData.languages[0][idioma_code].apariencia.baraja_primer_radio;
+    document.querySelector(
+      ".apariencia .label_checkbox[for='radio_baraja2']"
+    ).textContent =
+      jsonData.languages[0][idioma_code].apariencia.baraja_segundo_radio;
+
+    // Dificultad
+    var button_dificultad_facil = document.querySelectorAll(
+      ".button_dificultad[data-dificultad='Facil']"
+    );
+    var button_dificultad_medio = document.querySelectorAll(
+      ".button_dificultad[data-dificultad='Medio']"
+    );
+    var button_dificultad_dificil = document.querySelectorAll(
+      ".button_dificultad[data-dificultad='Dificil']"
+    );
+
+    document.querySelector(".start_game p").textContent =
+      jsonData.languages[0][idioma_code].dificultad.titulo;
+    document.querySelector(".restart_game p").textContent =
+      jsonData.languages[0][idioma_code].dificultad.titulo;
+    button_dificultad_facil[0].textContent =
+      jsonData.languages[0][idioma_code].dificultad.facil;
+    button_dificultad_facil[1].textContent =
+      jsonData.languages[0][idioma_code].dificultad.facil;
+    button_dificultad_medio[0].textContent =
+      jsonData.languages[0][idioma_code].dificultad.medio;
+    button_dificultad_medio[1].textContent =
+      jsonData.languages[0][idioma_code].dificultad.medio;
+    button_dificultad_dificil[0].textContent =
+      jsonData.languages[0][idioma_code].dificultad.dificil;
+    button_dificultad_dificil[1].textContent =
+      jsonData.languages[0][idioma_code].dificultad.dificil;
+
+    // Resultados
+    document.querySelector(".new_game").textContent =
+      jsonData.languages[0][idioma_code].volver;
+
+    var resultado = document.querySelector(".result");
+    resultado.textContent =
+      resultado.hasAttribute("data-win") === true
+        ? jsonData.languages[0][idioma_code].resultado_win
+        : resultado.hasAttribute("data-lose") === true
+        ? jsonData.languages[0][idioma_code].resultado_lose
+        : "";
+
+    // Tablet
+    document.querySelector(".tablet_vertical_alert_text").textContent =
+      jsonData.languages[0][idioma_code].tablet_alert;
+  });
 }
 /*------------------------------------------------------End Idiomas------------------------------------------------------*/
 
 function win_game() {
   //Activamos la animación de fuegos artificiales
   start_particula(TIPO_PARTICULA.fuegos_artificiales);
+  var html = document.querySelector("html");
 
-  document.getElementsByClassName("result")[0].innerHTML = "¡Felicidades!";
+  var idioma_code = html.getAttribute("lang");
+  var resultado = document.getElementsByClassName("result")[0];
+  resultado.innerHTML =
+    idioma_code === "es"
+      ? "¡Felicidades!"
+      : idioma_code === "en"
+      ? "Congratulations!"
+      : "";
+  resultado.setAttribute("data-win", "true");
+
   document
     .getElementsByClassName("container_results")[0]
     .classList.add("end_game");
@@ -1021,9 +1147,17 @@ function lose_game() {
     start_particula(TIPO_PARTICULA.lluvia);
 
     $(".container_results .new_game").addClass("opened");
+    var html = document.querySelector("html");
+    var idioma_code = html.getAttribute("lang");
+    var resultado = document.getElementsByClassName("result")[0];
+    resultado.innerHTML =
+      idioma_code === "es"
+        ? "¡Suerte la próxima vez!"
+        : idioma_code === "en"
+        ? "Good luck next time!"
+        : "";
+    resultado.setAttribute("data-lose", "true");
 
-    document.getElementsByClassName("result")[0].innerHTML =
-      "¡Suerte la próxima vez!";
     document
       .getElementsByClassName("container_results")[0]
       .classList.add("end_game");
@@ -1041,6 +1175,9 @@ function reset() {
   document
     .getElementsByClassName("background_results")[0]
     .classList.remove("end_game");
+
+  document.getElementsByClassName("result")[0].removeAttribute("data-win");
+  document.getElementsByClassName("result")[0].removeAttribute("data-lose");
 
   $(".restart_game").removeClass("opened");
 

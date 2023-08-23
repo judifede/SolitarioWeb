@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
     <title>Solitario</title>
@@ -18,7 +18,7 @@
     <script type="module" src="src/js/main.js"></script>
 </head>
 
-<body class="picnic">
+<body class="casino">
     <div class="column column1">
     </div>
     <div class="column column2">
@@ -33,12 +33,14 @@
     <div class="menu_configuracion_container">
         <img src="src/img/iconos/engranaje_azul.png" alt="Menu" class="menu_icon">
     </div>
-    <!-- TODO: CV Idiomas -->
-    <div class="language_container">
-        <select id="languageSelect">
-            <option value="es">Español</option>
-            <option value="en">English</option>
-        </select>
+    <div class="container_custom_lenguaje">
+        <div class="select_selected">
+            <p value="es">Español</p>
+            <i class="fa-solid fa-caret-down"></i>
+        </div>
+        <ul class="select_options">
+            <li value="en">Inglés</li>
+        </ul>
     </div>
     <div class="configuracion">
         <ul class="tabs opened">
@@ -50,7 +52,6 @@
             <i class="fa fa-solid fa-xmark fa-2x close_customs"></i>
             <div class="tab_content" id="tab1">
                 <div class="instrucciones opened">
-                    <i class="fa fa-arrow-right fa-2x arrow_next_tab"></i>
                     <p>El <strong>objetivo</strong> es arrastrar al montón principal (junto al mazo) todas las cartas de
                         las 3 columnas, para ello, la carta debe tener el valor <strong>anterior</strong> o
                         <strong>siguiente</strong> a la que se muestre, sin preocuparnos por su <strong>palo</strong>.
@@ -61,7 +62,6 @@
                             <li>Si en el montón principal hay un 5, podemos arrastrar un 4 o un 6.</li>
                             <li>Si hay un rey, podemos arrastrar un caballo o un 1.</li>
                         </ul>
-                        <!-- TODO: Cambiar gif -->
                         <img src="src/img/gameplay.gif" alt="gameplay" class="gameplay">
                     </div>
                     <p>Si te quedas sin opciones, haz clic sobre el montón de cartas de la <strong>izquierda</strong>
@@ -78,17 +78,22 @@
                         </a>
                     </div>
                     <div class="content_acordeon">
-                        <div class="dorso_container">
-                            <label class="container_checkbox">Azul <input type="radio" name="dorso" data-dorso="Azul">
+                        <div>
+                            <div class="container_checkbox">
+                                <label for="radio_dorso1" class="label_checkbox">Azul</label>
+                                <input type="radio" id="radio_dorso1" name="dorso" data-dorso="Azul">
                                 <span class="checkmark"></span>
-                            </label>
-                            <label class="container_checkbox">Negro <input type="radio" name="dorso" data-dorso="Negro">
+                            </div>
+                            <div class="container_checkbox">
+                                <label for="radio_dorso2" class="label_checkbox">Negro</label>
+                                <input type="radio" id="radio_dorso2" name="dorso" data-dorso="Negro">
                                 <span class="checkmark"></span>
-                            </label>
-                            <label class="container_checkbox">Hearthstone <input type="radio" name="dorso"
-                                    data-dorso="Hearthstone">
+                            </div>
+                            <div class="container_checkbox">
+                                <label for="radio_dorso3" class="label_checkbox">Hearthstone</label>
+                                <input type="radio" id="radio_dorso3" name="dorso" data-dorso="Hearthstone">
                                 <span class="checkmark"></span>
-                            </label>
+                            </div>
                         </div>
                         <div class="dorso_ejemplo_container">
                             <img src="src/img/dorsos/dorso_azul.jpg" alt="Dorso" class="dorso_ejemplo">
@@ -102,21 +107,24 @@
                     </div>
                     <div class="content_acordeon">
                         <div>
-                            <label class="container_checkbox">Picnic <input type="radio" name="fondo_pantalla"
-                                    data-fondo_pantalla="Picnic">
+                            <div class="container_checkbox">
+                                <label for="radio_fondo1" class="label_checkbox">Casino</label>
+                                <input type="radio" id="radio_fondo1" name="fondo_pantalla" data-fondo_pantalla="Casino">
                                 <span class="checkmark"></span>
-                            </label>
-                            <label class="container_checkbox">Casino <input type="radio" name="fondo_pantalla"
-                                    data-fondo_pantalla="Casino">
+                            </div>
+                            <div class="container_checkbox">
+                                <label for="radio_fondo2" class="label_checkbox">Picnic</label>
+                                <input type="radio" id="radio_fondo2" name="fondo_pantalla" data-fondo_pantalla="Picnic">
                                 <span class="checkmark"></span>
-                            </label>
-                            <label class="container_checkbox">Steampunk <input type="radio" name="fondo_pantalla"
-                                    data-fondo_pantalla="Steampunk">
+                            </div>
+                            <div class="container_checkbox">
+                                <label for="radio_fondo3" class="label_checkbox">Steampunk</label>
+                                <input type="radio" id="radio_fondo3" name="fondo_pantalla" data-fondo_pantalla="Steampunk">
                                 <span class="checkmark"></span>
-                            </label>
+                            </div>
                         </div>
                         <div class="fondo_pantalla_ejemplo_container">
-                            <img src="src/img/fondos_pantalla/picnic.jpg" alt="fondo_pantalla_ejemplo"
+                            <img src="src/img/fondos_pantalla/casino.jpg" alt="fondo_pantalla_ejemplo"
                                 class="fondo_pantalla_ejemplo">
                         </div>
                     </div>
@@ -128,14 +136,16 @@
                     </div>
                     <div class="content_acordeon">
                         <div>
-                            <label class="container_checkbox">Española <input type="radio" name="baraja"
-                                    data-baraja="Spanish">
+                            <div class="container_checkbox">
+                                <label for="radio_baraja1" class="label_checkbox">Española</label>
+                                <input type="radio" id="radio_baraja1" name="baraja" data-baraja="Spanish">
                                 <span class="checkmark"></span>
-                            </label>
-                            <label class="container_checkbox">Francesa <input type="radio" name="baraja"
-                                    data-baraja="French">
+                            </div>
+                            <div class="container_checkbox">
+                                <label for="radio_baraja2" class="label_checkbox">Francesa</label>
+                                <input type="radio" id="radio_baraja2" name="baraja" data-baraja="French">
                                 <span class="checkmark"></span>
-                            </label>
+                            </div>
                         </div>
                         <div class="baraja_ejemplo_container">
                             <img src="src/barajas/spanish-baraja/copa1.png" alt="baraja_ejemplo" class="baraja_ejemplo">
@@ -158,7 +168,6 @@
     <div class="background_results"></div>
     <div class="container_results">
         <p class="result"></p>
-        <p class="programmer_greeting"></p>
         <a class="new_game">Volver a jugar</a>
         <div class="restart_game">
             <p>¿Qué dificultad quieres jugar?</p>
@@ -170,7 +179,7 @@
         </div>
     </div>
     <div class="tablet_vertical_alert">
-        <p class="tablet_vertical_alert_text"> Para jugar, es necesario usar su dispositivo en horizontal. Gracias. </p>
+        <p class="tablet_vertical_alert_text">Para jugar, es necesario usar su dispositivo en horizontal. Gracias.</p>
     </div>
 </body>
 

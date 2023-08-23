@@ -1,0 +1,86 @@
+{
+  "languages": [
+    {
+      "es": {
+        "name": "Español",
+        "name_li": "Inglés",
+        "tabs": {
+          "instrucciones": "¿Cómo se juega?",
+          "apariencia": "Apariencia",
+          "empezar": "Empezar partida"
+        },
+        "instrucciones": {
+          "primer_p": "El <strong>objetivo</strong> es arrastrar al montón principal (junto al mazo) todas las cartas de las 3 columnas, para ello, la carta debe tener el valor <strong>anterior</strong> o <strong>siguiente</strong> a la que se muestre, sin preocuparnos por su <strong>palo</strong>.",
+          "ejemplos_p": "<strong>Ejemplos:</strong>",
+          "ejemplos_primer_li": "Si en el montón principal hay un 5, podemos arrastrar un 4 o un 6.",
+          "ejemplos_segundo_li": "Si hay un rey, podemos arrastrar un caballo o un 1.",
+          "segundo_p": "Si te quedas sin opciones, haz clic sobre el montón de cartas de la <strong>izquierda</strong> para que salga una carta nueva.",
+          "tercer_p": "¡Buena suerte!"
+        },
+        "apariencia": {
+          "dorso_titulo": "Dorso",
+          "dorso_primer_radio": "Azul",
+          "dorso_segundo_radio": "Negro",
+          "dorso_tercer_radio": "Hearthstone",
+          "fondo_titulo": "Fondo",
+          "fondo_primer_radio": "Casino",
+          "fondo_segundo_radio": "Picnic",
+          "fondo_tercer_radio": "Steampunk",
+          "baraja_titulo": "Baraja",
+          "baraja_primer_radio": "Española",
+          "baraja_segundo_radio": "Francesa"
+        },
+        "dificultad": {
+          "titulo": "¿Qué dificultad quieres jugar?",
+          "facil": "Fácil",
+          "medio": "Medio",
+          "dificil": "Difícil"
+        },
+        "volver": "Volver a jugar",
+        "resultado_win": "¡Felicidades!",
+        "resultado_lose": "¡Suerte la próxima vez!",
+        "tablet_alert": "Para jugar, es necesario usar su dispositivo en horizontal. Gracias."
+     },
+      "en": {
+        "name": "English",
+        "name_li": "Spanish",
+        "tabs": {
+          "instrucciones": "How to play?",
+          "apariencia": "Appearance",
+          "empezar": "Start game"
+        },
+        "instrucciones": {
+          "primer_p": "The <strong>objective</strong> is to drag to the main pile (next to the deck) all the cards from the 3 columns, for this, the card must have the value <strong>before</strong> or <strong>after</strong> the one shown, without worrying about its <strong>suit</strong>.",
+          "ejemplos_p": "<strong>Examples:</strong>",
+          "ejemplos_primer_li": "If there is a 5 in the main pile, we can drag a 4 or a 6.",
+          "ejemplos_segundo_li": "If there is a king, we can drag a knight or a 1.",
+          "segundo_p": "If you run out of options, click on the pile of cards on the <strong>left</strong> to bring up a new card.",
+          "tercer_p": "Good luck!"
+        },
+        "apariencia": {
+          "dorso_titulo": "Back",
+          "dorso_primer_radio": "Blue",
+          "dorso_segundo_radio": "Black",
+          "dorso_tercer_radio": "Hearthstone",
+          "fondo_titulo": "Background",
+          "fondo_primer_radio": "Casino",
+          "fondo_segundo_radio": "Picnic",
+          "fondo_tercer_radio": "Steampunk",
+          "baraja_titulo": "Deck",
+          "baraja_primer_radio": "Spanish",
+          "baraja_segundo_radio": "French"
+        },
+        "dificultad": {
+          "titulo": "What difficulty do you want to play?",
+          "facil": "Easy",
+          "medio": "Medium",
+          "dificil": "Hard"
+        },
+        "volver": "Play again",
+        "resultado_win": "Congratulations!",
+        "resultado_lose": "Good luck next time!",
+        "tablet_alert": "To play, it is necessary to use your device in landscape. Thank you."
+      }
+    }
+  ]
+}

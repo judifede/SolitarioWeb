@@ -165,7 +165,7 @@ html ul.tabs li.active a:hover {
 }
 
 .instrucciones .gameplay {
-    width: 90%;
+    width: 80%;
     text-align: center;
     margin: auto;
     display: block;
@@ -263,21 +263,6 @@ html ul.tabs li.active a:hover {
     cursor: pointer;
 }
 
-.arrow_next_tab {
-    position: absolute;
-    bottom: 0%;
-    right: 1%;
-    /* display: none; */
-}
-
-.arrow_next_tab.active {
-    display: inline;
-}
-
-.arrow_next_tab:hover {
-    cursor: pointer;
-}
-
 .title_acordeon a {
     font-weight: bold;
 }
@@ -361,20 +346,21 @@ html ul.tabs li.active a:hover {
     background: #E84340;
 }
 
-
-
 /*-------------------------------------------------End New Game-------------------------------------------------*/
 /*-------------------------------------------------End Configuración-------------------------------------------------*/
 
 /*---------------------------------------------------------Custom Radio Button---------------------------------------------------------*/
 
-/* The container */
+.container_checkbox{
+    margin-left: 10px;
+    position: relative;
+}
 
-.container_checkbox {
+.label_checkbox {
     display: block;
     position: relative;
-    padding-left: 35px;
-    margin-left: 10px;
+    z-index: 10;
+    padding-left: 45px;
     margin-bottom: 5px;
     cursor: pointer;
     font-size: 20px;
@@ -382,15 +368,12 @@ html ul.tabs li.active a:hover {
     -moz-user-select: none;
 }
 
-/* Hide the browser's default radio button */
-
-.container_checkbox input {
+input[type='radio'] {
     position: absolute;
+    top: 0;
     opacity: 0;
     cursor: pointer;
 }
-
-/* Create a custom radio button */
 
 .checkmark {
     position: absolute;
@@ -402,45 +385,17 @@ html ul.tabs li.active a:hover {
     border-radius: 50%;
 }
 
-/* On mouse-over, add a grey background color */
-
-.container_checkbox:hover input~.checkmark {
+.container_checkbox:hover .checkmark {
     background-color: #ccc;
 }
 
-/* When the radio button is checked, add a blue background */
-
-.container_checkbox input:checked~.checkmark {
+.container_checkbox input[type='radio']:checked ~ .checkmark {
     background-color: #2E2E2E;
 }
 
-/* Create the indicator (the dot/circle - hidden when not checked) */
-
-/*
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-*/
-
-/* Show the indicator (dot/circle) when checked */
-
-.container_checkbox input:checked~.checkmark:after {
+.container_checkbox input[type='radio']:checked ~ .checkmark:after {
     display: block;
 }
-
-/* Style the indicator (dot/circle) */
-
-/*
-.container_checkbox .checkmark:after {
-    top: 7px;
-    left: 7px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: white;
-}*/
 
 /*-------------------------------------------------------End Custom Radio Button-------------------------------------------------------*/
 

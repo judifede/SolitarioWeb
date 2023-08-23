@@ -130,9 +130,8 @@ function moverParticulaPadre(particula_select) {
   }
 }
 
-//Solo fuegos artificiales explota
+//Solo fuegos artificiales explotan
 function explotar(particula) {
-  //TODO: Cambiar modos de explotar.
 
   for (var h = 0; h < numHijos; h++) {
     var hijo = document.createElement("div");

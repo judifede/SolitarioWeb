@@ -83,7 +83,7 @@
     }
 
     ul.tabs li a, .instrucciones p, .instrucciones li,
-    .container_checkbox {
+    .label_checkbox {
         font-size: 30px;
     }
 
@@ -141,7 +141,7 @@
     }
 
     .instrucciones p, .instrucciones li,
-    .container_checkbox {
+    .label_checkbox {
         font-size: 25px;
     }
 
@@ -192,7 +192,7 @@
     }
 
     ul.tabs li a, .instrucciones p, .instrucciones li,
-    .container_checkbox {
+    .label_checkbox {
         font-size: 18px;
     }
 }
@@ -262,7 +262,7 @@
 
     ul.tabs li a, .apariencia p,
     .instrucciones p, .instrucciones li,
-    .container_checkbox {
+    .label_checkbox {
         font-size: 12px;
     }
 
@@ -361,7 +361,7 @@
         font-size: 20px;
     }
 
-    .container_checkbox {
+    .label_checkbox {
         font-size: 10px;
     }
 
