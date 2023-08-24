@@ -10,7 +10,6 @@
     font-size: 25px;
     text-align: center;
     color: black;
-    /*background: linear-gradient(to top, rgb(235, 235, 235), rgb(230, 230, 230));*/
     cursor: pointer;
     z-index: 800;
     padding: 5px;
@@ -104,15 +103,16 @@ html ul.tabs li.active a:hover {
     border: 1px solid #999;
     border-top: none;
     overflow: hidden;
+    position: relative;
     display: none;
     visibility: hidden;
     opacity: 0;
     width: 100%;
 }
 
-.tab_content {
+.tab_content{
+    -webkit-overflow-scrolling: auto;
     font-size: 1.2em;
-
 }
 
 /*---------------------------------------------------End Tabs---------------------------------------------------*/
@@ -173,20 +173,6 @@ html ul.tabs li.active a:hover {
     margin-top: 5px;
 }
 
-.close_instrucciones {
-    font-size: 25px;
-    width: 70%;
-    display: block;
-    margin: auto;
-    text-align: center;
-    color: white;
-    background-color: darkolivegreen;
-    padding: 3px 6px 3px 6px;
-    border: 2px dashed black;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
 /*---------------------------------------------End Instruciones---------------------------------------------*/
 /*-------------------------------------------------Opciones-------------------------------------------------*/
 
@@ -218,6 +204,7 @@ html ul.tabs li.active a:hover {
 .baraja_ejemplo {
     height: 100px;
     margin-right: 20px;
+    vertical-align: middle;
 }
 
 .title_acordeon img {
@@ -234,24 +221,23 @@ html ul.tabs li.active a:hover {
 }
 
 .title_acordeon {
-    display: block;
+    display: inline-block;
     width: 100%;
-    height: 50px;
-    line-height: 50px;
+    vertical-align: middle;
     border-radius: 10px;
     font-size: 25px;
     color: black;
     background: linear-gradient(to top, rgb(235, 235, 235), rgb(230, 230, 230));
     box-sizing: border-box;
-    padding: 3px 6px 3px 6px;
+    padding: 3px 6px 3px 8px;
     cursor: pointer;
     z-index: 800;
 }
 
 .close_customs {
     position: absolute;
-    top: 10%;
-    right: 1%;
+    top: 0%;
+    right: 3%;
     display: none;
 }
 
@@ -269,6 +255,7 @@ html ul.tabs li.active a:hover {
 
 .title_acordeon .fa {
     margin-right: 1%;
+    vertical-align: -1px;
 }
 
 .title_acordeon p,
@@ -377,7 +364,8 @@ input[type='radio'] {
 
 .checkmark {
     position: absolute;
-    top: 0;
+    top: 50%;
+    transform: translateY(-50%);
     left: 0;
     height: 20px;
     width: 20px;

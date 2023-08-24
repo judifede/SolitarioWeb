@@ -10,9 +10,10 @@ var gravedad;
 var numHijos;
 var movimientosYHijo;
 var movimientosXHijo;
+var mediaquery_tablet_particulas = window.matchMedia("(max-width: 1024px)");
+
 export var timeoutCrearParticulaPadre;
 export var timeoutMoverParticulaPadre;
-
 
 export function start_particula(particula_select) {
   if (particula_select == TIPO_PARTICULA.fuegos_artificiales) {
@@ -44,15 +45,23 @@ function crearParticulaPadre(particula_select) {
     if (particula_select == TIPO_PARTICULA.fuegos_artificiales) {
       var ejeY = window.innerHeight;
       var movimientoYPadre = -10 - Math.random() * 12; //Sube la partícula
+      if (mediaquery_tablet_particulas.matches) {
+        movimientoYPadre = -5 - Math.random() * 6;
+        numHijos = 10;
+        numParticulas = 15;
+      }
       particula.setAttribute("data-padre", "true");
 
       particula.style.background = getRandomColor();
     } else if (particula_select == TIPO_PARTICULA.lluvia) {
       var ejeY = 0;
       var movimientoYPadre = 10 + Math.random() * 5; //Baja la partícula
-
+      if (mediaquery_tablet_particulas.matches) {
+        numParticulas = 50;
+      }
       var colores_lluvia = ["#00506E", "#009BBF", "#017DA3"];
-      particula.style.background = colores_lluvia[Math.floor(Math.random() * 3)];
+      particula.style.background =
+        colores_lluvia[Math.floor(Math.random() * 3)];
 
       particula.className = "particula lluvia";
     }
@@ -71,7 +80,10 @@ function crearParticulaPadre(particula_select) {
     particulasCreadas++;
 
     //Se lanza el siguiente
-    timeoutCrearParticulaPadre =  setTimeout(crearParticulaPadre.bind(null, particula_select), 50 + Math.random() * 100);
+    timeoutCrearParticulaPadre = setTimeout(
+      crearParticulaPadre.bind(null, particula_select),
+      50 + Math.random() * 100
+    );
   }
 }
 
@@ -102,7 +114,7 @@ function moverParticulaPadre(particula_select) {
     var left = particula.style.left ? particula.style.left : "0";
     left = parseFloat(left.replace("px", ""));
     left += movimientoXPadreActual;
-    particula.style.left = left + "px"; 
+    particula.style.left = left + "px";
 
     var padre = particula.getAttribute("data-padre");
 
@@ -122,7 +134,10 @@ function moverParticulaPadre(particula_select) {
   }
 
   if (particulas.length > 0) {
-    timeoutMoverParticulaPadre = setTimeout(moverParticulaPadre.bind(null, particula_select), 25);
+    timeoutMoverParticulaPadre = setTimeout(
+      moverParticulaPadre.bind(null, particula_select),
+      25
+    );
   }
 
   if (particulas.length == 0) {
@@ -132,7 +147,6 @@ function moverParticulaPadre(particula_select) {
 
 //Solo fuegos artificiales explotan
 function explotar(particula) {
-
   for (var h = 0; h < numHijos; h++) {
     var hijo = document.createElement("div");
     hijo.className = "particula explotada";
