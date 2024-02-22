@@ -571,7 +571,18 @@ function first_flop() {
   $("#cart_up_column1").addClass("flip").attr("src", ruta_carta());
   $("#cart_up_column2").addClass("flip").attr("src", ruta_carta());
   $("#cart_up_column3").addClass("flip").attr("src", ruta_carta());
-  nueva_carta_baraja();
+  const imgs = document.querySelectorAll("#cart_up_column1, #cart_up_column2, #cart_up_column3")
+
+  let counterLoader = 0
+  imgs.forEach((img) => {
+      img.addEventListener('load', function () {
+        counterLoader++
+        if (counterLoader >= imgs.length) {
+          // Acciones a realizar una vez que la imagen haya cargado
+          nueva_carta_baraja();
+        }
+      });
+  })
 }
 
 function ruta_carta() {
@@ -593,33 +604,34 @@ function nueva_carta_baraja() {
   cartas_restantes =
     document.getElementsByClassName("cartas_restantes")[0].innerHTML;
 
-  if (cartas_restantes > 0) {
-    var nueva_carta = ruta_carta();
-    var baraja_carta = $("<img>")
-      .attr({
-        src: nueva_carta,
-        alt: "Nueva Carta",
-        style: "z-index: " + z_index,
-      })
-      .addClass("carts baraja_carta");
-    z_index++;
-    baraja_carta.insertAfter(
-      document.getElementsByClassName("cartas_restantes")[0]
-    );
-    cartas_restantes--;
-    document.getElementsByClassName("cartas_restantes")[0].innerHTML =
-      cartas_restantes;
-    create_dorso($(".baraja_carta"));
-    $(".baraja_dorso, .baraja_carta").addClass("nueva_carta");
-    ruta_carta_pila_descartada = nueva_carta;
-  }
+  var nueva_carta = ruta_carta();
+  var baraja_carta = $("<img>")
+    .attr({
+      src: nueva_carta,
+      alt: "Nueva Carta",
+      style: "z-index: " + z_index,
+    })
+    .addClass("carts baraja_carta")
+    .on('load', function () {
+      // Acciones a realizar una vez que la imagen haya cargado
+      z_index++;
+      baraja_carta.insertAfter(
+        document.getElementsByClassName("cartas_restantes")[0]
+      );
+      cartas_restantes--;
+      document.getElementsByClassName("cartas_restantes")[0].innerHTML =
+        cartas_restantes;
+      create_dorso($(".baraja_carta"));
+      $(".baraja_dorso, .baraja_carta").addClass("nueva_carta");
+      ruta_carta_pila_descartada = nueva_carta;
 
-  if (cartas_restantes == 0) {
-    $(".dorso_fixed").remove();
-    $(".cartas_restantes").addClass("no_carts");
-    $(".baraja").addClass("empty");
-    lose_game();
-  }
+      if (cartas_restantes == 0) {
+        $(".dorso_fixed").remove();
+        $(".cartas_restantes").addClass("no_carts");
+        $(".baraja").addClass("empty");
+        lose_game();
+      }
+    });
 
   //Desactivamos temporalmente el onclick para evitar que se haga clic muchas veces seguidas. (600, 100 ms más que la animación).
   setTimeout(function () {
@@ -688,20 +700,20 @@ function revelar_siguiente_carta() {
       create_dorso(
         $(
           ".column" +
-            column +
-            " img[data-posicion='" +
-            parseInt(column_posicion - 1) +
-            "']"
+          column +
+          " img[data-posicion='" +
+          parseInt(column_posicion - 1) +
+          "']"
         )
       );
 
       // añadir id de su column.
       $(
         ".column" +
-          column +
-          " .hide[data-posicion='" +
-          parseInt(column_posicion - 1) +
-          "']"
+        column +
+        " .hide[data-posicion='" +
+        parseInt(column_posicion - 1) +
+        "']"
       )
         .attr({
           id: "cart_up_column" + column,
@@ -713,19 +725,30 @@ function revelar_siguiente_carta() {
 
       // animacion voltear.
       setTimeout(function () {
-        $(".column" + column + ".dorso_helper").addClass("flip");
         switch (column) {
           case "1":
-            $("#cart_up_column1").addClass("flip").attr("src", nueva_carta);
-            events_on("cart_up_column1");
+            $("#cart_up_column1").attr("src", nueva_carta)
+            .on('load', function () {
+              $(".column" + column + ".dorso_helper").addClass("flip");
+              $("#cart_up_column1").addClass("flip")
+              events_on("cart_up_column1");
+            });
             break;
           case "2":
-            $("#cart_up_column2").addClass("flip").attr("src", nueva_carta);
-            events_on("cart_up_column2");
+            $("#cart_up_column2").attr("src", nueva_carta)
+            .on('load', function () {
+              $(".column" + column + ".dorso_helper").addClass("flip");
+              $("#cart_up_column2").addClass("flip")
+              events_on("cart_up_column2");
+            });
             break;
           case "3":
-            $("#cart_up_column3").addClass("flip").attr("src", nueva_carta);
-            events_on("cart_up_column3");
+            $("#cart_up_column3").attr("src", nueva_carta)
+            .on('load', function () {
+              $(".column" + column + ".dorso_helper").addClass("flip");
+              $("#cart_up_column3").addClass("flip")
+              events_on("cart_up_column3");
+            });
             break;
           default:
             break;
@@ -826,8 +849,8 @@ function cambiar_fondo_pantalla() {
   fondo_pantalla_ejemplo[0].setAttribute(
     "src",
     "src/img/fondos_pantalla/" +
-      fondo_pantalla_seleccionada.toLowerCase() +
-      ".jpg"
+    fondo_pantalla_seleccionada.toLowerCase() +
+    ".jpg"
   );
   if (fondo_pantalla_seleccionada == "Picnic") {
     menu_icon.setAttribute("src", "src/img/iconos/engranaje_azul.png");
@@ -1089,8 +1112,8 @@ function cambiar_idioma() {
       resultado.hasAttribute("data-win") === true
         ? jsonData.languages[0][idioma_code].resultado_win
         : resultado.hasAttribute("data-lose") === true
-        ? jsonData.languages[0][idioma_code].resultado_lose
-        : "";
+          ? jsonData.languages[0][idioma_code].resultado_lose
+          : "";
 
     // Tablet
     document.querySelector(".tablet_vertical_alert_text").textContent =
@@ -1110,8 +1133,8 @@ function win_game() {
     idioma_code === "es"
       ? "¡Felicidades!"
       : idioma_code === "en"
-      ? "Congratulations!"
-      : "";
+        ? "Congratulations!"
+        : "";
   resultado.setAttribute("data-win", "true");
 
   document
@@ -1154,8 +1177,8 @@ function lose_game() {
       idioma_code === "es"
         ? "¡Suerte la próxima vez!"
         : idioma_code === "en"
-        ? "Good luck next time!"
-        : "";
+          ? "Good luck next time!"
+          : "";
     resultado.setAttribute("data-lose", "true");
 
     document
@@ -1180,6 +1203,7 @@ function reset() {
   document.getElementsByClassName("result")[0].removeAttribute("data-lose");
 
   $(".restart_game").removeClass("opened");
+  z_index = 40;
 
   $("<img>")
     .attr({
